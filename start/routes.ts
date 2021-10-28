@@ -25,3 +25,4 @@ Route.get('/', 'HomeController.index')
 Route.get('/login', ({ response }) => {
   response.redirect('/google/redirect')
 })
+Route.get('/events', 'EventsController.index')

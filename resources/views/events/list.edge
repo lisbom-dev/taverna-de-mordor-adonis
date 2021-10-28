@@ -1,0 +1,20 @@
+@layout('layouts/main')
+
+@section('title')
+  Event List
+@endsection
+
+@section('content')
+  <h1>Essa é minha lista de eventos</h1>
+  <div class="flex justify-between flex-wrap">
+    @each(event in events)
+    <div>
+      <button class="bg-gray-400 hover:bg-gray-600 text-white block px-5 py-10 w-200 rounded-md text-base font-medium">
+        <span>{{ event.name }}</span>
+        <p>{{ event.date }}</p>
+        <p>{{event.description}}</p>
+      </button>
+    </div>
+  </div>
+  @endeach
+@endsection
