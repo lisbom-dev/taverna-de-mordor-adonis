@@ -4,7 +4,7 @@ import User from 'App/Models/User'
 Route.get('/google/redirect', async ({ ally }) => {
   return ally.use('google').redirect()
 })
-Route.get('/google/callback', async ({ ally, auth, view }) => {
+Route.get('/google/callback', async ({ ally, auth, response }) => {
   const google = ally.use('google')
 
   /**
@@ -38,9 +38,9 @@ Route.get('/google/callback', async ({ ally, auth, view }) => {
     },
     {
       name: googleUser.name,
+      photoUrl: googleUser.avatarUrl || undefined,
     }
   )
-
   await auth.use('web').login(user)
-  return view.render('home', user)
+  return response.redirect('/')
 })

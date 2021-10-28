@@ -20,6 +20,9 @@ export default class User extends BaseModel {
   @column()
   public isAdm: boolean
 
+  @column()
+  public photoUrl?: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
