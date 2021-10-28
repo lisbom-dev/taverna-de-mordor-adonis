@@ -1,0 +1,18 @@
+@layout('layouts/main')
+
+@section('title')
+  {{event.name}}
+@endsection
+
+@section('content')
+<div class="ml-5 mt-2 rounded-md border-2 py-2 px-6 border-gray-600 max-w-md">
+  <h1>{{event.name}}</h1><br>
+  <p>{{event.date}}</p><br>
+  <p>{{event.description}}</p><br>
+  <p>{{event.location}}</p><br>
+
+  <form action="/events/{{event.id}}?_method=DELETE" method="post">
+    <button class="bg-gray-800 text-white px-5 py-3 rounded-md hover:bg-red-600" type="submit" >Deletar Esse Caralho</button>
+  </form>
+</div>
+@endsection
