@@ -1,0 +1,23 @@
+@layout('layouts/main')
+
+@section('title')
+  Edit Event
+@endsection
+
+@section('content')
+  <form action="/events/{{event.id}}?_method=PUT" method="post">
+    <p>Name</p>
+    <input type="text" name="name" value="{{event.name}}">
+    <p>Date</p>
+    <input type="datetime-local" name="date" id="" value="{{event.date.toISOString().substring(0,event.date.toISOString().length-1)}}">
+    <p>Location</p>
+    <input type="text" name="location" value="{{event.location}}">
+    <p>Description</p>
+    <textarea name="description" id="" cols="30" rows="10">{{event.description}}</textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    console.log(new Date('{{event.date}}'))
+  </script>
+@endsection

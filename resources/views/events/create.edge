@@ -1,0 +1,19 @@
+@layout('layouts/main')
+
+@section('title')
+  Create Event
+@endsection
+
+@section('content')
+  <form action="/events" method="post">
+    <p>Name</p>
+    <input type="text" name="name">
+    <p>Date</p>
+    <input type="datetime-local" name="date" id="">
+    <p>Location</p>
+    <input type="text" name="location">
+    <p>Description</p>
+    <textarea name="description" id="" cols="30" rows="10"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+@endsection
