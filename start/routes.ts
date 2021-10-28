@@ -21,7 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import './routes/google'
 
-Route.get('/', 'HomeController.index').middleware('auth:web')
+Route.get('/', 'HomeController.index')
 Route.get('/login', ({ response }) => {
   response.redirect('/google/redirect')
 })
