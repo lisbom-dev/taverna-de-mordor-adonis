@@ -1,0 +1,24 @@
+@layout('layouts/main')
+
+@section('title')
+  Event List
+@endsection
+
+@section('content')
+<section class="mt-6 w-full">
+  <span class="text-xl">Essa é minha lista de eventos</span>
+  <div class="w-full mt-2 items-center">
+    <div class="px-4 self-center w-full flex justify-between flex-wrap">
+      @each(event in events)
+      <div>
+        <button class="bg-gray-600 hover:bg-gray-800 text-white block px-5 py-10 w-100 rounded-md text-base font-medium">
+          <span>{{ event.name }}</span>
+          <p>{{ event.date.toFormat('yyyy') }}</p>
+          <p>{{event.description}}</p>
+        </button>
+      </div>
+      @endeach
+    </div>
+  </div>
+</section>
+@endsection

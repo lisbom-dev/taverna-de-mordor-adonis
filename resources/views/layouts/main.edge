@@ -16,9 +16,6 @@
 </head>
 <body>
   @include('partials/navbar.edge')
-
-  <div class="container">
-
     @if(!!flashMessages.get('info'))
       <span class="alert-spam info-message">
         <p>{{ flashMessages.get('info') }}</p>
@@ -30,11 +27,7 @@
         <p>{{ flashMessages.get('error') }}</p>
       </span>
     @endif
-
     @!section('content')
-
-  </div>
-
   @!section('extra-script')
 </body>
 </html>
