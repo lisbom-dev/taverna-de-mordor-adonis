@@ -6,20 +6,24 @@
 
 @section('content')
   <section>
-    <div class="container mx-auto">
-      <div class="relative">
-        <img class="filter blur-sm contrast-100" src="/assets/img/cover-rpg.jpg" alt="Imagem de jogadores de RPG">
-        <span class="absolute left-0 right-0 bottom-3 text-center text-5xl text-gray-100 font-bold mb-2">Taverna de Mordor</span>
-      </div>
+    <div class="relative">
+      <img class="filter blur-sm contrast-100" src="/assets/img/cover-rpg.jpg" alt="Imagem de jogadores de RPG">
+      <h1 class="absolute left-0 right-0 bottom-3 text-center text-xl text-gray-100 font-bold mb-2 sm:text-5xl">Taverna de Mordor</h1>
     </div>
   </section>
-  <article class="py-20">
-    <div class="container mx-auto mt-10">
-      <div class="flex mt-12">
-        <div class="w-1/3 h-full inline-block object-cover bg-red-500"></div>
-        <div class="ml-12">
+  <article class="py-5 sm:py-10 bg-gray-600">
+    <div class="container rounded-md mx-auto pt-5 bg-white">
+      <div class="w-100 justify-center">
+          <span class="px-3 text-lg sm:text-xl text-center text-gray-800">
+            <strong>A Regra de Ouro do RPG:</strong> "Para o Bem e Para o Mal... Diversão até o final!"
+          </span>
+      </div>
+      <br>
+      <div class="flex justify-between">
+        <div class="w-2/3 h-auto flex flex-grow top-0 bottom-0 bg-cover bg-tabuleiro-rpg"></div>
+        <div class="w-2/3 ml-6 sm:ml-12 flex flex-col py-32 pr-8 sm:pr-0">
           <br>
-          <strong class="text-3xl text-gray-800">Oque fazemos?</strong>
+          <strong class="text-xl sm:text-3xl text-gray-800">Oque fazemos?</strong>
           <br>
           <br>
           <p class="text-lg font-sans">
@@ -28,7 +32,7 @@
           </p>
           <br>
           <br>
-          <strong class="text-3xl text-gray-800">Qual a nossa meta?</strong>
+          <strong class="text-xl sm:text-3xl text-gray-800">Qual a nossa meta?</strong>
           <br>
           <br>
           <p class="text-lg font-sans">
@@ -40,9 +44,12 @@
     </div>
   </article>
   <section>
-    <div class="container mx-auto mt-20">
-      <span class="text-3xl text-gray-800 font-semibold mb-2">Conheça o Mundo do RPG</span>
-      <div class="grid grid-flow-col mt-2 grid-rows-2 grid-cols-3 gap-5">
+    <div class="container mx-auto mt-5">
+      <h3 class="text-lg sm:text-2xl text-center text-gray-800 font-semibold">
+        Conheça o Mundo do RPG
+      </h3>
+      <br>
+      <div class="hidden grid-flow-col grid-rows-2 grid-cols-3 gap-5 sm:grid">
         <div class="bg-vampire-the-mascarade bg-center">
           <a href="https://www.worldofdarkness.com/vampire-the-masquerade">
             <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
@@ -79,7 +86,7 @@
             </div>
           </a>
         </div>
-        <div class="row-start-1 h-80 col-start-2 col-span-2 bg-dungeons-and-dragons">
+        <div class="row-start-1 h-52 col-start-2 col-span-2 bg-dungeons-and-dragons">
           <a href="https://dnd.wizards.com/">
             <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
               <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
@@ -89,8 +96,54 @@
           </a>
         </div>
       </div>
+      <div class="grid grid-cols-2 gap-2 sm:hidden">
+        <div class="bg-vampire-the-mascarade bg-center">
+          <a href="https://www.worldofdarkness.com/vampire-the-masquerade">
+            <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
+              <span class="text-2xl bg-gradient-to-b w-full from-transparent to-black p-10">
+                Vampiro a Máscara
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="bg-al-rpg-club bg-center bg-cover">
+          <a href="https://www.instagram.com/alrpgcluboficial/">
+            <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
+              <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
+                AL RPG CLUB
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="bg-cyberpunk">
+          <a href="/events">
+            <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
+              <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
+                Comece a experiência
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="bg-dungeons-and-dragons">
+          <a href="https://dnd.wizards.com/">
+            <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
+              <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
+                Dungeons and Dragons
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="bg-logo col-start-1 col-span-2">
+          <a href="https://chat.whatsapp.com/Cmcaoa8QIb5EJ662FZKZVv">
+            <div class="w-full h-full flex items-end text-center justify-center font-bold text-white ">
+              <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
+                Faça parte do grupo no whatsapp
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
-
   </section>
 @endsection
 
