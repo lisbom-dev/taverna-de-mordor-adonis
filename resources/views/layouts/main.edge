@@ -15,19 +15,24 @@
 
 </head>
 <body>
-  @include('partials/navbar.edge')
-    @if(!!flashMessages.get('info'))
-      <span class="alert-spam info-message">
-        <p>{{ flashMessages.get('info') }}</p>
-      </span>
-    @endif
+  <div class="root flex flex-col min-h-screen justify-between">
+      <div>
+        @include('partials/navbar.edge')
+        @if(!!flashMessages.get('info'))
+        <span class="alert-spam info-message">
+          <p>{{ flashMessages.get('info') }}</p>
+        </span>
+        @endif
 
-    @if(!!flashMessages.get('error'))
-      <span class="alert-spam alert-message">
-        <p>{{ flashMessages.get('error') }}</p>
-      </span>
-    @endif
-    @!section('content')
+        @if(!!flashMessages.get('error'))
+        <span class="alert-spam alert-message">
+          <p>{{ flashMessages.get('error') }}</p>
+        </span>
+        @endif
+        @!section('content')
+      </div>
+      @include('partials/footer.edge')
+  </div>
   @!section('extra-script')
 </body>
 </html>
