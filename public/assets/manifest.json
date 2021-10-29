@@ -2,9 +2,9 @@
   "assets/app.css": "http://localhost:8080/assets/app.css",
   "assets/app.js": "http://localhost:8080/assets/app.js",
   "assets/images/vampire-the-mascarade.jpeg": "http://localhost:8080/assets/images/vampire-the-mascarade.d3d57a38.jpeg",
-  "assets/images/dungeons-and-dragons.jpg": "http://localhost:8080/assets/images/dungeons-and-dragons.44f070fd.jpg",
-  "assets/images/al-rpg-club.jpg": "http://localhost:8080/assets/images/al-rpg-club.be360c50.jpg",
   "assets/images/cyberpunk.jpg": "http://localhost:8080/assets/images/cyberpunk.121f4bc4.jpg",
+  "assets/images/tabuleiro-rpg.jpg": "http://localhost:8080/assets/images/tabuleiro-rpg.a50bc4e9.jpg",
+  "assets/images/dungeons-and-dragons.jpg": "http://localhost:8080/assets/images/dungeons-and-dragons.44f070fd.jpg",
   "assets/images/pp.jpg": "http://localhost:8080/assets/images/pp.9aeec300.jpg",
-  "assets/images/tabuleiro-rpg.jpg": "http://localhost:8080/assets/images/tabuleiro-rpg.a50bc4e9.jpg"
+  "assets/images/al-rpg-club.jpg": "http://localhost:8080/assets/images/al-rpg-club.be360c50.jpg"
 }

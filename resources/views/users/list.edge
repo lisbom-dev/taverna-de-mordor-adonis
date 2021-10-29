@@ -1,0 +1,40 @@
+@layout('layouts/main')
+
+@section('title')
+  Taverna De Mordor - Usuários
+@endsection
+
+@section('content')
+  <div class="container mx-auto">
+    <h1>
+      Olá
+    </h1>
+  <ul>
+    @each(user in users)
+      <a href="/users/{{user.id}}">
+        <li class="p-5 my-5 items-center rounded-sm shadow-md bg-gray-600 text-white flex justify-between">
+          <img class="w-20 h-20 rounded-full" src="{{user.photoUrl}}" alt="{{user.name}}">
+          <span class="text-base">{{user.name}}</span>
+          <span class="font-serif">{{user.email}}</span>
+          <div class="form-control">
+            <label for="isMaster">Mestre ?</label>
+            @if(user.isMaster)
+              <input type="checkbox" name="isMaster" disabled id="isMaster" checked>
+            @else
+              <input type="checkbox" name="isMaster" disabled id="isMaster">
+            @endif
+          </div>
+          <div class="form-control">
+            <label for="isAdm">Adm ?</label>
+            @if(user.isAdm)
+              <input type="checkbox" name="isAdm" disabled id="isAdm" checked>
+            @else
+              <input type="checkbox" name="isAdm" disabled id="isAdm">
+            @endif
+          </div>
+        </li>
+      </a>
+    @endeach
+  </ul>
+</div>
+@endsection
