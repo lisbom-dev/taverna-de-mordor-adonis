@@ -32,6 +32,10 @@
               <input type="checkbox" name="isAdm" disabled id="isAdm">
             @endif
           </div>
+          <form action="/adms/{{user.id}}" method="post">
+          <button class="p-5 bg-yellow-400 text-gray-800 font-semibold rounded-sm" type="submit">Tornar Adm</button></form>
+          <form action="/masters/{{user.id}}" method="post">
+            <button class="p-5 bg-yellow-400 text-gray-800 font-semibold rounded-sm" type="submit">Tornar Mestre</button></form>
         </li>
       </a>
     @endeach
