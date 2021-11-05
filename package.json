@@ -35,6 +35,7 @@
     "@adonisjs/session": "^6.0.0",
     "@adonisjs/shield": "^7.0.0",
     "@adonisjs/view": "^6.0.0",
+    "file-loader": "^6.2.0",
     "luxon": "^2.0.2",
     "pg": "^8.7.1",
     "proxy-addr": "^2.0.7",
