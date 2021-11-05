@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
-export default class MestresController {
+export default class MastersController {
   public async store(ctx: HttpContextContract) {
     const user = await User.find(ctx.params.id)
     if (!user) {
