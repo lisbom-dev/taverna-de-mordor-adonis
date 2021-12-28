@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
+import EventPolicy from 'App/Policies/EventPolicy'
 import StoreValidator from 'App/Validators/Event/StoreValidator'
 import UpdateValidator from 'App/Validators/Event/UpdateValidator'
 
@@ -11,7 +12,8 @@ export default class EventsController {
     })
   }
 
-  public async create({ view }: HttpContextContract) {
+  public async create({ view, bouncer }: HttpContextContract) {
+    await bouncer.with('EventPolicy').authorize('invoke')
     return view.render('events/create')
   }
 
@@ -21,7 +23,8 @@ export default class EventsController {
     return response.redirect('/events')
   }
 
-  public async edit({ response, view, params }: HttpContextContract) {
+  public async edit({ response, view, params, bouncer }: HttpContextContract) {
+    await bouncer.with('EventPolicy').authorize('invoke')
     const event = await Event.find(params.id)
     if (!event) {
       return response.notFound('Event Not Found')
@@ -51,12 +54,12 @@ export default class EventsController {
     return view.render('events/index', { event })
   }
 
-  public async destroy({ response, params }: HttpContextContract) {
+  public async destroy({ response, params, bouncer }: HttpContextContract) {
+    await bouncer.with('EventPolicy').authorize('invoke')
     const event = await Event.find(params.id)
     if (!event) {
       return response.notFound('Event Not Found')
     }
-
     await event.delete()
     return response.redirect('/events')
   }
