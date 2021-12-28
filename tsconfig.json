@@ -8,6 +8,7 @@
     "build"
   ],
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
@@ -33,7 +34,8 @@
       "@adonisjs/shield",
       "@adonisjs/ally",
       "@adonisjs/lucid",
-      "@adonisjs/auth"
+      "@adonisjs/auth",
+      "@adonisjs/bouncer"
     ]
   }
 }

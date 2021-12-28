@@ -83,6 +83,13 @@
     fs-extra "^10.0.0"
     media-typer "^1.1.0"
 
+"@adonisjs/bouncer@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@adonisjs/bouncer/-/bouncer-2.2.5.tgz#4b166ad769f5c3868e6aaa284dd623daffc6b8f2"
+  integrity sha512-f060bMQwjJBAQ2pTtUrCbJ3n3/J3nQvzdrpWpWSEzdn8bdZALGh2R1nIhH0cVh8lMQuXzowo9ojxjWGFI0LfmQ==
+  dependencies:
+    "@poppinss/utils" "^3.2.0"
+
 "@adonisjs/config@^3.0.5":
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@adonisjs/config/-/config-3.0.5.tgz#00597e949252d09b4d2f9fba3b1321f299833585"
