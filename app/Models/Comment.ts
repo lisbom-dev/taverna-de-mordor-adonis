@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Event from './Event'
 import Board from './Board'
@@ -7,6 +7,14 @@ import Board from './Board'
 export default class Comment extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public sender_id: number
+
+  @hasOne(() => User, {
+    foreignKey: 'sender_id',
+  })
+  public sender: HasOne<typeof User>
 
   @manyToMany(() => User, {
     localKey: 'id',
