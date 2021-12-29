@@ -11,7 +11,15 @@ export default class StoreValidator {
     date: schema.date({}, [rules.required(), rules.after(4, 'days')]),
     description: schema.string({}, [rules.required()]),
     location: schema.string({}, [rules.required()]),
+    maxBoards: schema.number([rules.required()]),
   })
 
-  public messages = {}
+  public messages = {
+    'name.required': 'É necessário informar o nome do evento!',
+    'date.required': 'É necessário informar a data do evento!',
+    'date.after': 'O evento precisa ser criado 4 dias antes de acontecer!',
+    'description.required': 'É necessário informar a descrição do evento!',
+    'location.required': 'É necessário informar a localização do evento!',
+    'maxBoards.required': 'É necessário informar o número máximo de mesas!',
+  }
 }
