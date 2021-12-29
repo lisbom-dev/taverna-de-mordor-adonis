@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Event from './Event'
+import Board from './Board'
 
 export default class Comment extends BaseModel {
   @column({ isPrimary: true })
@@ -22,6 +23,14 @@ export default class Comment extends BaseModel {
     pivotRelatedForeignKey: 'event_id',
   })
   public event: ManyToMany<typeof Event>
+
+  @manyToMany(() => Board, {
+    localKey: 'id',
+    pivotForeignKey: 'comment_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'board_id',
+  })
+  public board: ManyToMany<typeof Board>
 
   @column()
   public message: string
