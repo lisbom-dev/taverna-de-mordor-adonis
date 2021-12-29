@@ -5,17 +5,17 @@
 @endsection
 
 @section('content')
-  <div class=" mb-14 mx-auto relative px-8 pt-10 pb-8 bg-blue-100 shadow-2xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto ">
+  <div class=" mb-14 mx-auto relative px-8 pt-10 pb-8 bg-gradient-to-tl from-blue-400 rounded-lg to-blue-800 shadow-2xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto ">
     <form class="space-y-2 font-bold " action="/events" method="post">
       <p >Nome</p>
-      <input class="w-full rounded-lg" type="text" name="name">
+      <input class="p-2 w-full rounded-lg" type="text" name="name" placeholder="Insira seu nome">
       <p>Data</p>
-      <input class="w-full rounded-lg" type="datetime-local" name="date" id="">
+      <input class="p-2 w-full rounded-lg" type="datetime-local" name="date" id="">
       <p>Localização</p>
-      <input class="w-full rounded-lg" type="text" name="location" placeholder=" Estado, cidade, bairro, rua, número">
+      <input class="p-2 w-full rounded-lg" type="text" name="location" placeholder=" Estado, cidade, bairro, rua, número e referência">
       <p>Descrição</p>
-      <textarea class="w-full rounded-lg" name="description" id="" cols="30" rows="10"></textarea>
-      <button class="font-bold text w-full p-4 bg-blue-400 rounded-lg hover:bg-blue-300" type="submit">Criar Evento</button>
+      <textarea class="p-2 w-full rounded-lg" name="description" id="" cols="30" rows="10" placeholder="Descrição do evento"></textarea>
+      <button class="font-bold text w-full p-4 bg-blue-700 rounded-lg hover:bg-blue-800" type="submit">Criar Evento</button>
     </form>
   </div>
 @endsection
