@@ -3,6 +3,7 @@ import { BaseModel, column, HasOne, hasOne, manyToMany, ManyToMany } from '@ioc:
 import Event from './Event'
 import Users from './User'
 import User from './User'
+import Comment from './Comment'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -24,6 +25,14 @@ export default class Board extends BaseModel {
     foreignKey: 'master_id',
   })
   public master: HasOne<typeof User>
+
+  @manyToMany(() => Comment, {
+    localKey: 'id',
+    pivotForeignKey: 'board_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'comment_id',
+  })
+  public comment: ManyToMany<typeof Comment>
 
   @manyToMany(() => Event, {
     localKey: 'id',
