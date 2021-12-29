@@ -21,6 +21,7 @@ export default class Comment extends BaseModel {
     pivotForeignKey: 'comment_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'master_id',
+    pivotTable: 'master_comments',
   })
   public master: ManyToMany<typeof User>
 
@@ -29,6 +30,7 @@ export default class Comment extends BaseModel {
     pivotForeignKey: 'comment_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'event_id',
+    pivotTable: 'event_comments',
   })
   public event: ManyToMany<typeof Event>
 
@@ -37,6 +39,7 @@ export default class Comment extends BaseModel {
     pivotForeignKey: 'comment_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'board_id',
+    pivotTable: 'board_comments',
   })
   public board: ManyToMany<typeof Board>
 

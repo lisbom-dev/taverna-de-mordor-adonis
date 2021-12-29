@@ -26,6 +26,7 @@ export default class User extends BaseModel {
     pivotForeignKey: 'master_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'comment_id',
+    pivotTable: 'master_comments',
   })
   public comment: ManyToMany<typeof Comment>
 

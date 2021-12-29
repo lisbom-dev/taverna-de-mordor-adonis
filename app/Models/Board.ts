@@ -31,6 +31,7 @@ export default class Board extends BaseModel {
     pivotForeignKey: 'board_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'comment_id',
+    pivotTable: 'board_comments',
   })
   public comment: ManyToMany<typeof Comment>
 

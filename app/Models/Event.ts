@@ -24,6 +24,7 @@ export default class Event extends BaseModel {
     pivotForeignKey: 'event_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'comment_id',
+    pivotTable: 'event_comments',
   })
   public comment: ManyToMany<typeof Comment>
 
