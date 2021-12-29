@@ -31,11 +31,11 @@ export default class BoardsController {
   }
 
   public async edit({ response, view, params, bouncer }: HttpContextContract) {
-    await bouncer.with('BoardPolicy').authorize('invoke')
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')
     }
+    await bouncer.with('BoardPolicy').authorize('invoke', board)
     return view.render('boards/edit', { board })
   }
 
@@ -51,11 +51,11 @@ export default class BoardsController {
   }
 
   public async destroy({ bouncer, params, response }: HttpContextContract) {
-    await bouncer.with('BoardPolicy').authorize('invoke')
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')
     }
+    await bouncer.with('BoardPolicy').authorize('invoke', board)
     await board.delete()
     return response.redirect('/boards')
   }
