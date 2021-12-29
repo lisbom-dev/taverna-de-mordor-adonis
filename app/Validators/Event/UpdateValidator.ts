@@ -11,6 +11,7 @@ export default class UpdateValidator {
     date: schema.date.optional({}, [rules.after(4, 'days')]),
     description: schema.string.optional({}, []),
     location: schema.string.optional({}, []),
+    maxBoards: schema.number.optional([]),
   })
 
   public messages = {}
