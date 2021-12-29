@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
-import EventPolicy from 'App/Policies/EventPolicy'
 import StoreValidator from 'App/Validators/Event/StoreValidator'
 import UpdateValidator from 'App/Validators/Event/UpdateValidator'
 
