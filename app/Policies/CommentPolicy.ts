@@ -7,6 +7,6 @@ export default class CommentPolicy extends BasePolicy {
     return user.id === comment.sender.id
   }
   public async delete(user: User, comment: Comment) {
-    return user.id === comment.sender.id || user.isAdm || user.isMaster
+    return user.id === comment.sender.id || user.isAdm
   }
 }
