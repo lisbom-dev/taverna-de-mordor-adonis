@@ -17,7 +17,6 @@
 <body>
   <div class="root flex flex-col min-h-screen justify-between">
       <div>
-        @include('partials/navbar.edge')
         @if(!!flashMessages.get('info'))
         <span class="alert-spam info-message">
           <p>{{ flashMessages.get('info') }}</p>
@@ -25,14 +24,17 @@
         @endif
 
         @if(!!flashMessages.get('error'))
-        <span class="alert-spam alert-message">
+        <span class="alert-spam alert-message fixed top-14 right-5 z-50">
           @each(error in flashMessages.get('error'))
             @!component('components/alert',{
-            message: error
+            message: error,
+            title: "Oops",
+            type: "error"
           })
-          @endeach          
+          @endeach
         </span>
         @endif
+        @include('partials/navbar.edge')
         @!section('content')
       </div>
       @include('partials/footer.edge')

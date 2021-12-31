@@ -45,14 +45,18 @@ export default class User extends BaseModel {
     pivotForeignKey: 'master_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'master_star_rating',
+    pivotTable: 'master_star_ratings',
     serializeAs: null,
   })
   public starRating: ManyToMany<typeof StarRating>
 
   public async getRatingByUser(user: User) {
-    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
-    return starRating
+    if (user.isMaster) {
+      const starRating: StarRating = await this.starRating.builder
+        .where('sender_id', user.id)
+        .first()
+      return starRating
+    }
   }
 
   @beforeFind()

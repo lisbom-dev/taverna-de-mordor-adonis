@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build:
+    environment:
+        name: taverna-de-mordor
+        url: https://taverna-de-mordor.herokuapp.com
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Run Migrations
+        run: node ace migration:run --force
+        env:
+          PORT: ${{ secrets.PORT }}
+          APP_URL: ${{ secrets.APP_URL }}
+          HOST: ${{ secrets.HOST }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          APP_KEY: ${{ secrets.APP_KEY }}
+          DRIVE_DISK: ${{ secrets.DRIVE_DISK }}
+          SESSION_DRIVER: ${{ secrets.SESSION_DRIVER }}
+          CACHE_VIEWS: ${{ secrets.CACHE_VIEWS }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          PG_HOST: ${{ secrets.PG_HOST }}
+          PG_PORT: ${{ secrets.PG_PORT }}
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
+          PG2_HOST: ${{ secrets.PG2_HOST }}
+          PG2_PORT: ${{ secrets.PG2_PORT }}
+          PG2_USER: ${{ secrets.PG2_USER }}
+          PG2_PASSWORD: ${{ secrets.PG2_PASSWORD }}
+          PG2_DB_NAME: ${{ secrets.PG2_DB_NAME }}
