@@ -32,6 +32,9 @@ Route.get('/users/:id', 'UsersController.show')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
 Route.resource('events', 'EventsController').middleware({
+  create: ['auth:web'],
+  store: ['auth:web'],
+  update: ['auth:web'],
   edit: ['auth:web'],
   destroy: ['auth:web'],
 })
