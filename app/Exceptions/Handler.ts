@@ -1,20 +1,6 @@
-/*
-|--------------------------------------------------------------------------
-| Http Exception Handler
-|--------------------------------------------------------------------------
-|
-| AdonisJs will forward all exceptions occurred during an HTTP request to
-| the following class. You can learn more about exception handling by
-| reading docs.
-|
-| The exception handler extends a base `HttpExceptionHandler` which is not
-| mandatory, however it can do lot of heavy lifting to handle the errors
-| properly.
-|
-*/
-
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   protected statusPages = {
@@ -25,5 +11,42 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   constructor() {
     super(Logger)
+  }
+
+  public async handle(error: any, ctx: HttpContextContract) {
+    console.log('oi')
+
+    if (error.status === 403) {
+      ctx.session.flash('error', ['Não autorizado!'])
+      return ctx.response.redirect().back()
+    }
+    if (error.status === 401) {
+      return ctx.response.redirect('/login')
+    }
+    if (error.status === 422) {
+      const sanitized = this.sanitizeErrors(error.messages)
+      ctx.session.flash('error', sanitized)
+      return ctx.response.redirect().back()
+    }
+    if (error.status === 400) {
+      console.log(error.message)
+      ctx.session.flash('error', [error.message])
+      return ctx.response.redirect().back()
+    }
+  }
+
+  private sanitizeErrors(errorObject: any) {
+    const keys = Object.keys(errorObject)
+    const messages: string[] = []
+    keys.forEach((key) => {
+      if (typeof errorObject[key] === 'string') {
+        if (messages.indexOf(errorObject[key]) === -1) {
+          messages.push(errorObject[key])
+        }
+      } else {
+        messages.push(...this.sanitizeErrors(errorObject[key]))
+      }
+    })
+    return messages
   }
 }
