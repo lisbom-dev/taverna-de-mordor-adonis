@@ -3,6 +3,7 @@ export default () => ({
     this.open = !this.open
   },
   open: false,
+  mobileShow: false,
   close() {
     this.open = false
   },
@@ -10,6 +11,6 @@ export default () => ({
     console.log('ook')
   },
   handleMobileArea() {
-    console.log('kook')
+    this.mobileShow = !this.mobileShow
   },
 })

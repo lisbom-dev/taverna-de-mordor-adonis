@@ -4,7 +4,6 @@ import axios from 'axios'
 import navbar from './partials/navbar'
 import alert from './components/alert'
 
-
 Alpine.data('navbar', navbar)
 Alpine.data('alert', alert)
 

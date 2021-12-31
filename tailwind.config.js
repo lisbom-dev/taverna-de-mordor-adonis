@@ -8,6 +8,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      spacing: {
+        110: '28rem',
+      },
       backgroundImage: {
         'dungeons-and-dragons': "url('../images/dungeons-and-dragons.jpg')",
         'vampire-the-mascarade': "url('../images/vampire-the-mascarade.jpeg')",
