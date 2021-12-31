@@ -70,7 +70,7 @@ export default class Board extends BaseModel {
     pivotForeignKey: 'board_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'board_star_rating',
+    pivotTable: 'board_star_ratings',
     serializeAs: null,
   })
   public starRating: ManyToMany<typeof StarRating>

@@ -45,7 +45,7 @@ export default class User extends BaseModel {
     pivotForeignKey: 'master_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'master_star_rating',
+    pivotTable: 'master_star_ratings',
     serializeAs: null,
   })
   public starRating: ManyToMany<typeof StarRating>
