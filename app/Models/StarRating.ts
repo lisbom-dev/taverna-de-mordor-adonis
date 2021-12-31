@@ -1,12 +1,15 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasOne, hasOne, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
-import User from './User'
+import { BaseModel, column, hasOne, HasOne, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Event from './Event'
+import User from './User'
 import Board from './Board'
 
-export default class Comment extends BaseModel {
+export default class StarRating extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public number: number
 
   @column()
   public senderId: number
@@ -16,35 +19,32 @@ export default class Comment extends BaseModel {
   })
   public sender: HasOne<typeof User>
 
-  @manyToMany(() => User, {
-    localKey: 'id',
-    pivotForeignKey: 'comment_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'master_id',
-    pivotTable: 'master_comments',
-  })
-  public master: ManyToMany<typeof User>
-
-  @manyToMany(() => Event, {
-    localKey: 'id',
-    pivotForeignKey: 'comment_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'event_id',
-    pivotTable: 'event_comments',
-  })
-  public event: ManyToMany<typeof Event>
-
   @manyToMany(() => Board, {
     localKey: 'id',
-    pivotForeignKey: 'comment_id',
+    pivotForeignKey: 'star_rating_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'board_id',
-    pivotTable: 'board_comments',
+    pivotTable: 'board_star_rating',
   })
   public board: ManyToMany<typeof Board>
 
-  @column()
-  public message: string
+  @manyToMany(() => Event, {
+    localKey: 'id',
+    pivotForeignKey: 'star_rating_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'event_id',
+    pivotTable: 'event_star_rating',
+  })
+  public event: ManyToMany<typeof Event>
+
+  @manyToMany(() => User, {
+    localKey: 'id',
+    pivotForeignKey: 'star_rating_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'master_id',
+    pivotTable: 'master_star_rating',
+  })
+  public master: ManyToMany<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -9,6 +9,6 @@ export default class BoardCommentsController {
       return response.notFound('Board not found!')
     }
     const data = await request.validate(StoreValidator)
-    board.related('comment').create(data)
+    await board.related('comment').create(data)
   }
 }

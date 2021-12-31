@@ -1,9 +1,21 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasOne, hasOne, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  beforeFetch,
+  beforeFind,
+  column,
+  computed,
+  HasOne,
+  hasOne,
+  manyToMany,
+  ManyToMany,
+  ModelQueryBuilderContract,
+} from '@ioc:Adonis/Lucid/Orm'
 import Event from './Event'
 import Users from './User'
 import User from './User'
 import Comment from './Comment'
+import StarRating from './StarRating'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -52,6 +64,43 @@ export default class Board extends BaseModel {
     pivotTable: 'board_players',
   })
   public players: ManyToMany<typeof Users>
+
+  @manyToMany(() => StarRating, {
+    localKey: 'id',
+    pivotForeignKey: 'board_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'star_rating_id',
+    pivotTable: 'board_star_rating',
+    serializeAs: null,
+  })
+  public starRating: ManyToMany<typeof StarRating>
+
+  @beforeFind()
+  @beforeFetch()
+  public static preloadRating(q: ModelQueryBuilderContract<typeof Board>) {
+    q.preload('starRating')
+  }
+
+  @computed()
+  public get rateNumber(): number {
+    return this.starRating.length
+  }
+
+  @computed()
+  public get avaluation(): number {
+    return (
+      this.starRating
+        .map((rating) => rating.number)
+        .reduce((count, el) => {
+          return count + el
+        }) / this.rateNumber
+    )
+  }
+
+  public async getRatingByUser(user: User) {
+    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
+    return starRating
+  }
 
   @column()
   public currentSection: number
