@@ -11,4 +11,24 @@ export default class EventStarRatingsController {
     const data = await request.validate(StoreValidator)
     await event.related('starRating').create(data)
   }
+
+  public async show({ auth, params, response }: HttpContextContract) {
+    const event = await Event.find(params.event_id)
+
+    if (!event) {
+      return response.notFound('Event not found!')
+    }
+
+    const starRating = await event
+      .related('starRating')
+      .query()
+      .where('sender_id', auth.user!.id)
+      .first()
+
+    if (!starRating) {
+      return
+    }
+
+    return starRating
+  }
 }
