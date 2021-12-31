@@ -24,7 +24,7 @@
         @endif
 
         @if(!!flashMessages.get('error'))
-        <span class="alert-spam alert-message absolute top-14 right-5 z-50">
+        <span class="alert-spam alert-message fixed top-14 right-5 z-50">
           @each(error in flashMessages.get('error'))
             @!component('components/alert',{
             message: error,
