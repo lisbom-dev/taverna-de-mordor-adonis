@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import BadRequestException from 'App/Exceptions/BadRequestException'
 import User from 'App/Models/User'
 
 export default class MastersController {
@@ -8,7 +9,7 @@ export default class MastersController {
       return ctx.response.notFound('User not found')
     }
     if (user.isMaster) {
-      return ctx.response.badRequest('User aready an Master')
+      throw new BadRequestException('User already a master!')
     }
     user.isMaster = true
     await user.save()
