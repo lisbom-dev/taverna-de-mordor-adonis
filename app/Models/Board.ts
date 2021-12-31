@@ -4,6 +4,7 @@ import Event from './Event'
 import Users from './User'
 import User from './User'
 import Comment from './Comment'
+import StarRating from './StarRating'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -52,6 +53,15 @@ export default class Board extends BaseModel {
     pivotTable: 'board_players',
   })
   public players: ManyToMany<typeof Users>
+
+  @manyToMany(() => StarRating, {
+    localKey: 'id',
+    pivotForeignKey: 'board_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'star_rating_id',
+    pivotTable: 'board_star_rating',
+  })
+  public starRating: ManyToMany<typeof StarRating>
 
   @column()
   public currentSection: number
