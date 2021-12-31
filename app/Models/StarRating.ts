@@ -33,7 +33,7 @@ export default class StarRating extends BaseModel {
     pivotForeignKey: 'star_rating_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'event_id',
-    pivotTable: 'event_star_rating',
+    pivotTable: 'event_star_ratings',
   })
   public event: ManyToMany<typeof Event>
 
