@@ -7,7 +7,13 @@ export default class StarRatings extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('number').notNullable()
-      table.integer('sender_id').notNullable().references('id').inTable('users')
+      table
+        .integer('sender_id')
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
