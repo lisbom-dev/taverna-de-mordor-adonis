@@ -51,8 +51,12 @@ export default class User extends BaseModel {
   public starRating: ManyToMany<typeof StarRating>
 
   public async getRatingByUser(user: User) {
-    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
-    return starRating
+    if (user.isMaster) {
+      const starRating: StarRating = await this.starRating.builder
+        .where('sender_id', user.id)
+        .first()
+      return starRating
+    }
   }
 
   @beforeFind()
