@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import BadRequestException from 'App/Exceptions/BadRequestException'
 import User from 'App/Models/User'
 
 export default class AdmimsController {
@@ -8,7 +9,7 @@ export default class AdmimsController {
       return ctx.response.notFound('User not found')
     }
     if (user.isAdm) {
-      return ctx.response.badRequest('User aready an Adm')
+      throw new BadRequestException('User already admin!')
     }
     user.isAdm = true
     await user.save()

@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Board from './Board'
+import Comment from './Comment'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +18,15 @@ export default class Event extends BaseModel {
 
   @column()
   public maxBoards: number
+
+  @manyToMany(() => Comment, {
+    localKey: 'id',
+    pivotForeignKey: 'event_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'comment_id',
+    pivotTable: 'event_comments',
+  })
+  public comment: ManyToMany<typeof Comment>
 
   @manyToMany(() => Board, {
     localKey: 'id',

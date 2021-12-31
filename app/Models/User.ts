@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, BaseModel, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Comment from './Comment'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +20,15 @@ export default class User extends BaseModel {
 
   @column()
   public isAdm: boolean
+
+  @manyToMany(() => Comment, {
+    localKey: 'id',
+    pivotForeignKey: 'master_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'comment_id',
+    pivotTable: 'master_comments',
+  })
+  public comment: ManyToMany<typeof Comment>
 
   @column()
   public photoUrl?: string
