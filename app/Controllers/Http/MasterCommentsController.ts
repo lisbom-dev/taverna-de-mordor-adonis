@@ -7,12 +7,12 @@ export default class MasterCommentsController {
   public async store({ response, request, params }: HttpContextContract) {
     const user = await User.find(params.user_id)
     if (!user) {
-      return response.notFound('Board not found!')
+      return response.notFound('Master not found!')
     }
     if (!user.isMaster) {
       throw new BadRequestException('User is not a master!')
     }
     const data = await request.validate(StoreValidator)
-    user.related('comment').create(data)
+    await user.related('comment').create(data)
   }
 }

@@ -9,6 +9,6 @@ export default class EventCommentsController {
       return response.notFound('Board not found!')
     }
     const data = await request.validate(StoreValidator)
-    event.related('comment').create(data)
+    await event.related('comment').create(data)
   }
 }
