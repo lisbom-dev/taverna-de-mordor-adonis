@@ -9,7 +9,7 @@ export default class Comment extends BaseModel {
   public id: number
 
   @column()
-  public sender_id: number
+  public senderId: number
 
   @hasOne(() => User, {
     foreignKey: 'sender_id',
