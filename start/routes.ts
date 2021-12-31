@@ -26,15 +26,12 @@ Route.get('/login', ({ response }) => {
   response.redirect('/google/redirect')
 })
 Route.get('/equipe', ({ view }) => view.render('team'))
-Route.get('/events', 'EventsController.index')
-Route.get('/events/create', 'EventsController.create')
-Route.post('/events', 'EventsController.store')
-Route.get('/events/edit/:id', 'EventsController.edit')
-Route.put('/events/:id', 'EventsController.update')
-Route.get('/events/:id', 'EventsController.show')
-Route.delete('/events/:id', 'EventsController.destroy')
 Route.get('/logout', 'SessionsController.destroy')
 Route.get('/users', 'UsersController.index')
 Route.get('/users/:id', 'UsersController.show')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
+Route.resource('events', 'EventsController').middleware({
+  edit: ['auth:web'],
+  destroy: ['auth:web'],
+})

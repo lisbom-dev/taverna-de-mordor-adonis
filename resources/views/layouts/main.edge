@@ -26,7 +26,11 @@
 
         @if(!!flashMessages.get('error'))
         <span class="alert-spam alert-message">
-          <p>{{ flashMessages.get('error') }}</p>
+          @each(error in flashMessages.get('error'))
+            @!component('components/alert',{
+            message: error
+          })
+          @endeach          
         </span>
         @endif
         @!section('content')
