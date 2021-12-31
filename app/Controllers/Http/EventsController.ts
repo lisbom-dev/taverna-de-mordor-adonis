@@ -49,16 +49,18 @@ export default class EventsController {
     if (!event) {
       return response.notFound('Event Not Found')
     }
-
+    await event.load('comment')
     return view.render('events/index', { event })
   }
 
   public async destroy({ response, params, bouncer }: HttpContextContract) {
     await bouncer.with('EventPolicy').authorize('invoke')
     const event = await Event.find(params.id)
+
     if (!event) {
       return response.notFound('Event Not Found')
     }
+
     await event.delete()
     return response.redirect('/events')
   }

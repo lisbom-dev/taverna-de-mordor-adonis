@@ -13,6 +13,10 @@ export default class UsersController {
     if (!user) {
       return ctx.response.notFound('User not found')
     }
+    if (user.isMaster) {
+      await user.load('comment')
+    }
+
     return ctx.view.render('users/index', {
       user,
     })
