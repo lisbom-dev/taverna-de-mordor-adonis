@@ -38,3 +38,10 @@ Route.resource('events', 'EventsController').middleware({
   edit: ['auth:web'],
   destroy: ['auth:web'],
 })
+Route.resource('boards', 'BoardsController').middleware({
+  create: ['auth:web'],
+  store: ['auth:web'],
+  update: ['auth:web'],
+  edit: ['auth:web'],
+  destroy: ['auth:web'],
+})
