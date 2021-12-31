@@ -1,5 +1,14 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  column,
+  BaseModel,
+  manyToMany,
+  ManyToMany,
+  beforeFind,
+  beforeFetch,
+  ModelQueryBuilderContract,
+  computed,
+} from '@ioc:Adonis/Lucid/Orm'
 import Comment from './Comment'
 import StarRating from './StarRating'
 
@@ -37,8 +46,36 @@ export default class User extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'star_rating_id',
     pivotTable: 'master_star_rating',
+    serializeAs: null,
   })
   public starRating: ManyToMany<typeof StarRating>
+
+  public async getRatingByUser(user: User) {
+    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
+    return starRating
+  }
+
+  @beforeFind()
+  @beforeFetch()
+  public static preloadRating(q: ModelQueryBuilderContract<typeof User>) {
+    q.preload('starRating')
+  }
+
+  @computed()
+  public get rateNumber(): number {
+    return this.starRating.length
+  }
+
+  @computed()
+  public get avaluation(): number {
+    return (
+      this.starRating
+        .map((rating) => rating.number)
+        .reduce((count, el) => {
+          return count + el
+        }) / this.rateNumber
+    )
+  }
 
   @column()
   public photoUrl?: string

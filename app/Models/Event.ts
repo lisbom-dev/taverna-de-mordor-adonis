@@ -1,8 +1,18 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  beforeFetch,
+  beforeFind,
+  column,
+  computed,
+  ManyToMany,
+  manyToMany,
+  ModelQueryBuilderContract,
+} from '@ioc:Adonis/Lucid/Orm'
 import Board from './Board'
 import Comment from './Comment'
 import StarRating from './StarRating'
+import User from './User'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -43,8 +53,36 @@ export default class Event extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'star_rating__id',
     pivotTable: 'event_star_rating',
+    serializeAs: null,
   })
   public starRating: ManyToMany<typeof StarRating>
+
+  @beforeFind()
+  @beforeFetch()
+  public static preloadRating(q: ModelQueryBuilderContract<typeof Event>) {
+    q.preload('starRating')
+  }
+
+  public async getRatingByUser(user: User) {
+    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
+    return starRating
+  }
+
+  @computed()
+  public get rateNumber(): number {
+    return this.starRating.length
+  }
+
+  @computed()
+  public get avaluation(): number {
+    return (
+      this.starRating
+        .map((rating) => rating.number)
+        .reduce((count, el) => {
+          return count + el
+        }) / this.rateNumber
+    )
+  }
 
   @column()
   public location: string
