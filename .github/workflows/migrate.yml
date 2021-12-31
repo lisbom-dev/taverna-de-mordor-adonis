@@ -6,7 +6,10 @@ on:
       - "main"
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    environment:
+        name: taverna-de-mordor
+        url: https://taverna-de-mordor.herokuapp.com
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [15.x]
