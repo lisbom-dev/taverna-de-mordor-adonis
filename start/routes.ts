@@ -1,23 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Routes
-|--------------------------------------------------------------------------
-|
-| This file is dedicated for defining HTTP routes. A single file is enough
-| for majority of projects, however you can define routes in different
-| files and just make sure to import them inside this file. For example
-|
-| Define routes in following two files
-| ├── start/routes/cart.ts
-| ├── start/routes/customer.ts
-|
-| and then import them inside `start/routes.ts` as follows
-|
-| import './routes/cart'
-| import './routes/customer''
-|
-*/
-
 import Route from '@ioc:Adonis/Core/Route'
 import './routes/google'
 
@@ -32,6 +12,28 @@ Route.get('/users/:id', 'UsersController.show')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
 Route.resource('events', 'EventsController').middleware({
+  create: ['auth:web'],
+  update: ['auth:web'],
+  store: ['auth:web'],
   edit: ['auth:web'],
   destroy: ['auth:web'],
 })
+Route.post('/events/:event_id/boards', 'EventBoardsController.store')
+Route.resource('boards', 'BoardsController').middleware({
+  create: ['auth:web'],
+  update: ['auth:web'],
+  store: ['auth:web'],
+  edit: ['auth:web'],
+  destroy: ['auth:web'],
+})
+Route.post('/events/:event_id/comments', 'EventCommentsController.store')
+Route.post('/masters/:user_id/comments', 'MasterCommentsController.store')
+Route.post('/boards/:board_id/comments', 'BoardCommentsController.store')
+Route.put('/comments/:id', 'CommentsController.update')
+Route.delete('/comments/:id', 'CommentsController.destroy')
+
+Route.post('/events/:event_id/ratings', 'EventStarRatingsController.store')
+Route.post('/masters/:user_id/ratings', 'MasterStarRatingsController.store')
+Route.post('/boards/:board_id/ratings', 'BoardStarRatingsController.store')
+Route.put('/ratings/:id', 'StarRatingsController.update')
+Route.delete('/ratings/:id', 'StarRatingsController.destroy')
