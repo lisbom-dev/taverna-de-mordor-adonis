@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run Migrations
-        run: node ace migration:run
+        run: node ace migration:run --force
         env:
           PORT: ${{ secrets.PORT }}
           APP_URL: ${{ secrets.APP_URL }}
