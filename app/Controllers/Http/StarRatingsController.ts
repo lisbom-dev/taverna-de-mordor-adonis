@@ -14,6 +14,7 @@ export default class StarRatingsController {
     const data = await request.validate(UpdateValidator)
     starRating.merge(data)
     await starRating.save()
+    return response.redirect().back()
   }
 
   public async destroy({ params, bouncer, response }: HttpContextContract) {
@@ -23,5 +24,6 @@ export default class StarRatingsController {
     }
     await bouncer.with('StarRatingPolicy').authorize('delete', starRating)
     await starRating.delete()
+    return response.redirect().back()
   }
 }
