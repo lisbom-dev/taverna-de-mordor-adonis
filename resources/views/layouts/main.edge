@@ -12,28 +12,30 @@
   <title>
     @!section('title')
   </title>
-
 </head>
 <body>
   <div class="root flex flex-col min-h-screen justify-between">
       <div>
-        @if(!!flashMessages.get('info'))
-        <span class="alert-spam info-message">
-          <p>{{ flashMessages.get('info') }}</p>
-        </span>
-        @endif
-
-        @if(!!flashMessages.get('error'))
         <span class="alert-spam alert-message fixed top-14 right-5 z-50">
-          @each(error in flashMessages.get('error'))
-            @!component('components/alert',{
-            message: error,
-            title: "Oops",
-            type: "error"
-          })
-          @endeach
+          @if(!!flashMessages.get('error'))
+            @each(error in flashMessages.get('error'))
+              @!component('components/alert',{
+              message: error,
+              title: "Oops",
+              type: "error"
+            })
+            @endeach
+          @endif
+          @if(!!flashMessages.get('success'))
+            @each(success in flashMessages.get('success'))
+              @!component('components/alert',{
+              message: success,
+              title: "Exelcior!",
+              type: "success"
+            })
+            @endeach
+          @endif
         </span>
-        @endif
         @include('partials/navbar.edge')
         @!section('content')
       </div>
