@@ -63,7 +63,7 @@ export default class Event extends BaseModel {
     localKey: 'id',
     pivotForeignKey: 'event_id',
     relatedKey: 'id',
-    pivotRelatedForeignKey: 'star_rating__id',
+    pivotRelatedForeignKey: 'star_rating_id',
     pivotTable: 'event_star_ratings',
     serializeAs: null,
   })
@@ -95,6 +95,9 @@ export default class Event extends BaseModel {
         }) / this.rateNumber
     )
   }
+
+  @column()
+  public theme: string
 
   @column()
   public location: string

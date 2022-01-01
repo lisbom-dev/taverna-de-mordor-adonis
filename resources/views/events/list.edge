@@ -5,28 +5,5 @@
 @endsection
 
 @section('content')
-<section class="mt-6 w-full">
-  <span class="text-xl">Essa é minha lista de eventos</span>
-  <div class="w-full mt-2 items-center">
-    <div class="px-4 self-center w-full flex justify-between flex-wrap">
-      @each(event in events)
-      <div>
-        <a href="/events/{{event.id}}">
-          <button class="bg-gray-600 hover:bg-gray-800 text-white block px-5 py-10 w-100 rounded-md text-base font-medium">
-            <span>{{ event.name }}</span>
-            <p>{{ event.date }}</p>
-            <p>{{event.description}}</p>
-          </button>
-        </a>
-      </div>
-      @endeach
-    </div>
-  </div>
-  <a href="/events/create">
-    @!component('components/floating-action-button', {
-    size: 'large'
-  })
-  </a>
-  
-</section>
+@include('partials/calendar')
 @endsection

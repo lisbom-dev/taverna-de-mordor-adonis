@@ -8,10 +8,11 @@ export default class UpdateValidator {
 
   public schema = schema.create({
     name: schema.string.optional({}, []),
-    date: schema.date.optional({}, [rules.after(4, 'days')]),
+    date: schema.date.optional({}, [rules.after(3, 'days')]),
     description: schema.string.optional({}, []),
     location: schema.string.optional({}, []),
     maxBoards: schema.number.optional([]),
+    theme: schema.string.optional({}, []),
   })
 
   public messages = {}

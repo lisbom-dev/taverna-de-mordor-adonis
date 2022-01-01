@@ -2,12 +2,16 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
 import StoreValidator from 'App/Validators/Event/StoreValidator'
 import UpdateValidator from 'App/Validators/Event/UpdateValidator'
+import { addMonths, endOfMonth, startOfMonth } from 'date-fns'
 
 export default class EventsController {
-  public async index({ view }: HttpContextContract) {
-    const events = await Event.query()
+  public async index({ view, request }: HttpContextContract) {
+    const { month = '0' } = request.qs()
+    const date = parseInt(month, 10) ? addMonths(new Date(), parseInt(month, 10)) : new Date()
+    const events = await Event.query().whereBetween('date', [startOfMonth(date), endOfMonth(date)])
     return view.render('events/list', {
       events,
+      month: parseInt(month, 10),
     })
   }
 
@@ -16,8 +20,9 @@ export default class EventsController {
     return view.render('events/create')
   }
 
-  public async store({ response, request }: HttpContextContract) {
+  public async store({ response, request, bouncer }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
+    await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
     return response.redirect('/events')
   }
@@ -32,8 +37,9 @@ export default class EventsController {
     return view.render('events/edit', { event })
   }
 
-  public async update({ params, response, request }: HttpContextContract) {
+  public async update({ params, response, request, bouncer }: HttpContextContract) {
     const event = await Event.find(params.id)
+    await bouncer.with('EventPolicy').authorize('invoke')
     if (!event) {
       return response.notFound('Event Not Found')
     }
