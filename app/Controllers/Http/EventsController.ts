@@ -20,8 +20,9 @@ export default class EventsController {
     return view.render('events/create')
   }
 
-  public async store({ response, request }: HttpContextContract) {
+  public async store({ response, request, bouncer }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
+    await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
     return response.redirect('/events')
   }
@@ -36,8 +37,9 @@ export default class EventsController {
     return view.render('events/edit', { event })
   }
 
-  public async update({ params, response, request }: HttpContextContract) {
+  public async update({ params, response, request, bouncer }: HttpContextContract) {
     const event = await Event.find(params.id)
+    await bouncer.with('EventPolicy').authorize('invoke')
     if (!event) {
       return response.notFound('Event Not Found')
     }

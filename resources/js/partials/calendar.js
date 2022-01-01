@@ -84,7 +84,6 @@ export default () => ({
   },
   setEvents(events) {
     events = events.map((e) => {
-      console.log(e)
       return {
         event_title: e.name,
         event_date: new Date(e.date),
@@ -92,7 +91,6 @@ export default () => ({
         event_id: e.id,
       }
     })
-    console.log(events)
     this.events = events
   },
   previous() {
@@ -109,8 +107,6 @@ export default () => ({
       event_title: this.event_title,
       event_theme: this.event_theme,
     })
-
-    console.log(this.events)
 
     // clear the form data
     this.event_title = ''

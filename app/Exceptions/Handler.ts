@@ -14,8 +14,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
-    console.log('oi')
-
     if (error.status === 403) {
       ctx.session.flash('error', ['Não autorizado!'])
       return ctx.response.redirect().back()
@@ -29,7 +27,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       return ctx.response.redirect().back()
     }
     if (error.status === 400) {
-      console.log(error.message)
       ctx.session.flash('error', [error.message])
       return ctx.response.redirect().back()
     }
