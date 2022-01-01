@@ -4,7 +4,7 @@ import StoreValidator from 'App/Validators/StarRating/StoreValidator'
 
 export default class BoardStarRatingsController {
   public async store({ request, response, params }: HttpContextContract) {
-    const board = await Board.find(params.id)
+    const board = await Board.find(params.board_id)
     if (!board) {
       return response.notFound('Board not found!')
     }

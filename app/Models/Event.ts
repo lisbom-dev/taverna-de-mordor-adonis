@@ -30,6 +30,17 @@ export default class Event extends BaseModel {
   @column()
   public maxBoards: number
 
+  @computed()
+  public get occupiedBoards(): number {
+    return this.boards.length
+  }
+
+  @beforeFetch()
+  @beforeFind()
+  public static preloadBoards(q: ModelQueryBuilderContract<typeof Event>) {
+    q.preload('boards')
+  }
+
   @manyToMany(() => Comment, {
     localKey: 'id',
     pivotForeignKey: 'event_id',
@@ -44,8 +55,9 @@ export default class Event extends BaseModel {
     pivotForeignKey: 'event_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'board_id',
+    pivotTable: 'event_boards',
   })
-  public events: ManyToMany<typeof Board>
+  public boards: ManyToMany<typeof Board>
 
   @manyToMany(() => StarRating, {
     localKey: 'id',

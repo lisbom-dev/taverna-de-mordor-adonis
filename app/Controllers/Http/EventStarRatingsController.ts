@@ -4,7 +4,7 @@ import StoreValidator from 'App/Validators/StarRating/StoreValidator'
 
 export default class EventStarRatingsController {
   public async store({ request, params, response }: HttpContextContract) {
-    const event = await Event.find(params.id)
+    const event = await Event.find(params.event_id)
     if (!event) {
       return response.notFound('Event not found!')
     }
