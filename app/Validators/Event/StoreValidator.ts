@@ -11,7 +11,7 @@ export default class StoreValidator {
     date: schema.date({}, [rules.required(), rules.after(3, 'days')]),
     description: schema.string({}, [rules.required()]),
     location: schema.string({}, [rules.required()]),
-    maxBoards: schema.number([rules.required()]),
+    maxBoards: schema.number([rules.required(), rules.unsigned()]),
     theme: schema.string({}, [rules.required()]),
   })
 
