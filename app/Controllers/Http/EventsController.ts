@@ -2,12 +2,16 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
 import StoreValidator from 'App/Validators/Event/StoreValidator'
 import UpdateValidator from 'App/Validators/Event/UpdateValidator'
+import { addMonths, endOfMonth, startOfMonth } from 'date-fns'
 
 export default class EventsController {
-  public async index({ view }: HttpContextContract) {
-    const events = await Event.query()
+  public async index({ view, request }: HttpContextContract) {
+    const { month = '0' } = request.qs()
+    const date = parseInt(month, 10) ? addMonths(new Date(), parseInt(month, 10)) : new Date()
+    const events = await Event.query().whereBetween('date', [startOfMonth(date), endOfMonth(date)])
     return view.render('events/list', {
       events,
+      month: parseInt(month, 10),
     })
   }
 
