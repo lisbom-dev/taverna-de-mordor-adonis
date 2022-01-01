@@ -12,7 +12,7 @@ export default class EventBoardsController {
       return response.notFound('Event not found!')
     }
     if (event.occupiedBoards === event.maxBoards) {
-      throw new BadRequestException('All tables have already been filled!')
+      throw new BadRequestException('All seats have already been filled!')
     }
 
     const data = await request.validate(StoreValidator)
