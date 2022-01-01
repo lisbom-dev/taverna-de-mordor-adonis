@@ -42,7 +42,7 @@ export default class Board extends BaseModel {
   @beforeFind()
   public static preloadPlayers(q: ModelQueryBuilderContract<typeof Board>) {
     q.preload('players', (qb) => {
-      qb.pivotColumns(['character_name'])
+      qb.pivotColumns(['character_name', 'session'])
     })
   }
 
@@ -75,7 +75,7 @@ export default class Board extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'player_id',
     pivotTable: 'board_players',
-    pivotColumns: ['character_name'],
+    pivotColumns: ['character_name', 'session'],
   })
   public players: ManyToMany<typeof Users>
 

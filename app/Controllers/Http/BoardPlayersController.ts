@@ -16,9 +16,9 @@ export default class BoardPlayersController {
 
     const data = await request.validate(StoreValidator)
 
-    await board
-      .related('players')
-      .attach({ [auth.user!.id]: { character_name: data.characterName } })
+    await board.related('players').attach({
+      [auth.user!.id]: { character_name: data.characterName, session: board.currentSection },
+    })
 
     return response.redirect('/boards')
   }
