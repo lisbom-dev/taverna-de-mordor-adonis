@@ -1,17 +1,18 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class StarRatings extends BaseSchema {
-  protected tableName = 'star_ratings'
+export default class Times extends BaseSchema {
+  protected tableName = 'times'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('number').notNullable()
+      table.integer('start_hour').notNullable()
+      table.integer('end_hour').notNullable()
       table
-        .integer('sender_id')
+        .integer('event_board_id')
         .notNullable()
         .references('id')
-        .inTable('users')
+        .inTable('event_boards')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table.timestamp('created_at', { useTz: true })
