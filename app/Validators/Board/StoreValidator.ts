@@ -7,7 +7,7 @@ export default class StoreValidator {
   public schema = schema.create({
     name: schema.string({}, [rules.required()]),
     system: schema.string({}, [rules.required()]),
-    maxPlayers: schema.number([rules.required()]),
+    maxPlayers: schema.number([rules.required(), rules.unsigned()]),
     masterId: schema.number([rules.required(), rules.exists({ table: 'users', column: 'id' })]),
     currentSection: schema.number([rules.required()]),
   })

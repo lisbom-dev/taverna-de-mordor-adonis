@@ -7,7 +7,7 @@ export default class UpdateValidator {
   public schema = schema.create({
     name: schema.string.optional({}, []),
     system: schema.string.optional({}, []),
-    maxPlayers: schema.number.optional([]),
+    maxPlayers: schema.number.optional([rules.unsigned()]),
     masterId: schema.number.optional([rules.exists({ table: 'users', column: 'id' })]),
     currentSection: schema.number.optional([]),
   })

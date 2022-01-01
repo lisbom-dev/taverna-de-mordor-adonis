@@ -17,6 +17,7 @@ export default class CommentsController {
 
     comment.merge(data)
     await comment.save()
+    return response.redirect().back()
   }
 
   public async destroy({ bouncer, params, response }: HttpContextContract) {
@@ -26,5 +27,6 @@ export default class CommentsController {
     }
     await bouncer.with('CommentPolicy').authorize('delete', comment)
     await comment.delete()
+    return response.redirect().back()
   }
 }
