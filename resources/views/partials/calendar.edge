@@ -15,7 +15,7 @@
     </script>
   @endeach
 	<div x-data="calendar" x-init="[initDate({{month}}), getNoOfDays(), setEvents(window.events)]" x-cloak>
-		<div class="container mx-auto px-4 py-2 md:py-5 mb-10">
+		<div class="container mx-auto md:px-4 py-2 md:py-5 mb-10">
 
 			<div class="font-bold text-gray-800 text-xl mb-4">
 				Eventos da Taverna
@@ -52,7 +52,7 @@
 				<div class="-mx-1 -mb-1">
 					<div class="flex flex-wrap" style="margin-bottom: -40px;">
 						<template x-for="(day, index) in DAYS" :key="index">
-							<div style="width: 14.26%" class="px-2 py-2">
+							<div style="width: 14.26%" class="py-10 px-2 md:py-2">
 								<div
 									x-text="day"
 									class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center"></div>
@@ -68,7 +68,7 @@
 							></div>
 						</template>
 						<template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
-							<div style="width: 14.28%; height: 120px" class="px-4 pt-2 border-r border-b relative">
+							<div style="width: 14.28%; height: 120px" class="md:px-4 pt-2 border-r border-b relative">
 								<div
                 x-text="date"
                   @can('EventPolicy.invoke')
@@ -90,7 +90,7 @@
 									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
                     <a :href="'events/'+event.event_id">
                       <div
-                        class="px-2 py-1 rounded-lg mt-1 overflow-hidden border"
+                        class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border"
                         :class="{
                           'border-blue-200 text-blue-800 bg-blue-100': event.event_theme === 'blue',
                           'border-red-200 text-red-800 bg-red-100': event.event_theme === 'red',
@@ -99,7 +99,7 @@
                           'border-purple-200 text-purple-800 bg-purple-100': event.event_theme === 'purple'
                         }"
                       >
-                        <p x-text="event.event_title" class="text-sm font-bold truncate leading-tight"></p>
+                        <p x-text="event.event_title" class="md:text-sm text-xs md:font-bold truncate leading-tight"></p>
                       </div>
                     </a>
 									</template>
