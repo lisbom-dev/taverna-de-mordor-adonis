@@ -7,7 +7,7 @@
 @section('content')
   <div class="ml-5 mt-2 rounded-md border-2 py-2 px-6 border-gray-600 max-w-md">
     <h1>{{event.name}}</h1><br>
-    <p>{{event.date}}</p><br>
+    <p>{{{format(event.date, "'Dia' dd 'do mês de' MMMM 'do ano' yyyy")}}}</p><br>
     <p>{{event.description}}</p><br>
     <p>{{event.location}}</p><br>
     <form action="/events/{{event.id}}?_method=DELETE" method="post">
