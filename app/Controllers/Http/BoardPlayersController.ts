@@ -15,7 +15,7 @@ export default class BoardPlayersController {
     }
 
     const data = await request.validate(StoreValidator)
-    session.flash('success', '${data.characterName} cadastrado a mesa com sucesso!')
+    session.flash('success', ['${data.characterName} cadastrado a mesa com sucesso!'])
 
     await board.related('players').attach({
       [auth.user!.id]: {
