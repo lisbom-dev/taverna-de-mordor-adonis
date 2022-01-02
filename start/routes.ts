@@ -8,6 +8,7 @@ Route.get('/login', ({ response }) => {
 Route.get('/equipe', ({ view }) => view.render('team'))
 Route.get('/logout', 'SessionsController.destroy')
 Route.get('/users', 'UsersController.index')
+Route.post('/users', 'UsersController.store')
 Route.get('/users/:id', 'UsersController.show')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
