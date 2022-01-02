@@ -16,10 +16,12 @@ export default () => ({
     this.initEvents()
   },
   sendMessage(text) {
-    this.text = ''
-    const message = { content: text, boardId: this.boardId, sender: this.user }
-    this.socket.emit('message', message)
-    this.addMessageToChat(message)
+    if (text !== '') {
+      this.text = ''
+      const message = { content: text, boardId: this.boardId, sender: this.user }
+      this.socket.emit('message', message)
+      this.addMessageToChat(message)
+    }
   },
   addMessageToChat(message) {
     this.messages.push(message)

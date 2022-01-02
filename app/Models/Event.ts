@@ -87,13 +87,13 @@ export default class Event extends BaseModel {
 
   @computed()
   public get avaluation(): number {
-    return (
-      this.starRating
-        .map((rating) => rating.number)
-        .reduce((count, el) => {
-          return count + el
-        }) / this.rateNumber
-    )
+    return this.starRating.length > 0
+      ? this.starRating
+          .map((rating) => rating.number)
+          .reduce((count, el) => {
+            return count + el
+          }) / this.rateNumber
+      : 0
   }
 
   @column()

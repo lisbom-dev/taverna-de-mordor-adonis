@@ -16,3 +16,4 @@ window.Alpine = Alpine
 window.IMask = IMask
 Alpine.start()
 window.axios = axios.create({ baseURL: '/' })
+window.io = io

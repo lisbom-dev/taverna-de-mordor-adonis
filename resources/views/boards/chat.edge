@@ -72,14 +72,23 @@
        </div>  --}}
     </div>
       <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto h-96 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch" x-ref="message_field">
-       <template x-for='message in messages'>
+       <template x-for='(message,index) in messages'>
           <div class="chat-message">
             <div :class="{'flex items-end justify-end': user.id == message.sender.id, 'flex items-end': user.id != message.sender.id }">
                 <div :class="{'flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start': user.id != message.sender.id, 'flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-end': user.id == message.sender.id }">
                   <div>
-                    <span :class="{'px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
+                    <template x-if="messages[index+1]?messages[index+1].sender.id != message.sender.id?true:false:true">
+                      <div :class="{'flex items-end': user.id == message.sender.id, 'flex items-end flex-row-reverse': user.id != message.sender.id }">
+                        <span :class="{'px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 rounded-bl-none text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
+                        <img x-bind:src="message.sender.photoUrl" alt="My profile" class="w-6 h-6 rounded-full order-1 mx-3 mt-2 align-bottom">
+                      </div>
+                    </template>
+                    <template x-if="messages[index+1]?messages[index+1].sender.id != message.sender.id?false:true:false">
+                      <div class="mx-12">
+                        <span :class="{'px-4 py-2 rounded-lg inline-block bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
+                      </div>
+                    </template>
                   </div>
-                  <img x-bind:src="message.sender.photoUrl" alt="My profile" class="w-6 h-6 rounded-full order-1">
                 </div>
             </div>
           </div>
