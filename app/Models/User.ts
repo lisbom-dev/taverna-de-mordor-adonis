@@ -31,6 +31,12 @@ export default class User extends BaseModel {
   @column()
   public isAdm: boolean
 
+  @column()
+  public cellPhoneNumber: string
+
+  @column()
+  public instagramRef?: string
+
   @manyToMany(() => Comment, {
     localKey: 'id',
     pivotForeignKey: 'master_id',
