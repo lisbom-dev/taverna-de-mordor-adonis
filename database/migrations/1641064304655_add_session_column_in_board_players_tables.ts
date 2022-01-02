@@ -5,7 +5,7 @@ export default class BoardPlayers extends BaseSchema {
 
   public async up() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.integer('session').notNullable()
+      table.integer('session_who_entered').notNullable()
     })
   }
 
