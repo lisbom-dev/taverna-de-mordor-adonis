@@ -6,20 +6,30 @@ export default () => ({
   messages: [],
   text: '',
   initChat(boardId, user, messages) {
-    console.log(messages)
-    this.socket = io()
+    this.$watch('messages', () => {
+      this.onMessageAdded()
+    })
+    this.messages = messages
+    this.socket = io('/chat', { query: { id: boardId } })
     this.boardId = boardId
     this.user = user
     this.initEvents()
   },
   sendMessage(text) {
-    console.log(text)
-    this.socket.emit('text', { content: text, boardId: this.boardId, user: this.user })
+    this.text = ''
+    const message = { content: text, boardId: this.boardId, sender: this.user }
+    this.socket.emit('message', message)
+    this.addMessageToChat(message)
   },
   addMessageToChat(message) {
     this.messages.push(message)
   },
   initEvents() {
-    this.socket.on('message', this.addMessageToChat)
+    this.socket.on('message', (data) => {
+      this.addMessageToChat(data)
+    })
+  },
+  onMessageAdded() {
+    this.$refs.message_field.scrollTop = this.$refs.message_field.scrollHeight
   },
 })
