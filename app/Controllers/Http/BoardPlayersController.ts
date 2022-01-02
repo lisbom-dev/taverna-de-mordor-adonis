@@ -10,7 +10,7 @@ export default class BoardPlayersController {
     if (!board) {
       return response.notFound('Board not found!')
     }
-    if (board.playersAtTheBoard === board.maxPlayers) {
+    if (board.players.length === board.maxPlayers) {
       throw new BadRequestException('All seats have already been filled!')
     }
 
