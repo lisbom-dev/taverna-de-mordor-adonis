@@ -10,7 +10,7 @@ export default () => ({
       this.onMessageAdded()
     })
     this.messages = messages
-    this.socket = io('/chat', { query: { id: boardId } })
+    this.socket = io('/chat', { query: { id: boardId }, forceNew: true })
     this.boardId = boardId
     this.user = user
     this.initEvents()
