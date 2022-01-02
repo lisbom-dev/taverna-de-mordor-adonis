@@ -6,7 +6,7 @@ export default class Users extends BaseSchema {
   public async up() {
     this.schema.alterTable(this.tableName, (table) => {
       table.string('instagram_ref')
-      table.string('cell_phone_number').notNullable()
+      table.string('cell_phone_number')
     })
   }
 
