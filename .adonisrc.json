@@ -15,16 +15,7 @@
     "Database": "database",
     "Contracts": "contracts"
   },
-  "preloads": [
-    "./start/routes",
-    "./start/kernel",
-    "./start/bouncer",
-    "./start/view",
-    {
-      "file": "./start/socket",
-      "environment": ["web"]
-    }
-  ],
+  "preloads": ["./start/routes", "./start/kernel", "./start/bouncer", "./start/view"],
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
