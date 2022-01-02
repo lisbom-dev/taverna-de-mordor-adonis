@@ -11,7 +11,7 @@ export default class BoardPlayers extends BaseSchema {
 
   public async down() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('session')
+      table.dropColumn('session_who_entered')
     })
   }
 }
