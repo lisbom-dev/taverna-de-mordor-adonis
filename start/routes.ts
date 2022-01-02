@@ -39,3 +39,5 @@ Route.post('/boards/:board_id/ratings', 'BoardStarRatingsController.store')
 Route.put('/ratings/:id', 'StarRatingsController.update')
 Route.delete('/ratings/:id', 'StarRatingsController.destroy')
 Route.post('/boards/:board_id/players', 'BoardPlayersController.store')
+
+Route.get('/boards/:board_id/chat', 'BoardChatsController.index').middleware(['auth:web'])
