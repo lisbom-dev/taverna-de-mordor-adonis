@@ -3,10 +3,10 @@ import {
   BaseModel,
   beforeFetch,
   beforeFind,
+  belongsTo,
   column,
   computed,
-  HasOne,
-  hasOne,
+  BelongsTo,
   manyToMany,
   ManyToMany,
   ModelQueryBuilderContract,
@@ -33,10 +33,10 @@ export default class Board extends BaseModel {
   @column()
   public masterId: number
 
-  @hasOne(() => User, {
-    foreignKey: 'master_id',
+  @belongsTo(() => User, {
+    foreignKey: 'masterId',
   })
-  public master: HasOne<typeof User>
+  public master: BelongsTo<typeof User>
 
   @manyToMany(() => Comment, {
     localKey: 'id',
@@ -79,6 +79,8 @@ export default class Board extends BaseModel {
   @beforeFetch()
   public static preloadRating(q: ModelQueryBuilderContract<typeof Board>) {
     q.preload('starRating')
+    q.preload('players')
+    q.preload('master')
   }
 
   @computed()
