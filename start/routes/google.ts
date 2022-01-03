@@ -4,7 +4,7 @@ import User from 'App/Models/User'
 Route.get('/google/redirect', async ({ ally }) => {
   return ally.use('google').redirect()
 })
-Route.get('/google/callback', async ({ ally, auth, response }) => {
+Route.get('/google/callback', async ({ ally, auth, response, view }) => {
   const google = ally.use('google')
 
   /**
@@ -32,15 +32,16 @@ Route.get('/google/callback', async ({ ally, auth, response }) => {
    * Finally, access the user
    */
   const googleUser = await google.user()
-  const user = await User.firstOrCreate(
-    {
-      email: googleUser.email as string,
-    },
-    {
+  const user = await User.findBy('email', googleUser.email)
+
+  if (!user) {
+    return view.render('users/create', {
+      email: googleUser.email,
       name: googleUser.name,
-      photoUrl: googleUser.avatarUrl || undefined,
-    }
-  )
+      photoUrl: googleUser.avatarUrl,
+    })
+  }
+
   await auth.use('web').login(user)
   return response.redirect('/')
 })

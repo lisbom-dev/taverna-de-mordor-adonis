@@ -31,4 +31,5 @@ export default Env.rules({
   PG_DB_NAME: Env.schema.string(),
   GOOGLE_CLIENT_ID: Env.schema.string(),
   GOOGLE_CLIENT_SECRET: Env.schema.string(),
+  MONGODB_URL: Env.schema.string(),
 })

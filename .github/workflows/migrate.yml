@@ -41,3 +41,4 @@ jobs:
           PG2_USER: ${{ secrets.PG2_USER }}
           PG2_PASSWORD: ${{ secrets.PG2_PASSWORD }}
           PG2_DB_NAME: ${{ secrets.PG2_DB_NAME }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}

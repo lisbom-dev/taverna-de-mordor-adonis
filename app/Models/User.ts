@@ -31,6 +31,12 @@ export default class User extends BaseModel {
   @column()
   public isAdm: boolean
 
+  @column()
+  public cellPhoneNumber: string
+
+  @column()
+  public instagramRef?: string
+
   @manyToMany(() => Comment, {
     localKey: 'id',
     pivotForeignKey: 'master_id',
@@ -72,13 +78,13 @@ export default class User extends BaseModel {
 
   @computed()
   public get avaluation(): number {
-    return (
-      this.starRating
-        .map((rating) => rating.number)
-        .reduce((count, el) => {
-          return count + el
-        }) / this.rateNumber
-    )
+    return this.starRating.length > 0
+      ? this.starRating
+          .map((rating) => rating.number)
+          .reduce((count, el) => {
+            return count + el
+          }) / this.rateNumber
+      : 0
   }
 
   @column()
