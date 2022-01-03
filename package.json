@@ -38,6 +38,7 @@
     "@adonisjs/session": "^6.0.0",
     "@adonisjs/shield": "^7.0.0",
     "@adonisjs/view": "^6.0.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "adonisgoose": "^1.0.1",
     "alpinejs": "^3.7.1",
     "axios": "^0.24.0",
