@@ -41,9 +41,9 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
         <div >
-        <span class="font-bold mr-6 mb-5 md:mb-0">Descrição: </span>
+          <span class="font-bold mr-6 mb-5 md:mb-0">Descrição: </span>
           <p class="md:flex bg-gray-100 p-2 rounded-lg shadow-md lg:w-full">{{ excerpt(event.description, 2000, {suffix: '[Leia mais]'} )}}</p><br>
-      </div>
+        </div>
       </div>
 
 
@@ -91,7 +91,7 @@
               <i class="fas fa-dice-d20 text-2xl mr-5 items-center"></i>
               <span class="text-xl md:text-2xl">Sistema: {{board.system}}</span>
             </div>
-  <div>
+            <div>
               <i class="fas fa-users text-2xl mr-3"></i>
               <span class="text-xl md:text-2xl">Máximo de Jogadores: {{board.maxPlayers}}</span>
             </div>
@@ -100,20 +100,20 @@
               <span class="text-xl md:text-2xl">Vagas de preenchidas: {{board.players.length}}</span>
             </div>
 
-    </section>
+          </section>
         </div>
       </div>
 
-    @else
-        <section class="ml-5">
+      @else
+        <section class="ml-5 py-10">
           <p class="text-xl"> Oops! Sem mesas registradas.</p>
-          <a class="hover:text-blue-500 flex" href="/boards/create">
+          <a class="text-blue-700 hover:text-blue-500 flex" href="/boards/create">
             <p> Clique aqui para criar uma mesa</p>
           </a>
 
-    </section>
+        </section>
       @endeach
-  </div>
+    </div>
 
 
 
