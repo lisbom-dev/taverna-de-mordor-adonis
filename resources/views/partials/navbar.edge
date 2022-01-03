@@ -35,9 +35,10 @@ x-init="initNavbar({{auth.user.id}})
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
       <div class="relative">
-        <button @click="toggleNotifications" type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+        <button @click="toggleNotifications" type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 relative focus:ring-offset-gray-800 focus:ring-white">
           <span class="sr-only">View notifications</span>
           <!-- Heroicon name: outline/bell -->
+          <div x-show="newNotifications" class="w-2 h-2 bg-yellow-300 rounded-full absolute left-4 right-0 top-0"></div>
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
@@ -45,11 +46,14 @@ x-init="initNavbar({{auth.user.id}})
           <div x-show="showNotifications" class="absolute text-gray-400 right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20" style="width:20rem;">
             <div class="py-2">
               <template x-for="notification in notifications">
-                <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+                <button type="button" @click="markAsRead(notification._id)"
+                    class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
+                    :class="{'flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2':notification.read, 'flex items-center px-4 py-3 border-b -mx-2 bg-blue-100 hover:bg-blue-200': !notification.read}"
+                    >
                     <img class="h-8 w-8 rounded-full object-cover mx-1" :src="notification.photoUrl" alt="avatar">
                     <p class="text-gray-600 text-sm mx-2" x-html="notification.subject">
                     </p>
-                </a>
+                </button>
               </template>
               <template x-if="notifications.length === 0">
                 <p class="text-center">Nenhuma notificação</p>
