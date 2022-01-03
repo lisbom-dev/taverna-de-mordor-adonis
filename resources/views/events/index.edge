@@ -58,20 +58,61 @@
     @end
   </div>
 
-  <div>
-    @each(board in event.boards)
+  <div class="border bg-white  container mx-auto rounded-lg px-2 py-1 my-3 md:my-16 md:py-10 shadow-2xl">
 
-    <section>
-      <h1>{{board.name}}</h1>
+    <h2 class="m-5 font-bold text-2xl">Mesas do Evento:</h2>
+    <div class="md:grid md:grid-cols-3 md:space-x-3 ">
+      @each(board in event.boards)
+      <div class="mt-7">
+        <div class="bg-cyberpunk py-5 rounded-t-lg shadow-2xl">
+          <span class="ml-4 text-white font-bold text-3xl">{{board.name.toUpperCase()}}</span>
+        </div>
+        <div class="container bg-white rounded-b-lg w-auto px-2 pb-10 md:px-6 shadow-2xl">
+
+
+          <section class="space-y-3 ">
+            <div class="mb-8">
+                <div class="flex">
+                  <img class="mr-3 mt-3 rounded-xl" src="{{board.master.photoUrl}}" alt="{{board.master.name}}">
+                  <div class=" mt-2">
+                    <span class="text-xl md:text-2xl ">Mestre: <br></span>
+                    <a href="/users/{{board.master.id}}">
+                      <span class=" hover:text-blue-500" >  {{board.master.name}}</span>
+                    </a>
+                  </div>
+                </div>
+            </div>
+
+            <div >
+              <i class="fas fa-dice-d20 text-2xl mr-5 items-center"></i>
+              <span class="text-xl md:text-2xl">Sistema: {{board.system}}</span>
+            </div>
+  <div>
+              <i class="fas fa-users text-2xl mr-3"></i>
+              <span class="text-xl md:text-2xl">Máximo de Jogadores: {{board.maxPlayers}}</span>
+            </div>
+            <div>
+              <i class="fas fa-user text-2xl mr-6"></i>
+              <span class="text-xl md:text-2xl">Vagas de preenchidas: {{board.players.length}}</span>
+            </div>
+
     </section>
+        </div>
+      </div>
 
     @else
-    <section>
-      <p>No tiene mesas</p>
+        <section class="ml-5">
+          <p class="text-xl"> Oops! Sem mesas registradas.</p>
+          <a class="hover:text-blue-500 flex" href="/boards/create">
+            <p> Clique aqui para criar uma mesa</p>
+          </a>
+
     </section>
+      @endeach
   </div>
 
 
 
-    @endeach
+  </div>
+
 @endsection
