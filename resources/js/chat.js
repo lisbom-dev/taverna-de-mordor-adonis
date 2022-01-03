@@ -1,3 +1,6 @@
+import { format } from 'date-fns'
+import { pt } from 'date-fns/locale'
+
 export default () => ({
   /**
    * @type {import('socket.io-client').Socket||undefined}
@@ -15,12 +18,24 @@ export default () => ({
     this.user = user
     this.initEvents()
   },
+  /**
+   * @param {string} text
+   */
   sendMessage(text) {
+    text = text.trim()
     if (text !== '') {
       this.text = ''
-      const message = { content: text, boardId: this.boardId, sender: this.user }
+      const message = {
+        content: text,
+        boardId: this.boardId,
+        sender: this.user,
+        createdAt: new Date(),
+        created_at: format(new Date(), 'hh:mm', { locale: pt }),
+      }
       this.socket.emit('message', message)
       this.addMessageToChat(message)
+    } else {
+      this.text = ''
     }
   },
   addMessageToChat(message) {
@@ -28,7 +43,11 @@ export default () => ({
   },
   initEvents() {
     this.socket.on('message', (data) => {
-      this.addMessageToChat(data)
+      this.addMessageToChat({
+        ...data,
+        createdAt: new Date(data.createdAt),
+        created_at: format(new Date(data.createdAt), 'hh:mm', { locale: pt }),
+      })
     })
   },
   onMessageAdded() {

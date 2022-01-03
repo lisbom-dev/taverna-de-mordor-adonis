@@ -31,8 +31,10 @@
         isAdmin:{{message.sender.isAdmin}},
         isMaster:{{message.sender.isMaster}}
       },
-      content: '{{message.content}}',
-      boardId: {{message.boardId}}
+      content: `{{message.content}}`,
+      boardId: {{message.boardId}},
+      created_at: `{{{format(new Date(message.createdAt), "hh:mm")}}}`,
+      createdAt: new Date(`{{message.createdAt}}`)
     })
     @endeach
 </script>
@@ -79,13 +81,17 @@
                   <div>
                     <template x-if="messages[index+1]?messages[index+1].sender.id != message.sender.id?true:false:true">
                       <div :class="{'flex items-end': user.id == message.sender.id, 'flex items-end flex-row-reverse': user.id != message.sender.id }">
+                        <span class="font-thin text-x text-gray-400 mx-2" x-text="message.created_at"></span>
                         <span :class="{'px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 rounded-bl-none text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
                         <img x-bind:src="message.sender.photoUrl" alt="My profile" class="w-6 h-6 rounded-full order-1 mx-3 mt-2 align-bottom">
                       </div>
                     </template>
                     <template x-if="messages[index+1]?messages[index+1].sender.id != message.sender.id?false:true:false">
                       <div class="mx-12">
-                        <span :class="{'px-4 py-2 rounded-lg inline-block bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
+                        <div :class="{'flex items-end': user.id == message.sender.id, 'flex items-end flex-row-reverse': user.id != message.sender.id }">
+                          <span class="font-thin text-x text-gray-400 mx-2" x-text="message.created_at"></span>
+                          <span :class="{'px-4 py-2 rounded-lg inline-block bg-blue-600 text-white ': user.id == message.sender.id, 'px-4 py-2 rounded-lg inline-block bg-gray-300 text-gray-600': user.id != message.sender.id }" x-text='message.content'></span>
+                        </div>
                       </div>
                     </template>
                   </div>
@@ -103,7 +109,8 @@
                   </svg>
                </button>
             </span>  --}}
-            <input type="text" @keyup.enter="sendMessage(text)" x-model="text" placeholder="Mensagem" class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+            <textarea type="text" @keyup.enter="sendMessage(text)" x-model="text" rows="2" placeholder="Mensagem" class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 pr-16 pt-5 bg-gray-200 rounded-full">
+            </textarea>
             <div class="absolute right-0 items-center inset-y-0 flex">
                {{--  <button type="button" class="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
