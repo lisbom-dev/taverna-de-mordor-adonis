@@ -297,6 +297,31 @@
           "description": "Actions to implement"
         }
       ]
+    },
+    "make:schema": {
+      "settings": {},
+      "commandPath": "adonisgoose/build/commands/MakeSchema",
+      "commandName": "make:schema",
+      "description": "Create a Schema from mongoose database by manuel gostosinha gameplays",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "name",
+          "name": "name",
+          "required": true,
+          "description": "Name of the mongoose schema"
+        }
+      ],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "controller",
+          "propertyName": "controller",
+          "type": "boolean",
+          "alias": "c",
+          "description": "Generate the controller for the model"
+        }
+      ]
     }
   },
   "aliases": {}

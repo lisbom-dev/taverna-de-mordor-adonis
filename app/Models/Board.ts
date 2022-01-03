@@ -33,19 +33,6 @@ export default class Board extends BaseModel {
   @column()
   public masterId: number
 
-  @computed()
-  public get playersAtTheBoard(): number {
-    return this.players.length
-  }
-
-  @beforeFetch()
-  @beforeFind()
-  public static preloadPlayers(q: ModelQueryBuilderContract<typeof Board>) {
-    q.preload('players', (qb) => {
-      qb.pivotColumns(['character_name', 'session_who_entered'])
-    })
-  }
-
   @hasOne(() => User, {
     foreignKey: 'master_id',
   })
@@ -75,7 +62,6 @@ export default class Board extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'player_id',
     pivotTable: 'board_players',
-    pivotColumns: ['character_name', 'session_who_entered'],
   })
   public players: ManyToMany<typeof Users>
 
@@ -102,13 +88,13 @@ export default class Board extends BaseModel {
 
   @computed()
   public get avaluation(): number {
-    return (
-      this.starRating
-        .map((rating) => rating.number)
-        .reduce((count, el) => {
-          return count + el
-        }) / this.rateNumber
-    )
+    return this.starRating.length > 0
+      ? this.starRating
+          .map((rating) => rating.number)
+          .reduce((count, el) => {
+            return count + el
+          }) / this.rateNumber
+      : 0
   }
 
   public async getRatingByUser(user: User) {
