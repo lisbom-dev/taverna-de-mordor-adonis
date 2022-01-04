@@ -35,12 +35,12 @@ export default class Board extends BaseModel {
   public masterId: number
 
   @belongsTo(() => User, {
-    foreignKey: 'master_id',
+    foreignKey: 'masterId',
   })
   public master: BelongsTo<typeof User>
 
   @belongsTo(() => System, {
-    foreignKey: 'system_id',
+    foreignKey: 'systemId',
   })
   public system: BelongsTo<typeof System>
 
