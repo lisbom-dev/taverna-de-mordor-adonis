@@ -1,35 +1,58 @@
 <div class="mt-7">
-  <div class="bg-cyberpunk py-5 rounded-t-lg shadow-2xl">
+  <div class=" h-28 overflow-hidden rounded-t-lg shadow-2xl">
+    <img class="w-full object-cover " src="{{board.system.photoUrl}}" alt="">
     <span class="ml-4 text-white font-bold text-3xl">{{board.name.toUpperCase()}}</span>
   </div>
-  <div class="container bg-white rounded-b-lg w-auto px-2 pb-16 md:px-6 shadow-2xl">
+
+  <div class=" z-10  container bg-white rounded-b-lg w-auto px-2 pb-8 md:px-6 shadow-2xl">
 
 
-    <section class="space-y-3 ">
+    <section class="space-y-35 ">
+
       <div class="mb-8">
-          <div class="flex">
-            <img class="mr-3 mt-3 rounded-xl" src="{{board.master.photoUrl}}" alt="{{board.master.name}}">
+          <div class="flex items-end">
+
+
+            <img class="shadow-lg mr-3 -mt-7 rounded-full" src="{{board.master.photoUrl}}" alt="{{board.master.name}}">
+
             <div class=" mt-2">
-              <span class="text-xl md:text-2xl ">Mestre: <br></span>
+              <span class="text-xl md:text-2xl font-bold">Mestre: <br></span>
               <a href="/users/{{board.master.id}}">
                 <span class=" hover:text-blue-500" >  {{board.master.name}}</span>
               </a>
             </div>
           </div>
       </div>
+      <div class="ml-1">
+        <div >
+          <i class="fas fa-dice-d20 text-xl ml-1  mr-3 items-center"></i>
+          <span class="text-xl md:text-lg">
+            <strong>
+              Sistema:
+            </strong>
+            {{board.system.name}}
+          </span>
+        </div>
+        <div>
+          <i class="fas fa-users text-xl mr-2"></i>
+          <span class="text-xl md:text-lg">
+            <strong>
+              Máximo de Jogadores:
+            </strong>
+             {{board.maxPlayers}}
+          </span>
+        </div>
+        <div>
+          <i class="fas fa-user text-xl ml-1 mr-3"></i>
+          <span class="text-xl md:text-lg">
+            <strong>
+              Vagas de preenchidas:
+            </strong>
+             {{board.players.length}}
+          </span>
+        </div>
+      </div>
 
-      <div >
-        <i class="fas fa-dice-d20 text-2xl mr-5 items-center"></i>
-        <span class="text-xl md:text-2xl">Sistema: {{board.system.name}}</span>
-      </div>
-      <div>
-        <i class="fas fa-users text-2xl mr-3"></i>
-        <span class="text-xl md:text-2xl">Máximo de Jogadores: {{board.maxPlayers}}</span>
-      </div>
-      <div>
-        <i class="fas fa-user text-2xl mr-6"></i>
-        <span class="text-xl md:text-2xl">Vagas de preenchidas: {{board.players.length}}</span>
-      </div>
 
     </section>
   </div>
