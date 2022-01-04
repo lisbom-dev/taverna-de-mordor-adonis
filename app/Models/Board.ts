@@ -16,6 +16,7 @@ import Users from './User'
 import User from './User'
 import Comment from './Comment'
 import StarRating from './StarRating'
+import System from './System'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -25,7 +26,7 @@ export default class Board extends BaseModel {
   public name: string
 
   @column()
-  public system: string
+  public systemId: string
 
   @column()
   public maxPlayers: number
@@ -34,9 +35,14 @@ export default class Board extends BaseModel {
   public masterId: number
 
   @belongsTo(() => User, {
-    foreignKey: 'masterId',
+    foreignKey: 'master_id',
   })
   public master: BelongsTo<typeof User>
+
+  @belongsTo(() => System, {
+    foreignKey: 'system_id',
+  })
+  public system: BelongsTo<typeof System>
 
   @manyToMany(() => Comment, {
     localKey: 'id',
