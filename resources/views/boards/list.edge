@@ -6,20 +6,29 @@
 
 @section('content')
   <section class="container mx-auto">
-    <div class="px-5 py-24">
-      <div class="flex flex-wrap w-full flex-col mb-10 items-center text-center">
-        <h1 class="title-font mb-2 text-4xl font-extrabold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl">Mesas</h1>
-      </div>    
-      <div class="flex flex-wrap justify-center">
-           @each(board in boards) 
-            <div class="mx-3 mb-8">
-               @component('components/board-card',{
-              board:board
-              })    
-              @endcomponent  
-            </div>             
-          @endeach  
-      </div>  
+    <div class="px-5 py-14">
+      <div class="flex flex-wrap w-full mb-4 p-4">
+        <div class="w-full mb-6 lg:mb-0 md:mx-auto">
+          <h1 class="title-font text-4xl font-extrabold leading-10 text-gray-800 tracking-tight sm:text-5xl mr-5 sm:leading-none md:text-6xl">Mesas da taverna</h1>
+          <div class="h-1 w-48 bg-gray-600 rounded"></div>
+        </div>
+      </div>
+      <div>
+      </div>
+
+      <div class="container p-3 shadow-2xl rounded-lg">
+        <div class="flex flex-wrap justify-center">
+             @each(board in boards) 
+              <div class="mx-3 mb-8">
+                 @component('components/board-card',{
+                board:board
+                })    
+                @endcomponent  
+              </div>             
+            @endeach  
+        </div>  
+      </div>
+
   </section>
   <div class="flex justify-center">
     <div>
@@ -35,7 +44,7 @@
         @if(parseInt(page)< boards.lastPage)  
         <li><a class="page-link w-full h-full" href="/boards{{boards.getNextPageUrl()}}"><button class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200">Próximo</button></a></li>
         @else
-        <li><a class="page-link w-full h-full" href="/boards{{boards.getNextPageUrl()}}"><button class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r opacity-50 cursor-not-allowed">Próximo</button></a></li>      
+        <li><a class="page-link w-full h-full" href="/boards{{boards.getNextPageUrl()}}"><button disabled class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r opacity-50 cursor-not-allowed">Próximo</button></a></li>      
         @endif
       </ul>
     </div>
