@@ -31,11 +31,9 @@
         <div class=" flex items-center">
           <i class="fas fa-dice text-lg mr-2"></i>
           <div class="md:flex mr-5">
-
             <span class="font-bold mr-0.5 md:mr-1.5"> Máximo </span>
             <span class="font-bold mr-0.5 md:mr-1.5"> de</span>
             <span class="font-bold -mr-2 md:mr-0"> mesas: </span>
-
           </div>
 
         </div>
@@ -43,13 +41,13 @@
       </div>
     </div>
     <div class="md:flex m-5 mb-10">
-      <div class="flex ">
+      <div class="flex md:mx-24">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
         <div >
-          <span class="font-bold mr-6 mb-5 md:mb-0">Descrição: </span>
-          <p class="md:flex bg-gray-100 p-2 rounded-lg shadow-md lg:w-full">{{ excerpt(event.description, 2000, {suffix: '[Leia mais]'} )}}</p><br>
+          <span class="font-bold mr-6 mb-5 md:mb-9">Descrição: </span>
+          <p class="md:flex bg-gray-100 p-2  rounded-lg shadow-md lg:w-full">{{ excerpt(event.description, 2000, {suffix: '[Leia mais]'} )}}</p><br>
         </div>
       </div>
 
