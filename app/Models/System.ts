@@ -13,7 +13,7 @@ export default class System extends BaseModel {
   public photoUrl: string
 
   @column()
-  public oficialSite: string
+  public website: string
 
   @hasMany(() => Board)
   public boards: HasMany<typeof Board>
