@@ -8,7 +8,6 @@ export default class Boards extends BaseSchema {
       table.dropColumn('system')
       table
         .integer('system_id')
-        .notNullable()
         .references('id')
         .inTable('systems')
         .onDelete('CASCADE')
