@@ -9,7 +9,7 @@ export default class Systems extends BaseSchema {
       table.string('name').notNullable()
       table.string('photo_url').notNullable()
       table.string('slug').notNullable()
-      table.string('oficialSite').notNullable()
+      table.string('oficial_site').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
