@@ -83,10 +83,11 @@ export default class Board extends BaseModel {
 
   @beforeFind()
   @beforeFetch()
-  public static preloadRating(q: ModelQueryBuilderContract<typeof Board>) {
+  public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
     q.preload('starRating')
     q.preload('players')
     q.preload('master')
+    q.preload('system')
   }
 
   @computed()
