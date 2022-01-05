@@ -4,10 +4,12 @@ import StoreValidator from 'App/Validators/Board/StoreValidator'
 import UpdateValidator from 'App/Validators/Board/UpdateValidator'
 
 export default class BoardsController {
-  public async index({ view }: HttpContextContract) {
-    const boards = await Board.query()
+  public async index({ request, view }: HttpContextContract) {
+    const { page = '1' } = request.qs()
+    const boards = await Board.query().paginate(parseInt(page, 10), 9)
     return view.render('boards/list', {
       boards,
+      page,
     })
   }
 
