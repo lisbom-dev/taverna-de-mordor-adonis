@@ -1,7 +1,11 @@
 <div class="mt-7">
-  <div class=" h-28 overflow-hidden rounded-t-lg shadow-2xl">
-    <img class="w-full object-cover " src="{{board.system.photoUrl}}" alt="">
-    <span class="ml-4 text-white font-bold text-3xl">{{board.name.toUpperCase()}}</span>
+  <div class="relative z-0 h-28 overflow-hidden rounded-t-lg ">
+    <div class="z-40  rounded-lg">
+      <img class=" z-0 w-full object-cover " src="{{board.system.photoUrl}}" alt="">
+    </div>
+    <div class="z-40 absolute top-10 right-5  px-3 rounded-xl">
+      <span class=" ml-4 text-white  font-bold text-3xl">{{board.name.toUpperCase()}}</span>
+    </div>
   </div>
 
   <div class=" z-10  container bg-white rounded-b-lg w-auto px-2 pb-8 md:px-6 shadow-2xl">
@@ -13,7 +17,7 @@
           <div class="flex items-end">
 
 
-            <img class="shadow-lg mr-3 -mt-7 rounded-full" src="{{board.master.photoUrl}}" alt="{{board.master.name}}">
+            <img class="z-40 shadow-lg mr-3 -mt-7 rounded-full" src="{{board.master.photoUrl}}" alt="{{board.master.name}}">
 
             <div class=" mt-2">
               <span class="text-xl md:text-2xl font-bold">Mestre: <br></span>
