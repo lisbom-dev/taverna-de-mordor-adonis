@@ -1,7 +1,12 @@
 <div class="mt-7">
   <div class="relative z-0 h-28 overflow-hidden rounded-t-lg ">
     <div class="z-40  rounded-lg">
-      <img class=" z-0 w-full object-cover " src="{{board.system.photoUrl}}" alt="">
+      @if(board.system.photoUrl && board.system.photoUrl != '')
+      <img class="z-0 w-full object-cover" src="{{board.system.photoUrl}}" alt="">
+      @else
+      <h1>to aqui</h1>
+      <img class="z-0 w-full object-cover" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="">
+      @endif
     </div>
     <div class="z-40 absolute top-10 right-5  px-3 rounded-xl">
       <span class=" ml-4 text-white  font-bold text-3xl">{{board.name.toUpperCase()}}</span>
