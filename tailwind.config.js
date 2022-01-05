@@ -18,6 +18,7 @@ module.exports = {
         'cyberpunk': "url('../images/cyberpunk.jpg')",
         'logo': "url('../images/pp.jpg')",
         'tabuleiro-rpg': "url('../images/tabuleiro-rpg.jpg')",
+        'main-cover': "url('../images/cover-rpg.jpg')",
       },
       blur: {
         sm: '2px',
