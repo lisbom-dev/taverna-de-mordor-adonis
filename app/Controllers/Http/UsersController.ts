@@ -1,9 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import BadRequestException from 'App/Exceptions/BadRequestException'
+import Board from 'App/Models/Board'
 import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/User/StoreValidator'
 
 export default class UsersController {
-  public async index({ view, request }: HttpContextContract) {
+  public async index({ view, request, bouncer }: HttpContextContract) {
+    await bouncer.with('UserPolicy').authorize('invoke')
     const { page = '1' } = request.qs()
     const users = await User.query().paginate(parseInt(page, 10), 10)
     return view.render('users/list', {
@@ -12,13 +15,20 @@ export default class UsersController {
     })
   }
 
-  public async show({ response, view, params }: HttpContextContract) {
+  public async show({ response, view, params, auth, bouncer }: HttpContextContract) {
     const user = await User.find(params.id)
     if (!user) {
       return response.notFound('User not found')
     }
     if (user.isMaster) {
       await user.load('comment')
+    }
+    if (auth.user?.isMaster) {
+      var board = await Board.findBy('master_id', auth.user!.id)
+      board?.load('players')
+      await bouncer.with('UserPolicy').authorize('view', user, board)
+    } else {
+      await bouncer.with('UserPolicy').authorize('view', user, null)
     }
 
     return view.render('users/index', {
