@@ -10,7 +10,7 @@ export default class System extends BaseModel {
   public name: string
 
   @column()
-  public photoUrl: string
+  public photoUrl?: string
 
   @column()
   public website: string

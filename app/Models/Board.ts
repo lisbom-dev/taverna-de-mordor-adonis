@@ -26,7 +26,7 @@ export default class Board extends BaseModel {
   public name: string
 
   @column()
-  public systemId: string
+  public systemId: number
 
   @column()
   public maxPlayers: number
