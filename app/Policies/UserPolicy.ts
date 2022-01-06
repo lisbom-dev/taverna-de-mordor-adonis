@@ -21,6 +21,9 @@ export default class UserPolicy extends BasePolicy {
       }
       return true
     }
+    if (userSeeing.id === userSeen.id) {
+      return true
+    }
     return false
   }
 }
