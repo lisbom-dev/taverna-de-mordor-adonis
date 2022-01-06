@@ -10,6 +10,7 @@ export default class StoreValidator {
     cellPhoneNumber: schema.string({}, [rules.required()]),
     instagramRef: schema.string.optional({}, []),
     photoUrl: schema.string.optional({}, []),
+    description: schema.string.optional({}, [rules.maxLength(200)]),
   })
 
   public messages = {
