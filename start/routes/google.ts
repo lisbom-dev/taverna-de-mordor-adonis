@@ -43,5 +43,5 @@ Route.get('/google/callback', async ({ ally, auth, response, view }) => {
   }
 
   await auth.use('web').login(user)
-  return response.redirect('/')
+  return response.redirect().back()
 })
