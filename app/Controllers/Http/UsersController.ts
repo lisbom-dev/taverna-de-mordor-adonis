@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import BadRequestException from 'App/Exceptions/BadRequestException'
 import Board from 'App/Models/Board'
 import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/User/StoreValidator'
@@ -36,10 +35,11 @@ export default class UsersController {
     })
   }
 
-  public async store({ request, response, auth }: HttpContextContract) {
+  public async store({ request, response, auth, session }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     const user = await User.create(data)
     await auth.login(user)
+    session.flash('success', ['Cadastrado(a) com sucesso!'])
     return response.redirect('/')
   }
 }
