@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import BadRequestException from 'App/Exceptions/BadRequestException'
 import Board from 'App/Models/Board'
 import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/User/StoreValidator'
