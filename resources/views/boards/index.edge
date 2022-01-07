@@ -1,0 +1,10 @@
+@layout('layouts/main')
+@section('title')
+teste
+@endsection
+
+@section('content')
+<a href="/boards/{{board.id}}/edit">
+  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-700 rounded-lg shadow-sm">Editar Mesa</button>
+</a>
+@endsection
