@@ -37,6 +37,7 @@ Route.get('/google/callback', async ({ ally, auth, response, view }) => {
   if (!user) {
     return view.render('users/create', {
       email: googleUser.email,
+      name: googleUser.name,
       photoUrl: googleUser.avatarUrl,
     })
   }
