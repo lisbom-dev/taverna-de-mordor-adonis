@@ -16,12 +16,12 @@
     </div>
     <div class="flex-auto px-4 lg:px-10 py-10 pt-0"> 
       <form action="/users" method="POST">
-          <input type="hidden" name="email" value="{{email}}">
-          <input type="hidden" name="photoUrl" value="{{photoUrl}}">
-          <div class="relative w-full mb-3">
-            <label class="block uppercase tracking-wider text-gray-600 text-xs font-bold mb-2" htmlfor="grid-password">Nome</label>
-            <input type="name" value="{{name}}" required name="name" class="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-          </div>
+        <input type="hidden" name="email" value="{{email}}">
+        <input type="hidden" name="photoUrl" value="{{photoUrl}}">
+        <div class="relative w-full mb-3">
+          <label class="block uppercase tracking-wider text-gray-600 text-xs font-bold mb-2" htmlfor="grid-password">Nome</label>
+          <input type="username" value="{{name}}" required name="username" class="border-0 px-3 py-3 placeholder-blueGray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+        </div>
         <div class="relative w-full mb-3" x-data="{ mask:'(00) 00000-0000'}"
         x-init="IMask($refs.phone, { mask })">
           <label class="block uppercase text-gray-600 text-xs font-bold mb-2" pattern="^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$" htmlfor="grid-password">Telefone</label>
