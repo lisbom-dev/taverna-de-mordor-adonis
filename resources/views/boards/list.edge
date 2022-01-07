@@ -50,8 +50,13 @@
         @else
         <li><a class="page-link w-full h-full" href="/boards{{boards.getPreviousPageUrl()}}"><button disabled class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l opacity-50 cursor-not-allowed">Anterior</button></a></li>
         @endif
-        @each(anchor in boards.getUrlsForRange(1,boards.lastPage))
-        <li><a class="page-link w-full h-full" href="/boards{{anchor.url}}"><button class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 hover:bg-gray-200">{{anchor.page}}</button></a></li>
+        @each(anchor in boards.getUrlsForRange(1,boards.lastPage))     
+        <li><a class="page-link w-full h-full" href="/boards{{anchor.url}}">
+          @if(parseInt(page) == parseInt(anchor.page))
+          <button class="relative block py-2 px-3 leading-tight bg-blue-500 border border-gray-300 text-white border-r-0">{{anchor.page}}</button></a></li>
+          @else
+          <button class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 hover:bg-gray-200">{{anchor.page}}</button></a></li>
+          @endif
         @endeach
         @if(parseInt(page)< boards.lastPage)
         <li><a class="page-link w-full h-full" href="/boards{{boards.getNextPageUrl()}}"><button class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200">Próximo</button></a></li>
