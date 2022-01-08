@@ -1,10 +1,53 @@
 @layout('layouts/main')
 @section('title')
-teste
+  Mesa {{board.name}}
 @endsection
 
-@section('content')
-<a href="/boards/{{board.id}}/edit">
-  <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-700 rounded-lg shadow-sm">Editar Mesa</button>
-</a>
+@section('content')~
+
+  @if(board.system.photoUrl && board.system.photoUrl != '')
+    <img  class="object-cover w-full h-40 container z-0 mx-auto mt-10 pt-19 rounded-t-lg " src="{{board.system.photoUrl}}" alt="{{board.system.name}}">
+    <h1 class="z-40 font-bold text-3xl top-5  left-10">{{board.name}}</h1>
+  @else
+    <img class="z-0 w-full object-cover" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="">
+  @endif
+
+  <div class="container mx-auto rounded-b-lg px-2 pb-10 md:px-6 shadow-2xl w-full ">
+
+
+    <div class=" md:mx-24 lg:flex">
+      <div class=" flex m-5">
+        <div class="space-x-3 flex items-center">
+          <i class="fas fa-dice font-xl"></i>
+          <span class="font-bold mr-28 md:mr-16">Sistema </span>
+          <p class="flex italic bg-gray-100 p-5 h-auto px-5 rounded-lg shadow-md w-1/3 md:w-2/3">{{board.system.name}}</p><br>
+        </div>
+      </div>
+      <div class=" flex m-5">
+        <div class="space-x-3  flex items-center">
+          <i class="fas fa-dice font-xl"></i>
+          <span class="font-bold mr-28 md:mr-16">Máximo de Jogadores </span>
+          <p class="flex italic bg-gray-100 p-5 h-auto px-5 rounded-lg shadow-md w-1/3 md:w-2/3">{{board.maxPlayers}}</p><br>
+        </div>
+      </div>
+      <div class=" flex m-5">
+        <div class="space-x-3  flex items-center">
+          <i class="fas fa-dice font-xl"></i>
+          <span class="font-bold mr-28 md:mr-16">Sessão Atual </span>
+          <p class="flex italic bg-gray-100 p-5 h-auto px-5 rounded-lg shadow-md w-1/3 md:w-2/3">{{board.currentSection}}</p><br>
+        </div>
+      </div>
+    </div>
+
+    @can('EventPolicy.invoke')
+    <div class="flex space-x-2 ml-5">
+      <form action="/boards/{{board.id}}?_method=DELETE" method="post" >
+        <button class="bg-red-600 text-white px-5 py-3 rounded-md hover:bg-red-700" type="submit" >Deletar Mesa</button>
+      </form>
+      <a href="/boards/{{board.id}}/edit" >
+        <button class="bg-green-600 text-white px-5 py-3 rounded-md hover:bg-green-700" type="submit" >Editar Mesa</button>
+      </a>
+    </div>
+    @end
+  </div>
 @endsection
