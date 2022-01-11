@@ -4,17 +4,20 @@
 @endsection
 
 @section('content')~
+  <div>
+    @if(board.system.photoUrl && board.system.photoUrl != '')
+      <img  class="object-cover w-full h-40 container z-0 mx-auto mt-10 pt-19 rounded-t-lg " src="{{board.system.photoUrl}}" alt="{{board.system.name}}">
 
-  @if(board.system.photoUrl && board.system.photoUrl != '')
-    <img  class="object-cover w-full h-40 container z-0 mx-auto mt-10 pt-19 rounded-t-lg " src="{{board.system.photoUrl}}" alt="{{board.system.name}}">
-    <h1 class="z-40 font-bold text-3xl top-5  left-10">{{board.name}}</h1>
   @else
-    <img class="z-0 w-full object-cover" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="">
+    <img class="object-cover w-full h-40 container z-0 mx-auto mt-10 pt-19 rounded-t-lg" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="">
   @endif
+  </div>
+
+
 
   <div class="container mx-auto rounded-b-lg px-2 pb-10 md:px-6 shadow-2xl w-full ">
 
-
+    <h1 class="z-40 font-bold text-3xl top-5 py-7 left-10">{{board.name}}</h1>
     <div class=" md:mx-24 lg:flex">
       <div class=" flex m-5">
         <div class="space-x-3 flex items-center">
