@@ -1,5 +1,9 @@
 <div class="bg-gray-700 flex ">
+  @if(board.system.photoUrl && board.system.photoUrl != '')
     <img class="p-3 rounded-sm object-cover h-28 w-28 " src="{{board.system.photoUrl}}" alt="{{board.name}}">
+  @else
+    <img class="p-2 rounded-sm object-cover object-center h-64" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="{{board.name}}">
+  @endif
   <div class="text-white mt-2 space-y-2 flex-grow">
     <p class="text-sm">{{board.name}}</p>
     <p class="text-xs">{{board.system.name}}</p>

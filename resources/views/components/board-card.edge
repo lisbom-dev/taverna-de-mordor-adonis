@@ -1,5 +1,10 @@
 <div class="bg-gray-700 pb-2  w-64 rounded-sm">
-  <img class="p-2 rounded-sm object-cover object-center h-64 " src="{{board.system.photoUrl}}" alt="">
+  @if(board.system.photoUrl && board.system.photoUrl != '')
+    <img class="p-2 rounded-sm object-cover object-center h-64" src="{{board.system.photoUrl}}" alt="{{board.name}}">
+  @else
+    <img class="p-2 rounded-sm object-cover object-center h-64" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="{{board.name}}">
+  @endif
+
   <div class="mx-2 flex text-gray-50 mb-1">
     <p class="text-sm text-left w-1/2 ">{{board.name}}</p>
     <p class="text-xs text-right w-1/2">{{board.system.name}}</p>
