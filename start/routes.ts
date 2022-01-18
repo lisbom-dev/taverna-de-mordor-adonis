@@ -27,19 +27,13 @@ Route.resource('boards', 'BoardsController').middleware({
   edit: ['auth:web'],
   destroy: ['auth:web'],
 })
-Route.post('/events/:event_id/comments', 'EventCommentsController.store')
-Route.post('/masters/:user_id/comments', 'MasterCommentsController.store')
-Route.post('/boards/:board_id/comments', 'BoardCommentsController.store')
-Route.put('/comments/:id', 'CommentsController.update')
-Route.delete('/comments/:id', 'CommentsController.destroy')
 
-Route.post('/events/:event_id/ratings', 'EventStarRatingsController.store')
-Route.post('/masters/:user_id/ratings', 'MasterStarRatingsController.store')
-Route.post('/boards/:board_id/ratings', 'BoardStarRatingsController.store')
-Route.put('/ratings/:id', 'StarRatingsController.update')
-Route.delete('/ratings/:id', 'StarRatingsController.destroy')
-Route.post('/boards/:board_id/players', 'BoardPlayersController.store')
-
+Route.post('/events/:event_id/reviews', 'EventReviewsController.store').middleware(['auth:web'])
+Route.post('/masters/:user_id/reviews', 'MasterReviewsController.store').middleware(['auth:web'])
+Route.post('/boards/:board_id/reviews', 'BoardReviewsController.store').middleware(['auth:web'])
+Route.put('/reviews/:id', 'ReviewsController.update').middleware(['auth:web'])
+Route.delete('/reviews/:id', 'ReviewsController.destroy').middleware(['auth:web'])
+Route.post('/boards/:board_id/players', 'BoardPlayersController.store').middleware(['auth:web'])
 Route.get('/boards/:board_id/chat', 'BoardChatsController.index').middleware(['auth:web'])
 Route.get('/notifications', 'NotificationsController.index').middleware(['auth:web'])
 Route.put('/notifications/:id', 'NotificationsController.index').middleware(['auth:web'])
