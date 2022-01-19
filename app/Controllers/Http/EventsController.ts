@@ -57,7 +57,7 @@ export default class EventsController {
     if (!event) {
       return response.notFound('Event Not Found')
     }
-    await event.load('comment')
+    await event.load('reviews')
     return view.render('events/index', { event })
   }
 

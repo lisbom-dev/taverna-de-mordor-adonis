@@ -20,7 +20,7 @@ export default class UsersController {
       return response.notFound('User not found')
     }
     if (user.isMaster) {
-      await user.load('comment')
+      await user.load('reviews')
     }
     if (auth.user?.isMaster) {
       var board = await Board.findBy('master_id', auth.user!.id)
