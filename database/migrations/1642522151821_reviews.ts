@@ -18,6 +18,34 @@ export default class Reviews extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
+
+    this.defer(async (db) => {
+      const comments = await db.from('comments')
+      const starRatings = await db.from('star_ratings')
+      const mergedCommentsIndex = new Map()
+
+      for (const comment of comments) {
+        mergedCommentsIndex.set(comment.id, comment)
+      }
+
+      const merged = starRatings.map((rating) => {
+        return Object.assign(rating, mergedCommentsIndex.get(rating.id) || {})
+      })
+
+      const reviews = merged.filter((m) => Object.keys(m).length === 7)
+
+      await Promise.all(
+        reviews.map((review) => {
+          return db.table('reviews').insert({
+            sender_id: review.sender_id,
+            comment: review.message,
+            rating: review.number,
+            created_at: review.created_at,
+            updated_at: review.updated_at,
+          })
+        })
+      )
+    })
   }
 
   public async down() {
