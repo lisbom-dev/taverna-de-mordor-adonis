@@ -5,13 +5,15 @@ export default class StoreValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    senderId: schema.number([rules.required(), rules.exists({ table: 'users', column: 'id' })]),
     comment: schema.string({}, [rules.required(), rules.maxLength(220)]),
-    rating: schema.number.optional([rules.range(1, 5)]),
+    rating: schema.number([rules.range(1, 5), rules.required()]),
   })
 
   public messages = {
     'comment.required': 'O comentário não pode estar vazio!',
     'comment.maxLength': 'O comentário não pode ultrapassar o limite de caracteres!',
+    'rating.required': 'A avaliação não pode estar vazia!',
     'rating.range': 'Só é possível avaliar entre 1 e 5 estrelas!',
   }
 }
