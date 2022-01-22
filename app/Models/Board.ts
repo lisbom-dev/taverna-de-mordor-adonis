@@ -73,7 +73,6 @@ export default class Board extends BaseModel {
   @beforeFind()
   @beforeFetch()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
-    q.preload('reviews')
     q.preload('players')
     q.preload('master')
     q.preload('system')
@@ -96,7 +95,7 @@ export default class Board extends BaseModel {
   }
 
   public async getReviewByUser(user: User) {
-    const review: Review = await this.reviews.builder.where('sender_id', user.id).first()
+    const review: Review = await this.reviews.builder.where('sender_id', '=', user.id).first()
     return review
   }
 
