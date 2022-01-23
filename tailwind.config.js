@@ -43,6 +43,7 @@ module.exports = {
     },
     fontFamily: {
       title: 'Cinzel',
+      text: 'Roboto',
     },
   },
   variants: {
