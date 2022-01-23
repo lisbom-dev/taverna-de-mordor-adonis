@@ -41,6 +41,9 @@ module.exports = {
         'slide-from-right': 'slide-from-right 0.5s ease-in-out',
       },
     },
+    fontFamily: {
+      title: 'Cinzel',
+    },
   },
   variants: {
     extend: {},
