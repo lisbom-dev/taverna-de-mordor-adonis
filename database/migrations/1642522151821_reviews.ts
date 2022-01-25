@@ -22,22 +22,19 @@ export default class Reviews extends BaseSchema {
     this.defer(async (db) => {
       const comments = await db.from('comments')
       const starRatings = await db.from('star_ratings')
-      const mergedCommentsIndex = new Map()
 
-      for (const comment of comments) {
-        mergedCommentsIndex.set(comment.id, comment)
-      }
-
-      const merged = starRatings.map((rating) => {
-        return Object.assign(rating, mergedCommentsIndex.get(rating.id) || {})
-      })
-
-      const reviews = merged.filter((m) => Object.keys(m).length === 7)
-
+      const commentsMerged = comments.map((c) => Object.assign(c, { number: 1 }))
+      const ratingsMerged = starRatings.map((r) =>
+        Object.assign(r, {
+          message:
+            'O comentário referente a esta avaliação foi excluído após a atualização do sistema, por favor, altere-o',
+        })
+      )
+      const reviews = commentsMerged.concat(ratingsMerged)
       await Promise.all(
         reviews.map((review) => {
           return db.table('reviews').insert({
-            sender_id: review.sender_id,
+            sender_id: review.sender_id | review.user_id,
             comment: review.message,
             rating: review.number,
             created_at: review.created_at,
