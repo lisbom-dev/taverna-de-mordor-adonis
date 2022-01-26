@@ -81,7 +81,6 @@ export default class Reviews extends BaseSchema {
       )
     })
   }
-
   public async down() {
     this.schema.alterTable('comments', (table) => {
       table.dropColumn('review_id')
