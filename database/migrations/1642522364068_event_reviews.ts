@@ -27,23 +27,13 @@ export default class EventReviews extends BaseSchema {
     this.defer(async (db) => {
       const eventComments = await db.from('event_comments')
       const eventStarRatings = await db.from('event_star_ratings')
-      const mergedCommentsIndex = new Map()
-
-      for (const eventComment of eventComments) {
-        mergedCommentsIndex.set(eventComment.id, eventComment)
-      }
-
-      const merged = eventStarRatings.map((rating) => {
-        return Object.assign(rating, mergedCommentsIndex.get(rating.id) || {})
-      })
-
-      const eventReviews = merged.filter((m) => Object.keys(m).length === 6)
+      const eventReviews = eventComments.concat(eventStarRatings)
 
       await Promise.all(
         eventReviews.map((review) => {
           return db.table('event_reviews').insert({
             event_id: review.event_id,
-            review_id: review.comment_id,
+            review_id: review.comment_id | review.star_rating_id,
             created_at: review.created_at,
             updated_at: review.updated_at,
           })

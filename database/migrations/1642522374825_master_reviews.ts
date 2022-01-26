@@ -27,23 +27,14 @@ export default class MasterReviews extends BaseSchema {
     this.defer(async (db) => {
       const masterComments = await db.from('master_comments')
       const masterStarRatings = await db.from('master_star_ratings')
-      const mergedCommentsIndex = new Map()
 
-      for (const masterComment of masterComments) {
-        mergedCommentsIndex.set(masterComment.id, masterComment)
-      }
-
-      const merged = masterStarRatings.map((rating) => {
-        return Object.assign(rating, mergedCommentsIndex.get(rating.id) || {})
-      })
-
-      const masterReviews = merged.filter((m) => Object.keys(m).length === 6)
+      const masterReviews = masterComments.concat(masterStarRatings)
 
       await Promise.all(
         masterReviews.map((review) => {
           return db.table('master_reviews').insert({
             master_id: review.master_id,
-            review_id: review.comment_id,
+            review_id: review.comment_id | review.star_rating_id,
             created_at: review.created_at,
             updated_at: review.updated_at,
           })
