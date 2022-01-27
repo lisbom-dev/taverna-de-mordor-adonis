@@ -55,7 +55,7 @@
                     @click="showEventModal(date)"
                   @end
                   @cannot('EventPolicy.invoke')
-                    class="inline-flex w-6 h-6 items-center justify-center text-center leading-none rounded-full transition ease-in-out duration-100"
+                    class="inline-flex w-6 h-6 m-3 items-center justify-center text-center leading-none rounded-full transition ease-in-out duration-100"
                     :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-50 hover:bg-blue-200': isToday(date) == false }"
                   @end
                   ></div>
