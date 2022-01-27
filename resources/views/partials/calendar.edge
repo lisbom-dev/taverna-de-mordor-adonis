@@ -61,22 +61,9 @@
                   @end
                   ></div>
                   <div style="height: 80px;" class="overflow-y-auto mt-1">
-									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
-                    <a :href="'events/'+event.event_id">
-                      <div
-                        class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border"
-                        :class="{
-                          'border-blue-200 text-blue-800 bg-blue-100': event.event_theme === 'blue',
-                          'border-red-200 text-red-800 bg-red-100': event.event_theme === 'red',
-                          'border-yellow-200 text-yellow-800 bg-yellow-100': event.event_theme === 'yellow',
-                          'border-green-200 text-green-800 bg-green-100': event.event_theme === 'green',
-                          'border-purple-200 text-purple-800 bg-purple-100': event.event_theme === 'purple'
-                        }"
-                      >
-                        <p x-text="event.event_title" class="md:text-sm text-xs md:font-bold truncate leading-tight"></p>
-                      </div>
-                    </a>
-									</template>
+                    <template x-if="events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString()).length > 0">
+                      <button @click="showDayEvents()" x-text="events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() ).length" class="bg-white px-1 md:px-2 rounded-full z-50 mt-1 m-3"></button>
+                    </template>
 								</div>
 							</div>
 						</template>
