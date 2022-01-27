@@ -1,5 +1,6 @@
 <div class="antialiased sans-serif bg-gray-800">
   <script>
+    more_than_zero: false
     window.events = []
     @each(event in events)
       window.events.push({
@@ -15,62 +16,49 @@
 		<div class="container mx-auto md:px-4 py-2 md:py-5 mb-2">
 			<div class="bg-gray-900 rounded-lg shadow overflow-hidden">
 
-				<div class="text-center items-center py-2 mb-2 md:mb-10 px-6">
+				<div class="text-center items-center py-2 px-6">
 					<div class=" font-title text-white text-2xl">
 						<span x-text="MONTH_NAMES[month]" class=""></span>
 						<span x-text="year" class="ml-1"></span>
 					</div>
 				</div>
 
-				<div class="mx-1 -mb-1">
-					<div class="font-text flex flex-wrap" style="margin-bottom: -40px;">
+				<div class="-mx-1 -mb-1">
+					<div class="flex flex-wrap" style="margin-bottom: -40px;">
 						<template x-for="(day, index) in DAYS" :key="index">
 							<div style="width: 14.26%" class="py-10 px-2 md:py-2">
 								<div
 									x-text="day"
-									class="text-gray-50 text-sm uppercase tracking-wide font-bold text-center">
-                </div>
+									class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center"></div>
 							</div>
 						</template>
 					</div>
-					<div class=" font-title flex flex-wrap border-t border-l">
+
+					<div class="flex flex-wrap border-t border-l">
 						<template x-for="blankday in blankdays">
 							<div
-								style="width: 14.28%"
-								class=" text-center border-r border-b px-4 pt-2 h-16 md:h-32"
+								style="width: 14.28%; height: 120px"
+								class="text-center border-r border-b px-4 pt-2"
 							></div>
 						</template>
 						<template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
-							<div style="width: 14.28%" class="md:px-4 pt-2 border-r border-b relative h-16 md:h-32">
+							<div style="width: 14.28%; height: 120px" class="md:px-4 pt-2 border-r border-b relative">
 								<div
                 x-text="date"
                   @can('EventPolicy.invoke')
                     class="inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100"
-                    :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-50 hover:bg-blue-200': isToday(date) == false }"
+                    :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-700 hover:bg-blue-200': isToday(date) == false }"
                     @click="showEventModal(date)"
                   @end
                   @cannot('EventPolicy.invoke')
                     class="inline-flex w-6 h-6 items-center justify-center text-center leading-none rounded-full transition ease-in-out duration-100"
-                    :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-50 hover:bg-blue-200': isToday(date) == false }"
+                    :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-700 hover:bg-blue-200': isToday(date) == false }"
                   @end
                   ></div>
                   <div style="height: 80px;" class="overflow-y-auto mt-1">
-									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
-                    <a :href="'events/'+event.event_id">
-                      <div
-                        class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border"
-                        :class="{
-                          'border-blue-200 text-blue-800 bg-blue-100': event.event_theme === 'blue',
-                          'border-red-200 text-red-800 bg-red-100': event.event_theme === 'red',
-                          'border-yellow-200 text-yellow-800 bg-yellow-100': event.event_theme === 'yellow',
-                          'border-green-200 text-green-800 bg-green-100': event.event_theme === 'green',
-                          'border-purple-200 text-purple-800 bg-purple-100': event.event_theme === 'purple'
-                        }"
-                      >
-                        <p x-text="event.event_title" class="md:text-sm text-xs md:font-bold truncate leading-tight"></p>
-                      </div>
-                    </a>
-									</template>
+                    <template x-if="events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString()).length > 0">
+                      <button @click="showDayEvents()" x-text="events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() ).length" class="bg-white px-1 md:px-2 rounded-full z-50 mt-1 m-3"></button>
+                    </template>
 								</div>
 							</div>
 						</template>
@@ -98,7 +86,6 @@
         </div>
 			</div>
 		</div>
-
 		<!-- Modal -->
 		<div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openEventModal">
 			<div class="p-4 max-w-xl mx-auto relative left-0 right-0 overflow-hidden">
