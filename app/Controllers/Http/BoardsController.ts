@@ -32,7 +32,7 @@ export default class BoardsController {
     if (!board) {
       return response.notFound('Board not found')
     }
-    await board.load('comment')
+    await board.load('reviews')
     return view.render('boards/index', { board })
   }
 

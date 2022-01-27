@@ -14,9 +14,8 @@ import {
 import Event from './Event'
 import Users from './User'
 import User from './User'
-import Comment from './Comment'
-import StarRating from './StarRating'
 import System from './System'
+import Review from './Review'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -44,14 +43,14 @@ export default class Board extends BaseModel {
   })
   public system: BelongsTo<typeof System>
 
-  @manyToMany(() => Comment, {
+  @manyToMany(() => Review, {
     localKey: 'id',
     pivotForeignKey: 'board_id',
     relatedKey: 'id',
-    pivotRelatedForeignKey: 'comment_id',
-    pivotTable: 'board_comments',
+    pivotRelatedForeignKey: 'review_id',
+    pivotTable: 'board_reviews',
   })
-  public comment: ManyToMany<typeof Comment>
+  public reviews: ManyToMany<typeof Review>
 
   @manyToMany(() => Event, {
     localKey: 'id',
@@ -71,44 +70,34 @@ export default class Board extends BaseModel {
   })
   public players: ManyToMany<typeof Users>
 
-  @manyToMany(() => StarRating, {
-    localKey: 'id',
-    pivotForeignKey: 'board_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'board_star_ratings',
-    serializeAs: null,
-  })
-  public starRating: ManyToMany<typeof StarRating>
-
   @beforeFind()
   @beforeFetch()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
-    q.preload('starRating')
+    q.preload('reviews')
     q.preload('players')
     q.preload('master')
     q.preload('system')
   }
 
   @computed()
-  public get rateNumber(): number {
-    return this.starRating.length
+  public get reviewNumber(): number {
+    return this.reviews.length
   }
 
   @computed()
   public get avaluation(): number {
-    return this.starRating.length > 0
-      ? this.starRating
-          .map((rating) => rating.number)
+    return this.reviews.length > 0
+      ? this.reviews
+          .map((review) => review.rating)
           .reduce((count, el) => {
             return count + el
-          }) / this.rateNumber
+          }) / this.reviewNumber
       : 0
   }
 
-  public async getRatingByUser(user: User) {
-    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
-    return starRating
+  public async getReviewByUser(user: User) {
+    const review: Review = await this.reviews.builder.where('sender_id', user.id).first()
+    return review
   }
 
   @column()
