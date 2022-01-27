@@ -51,6 +51,7 @@ export default () => ({
   ],
 
   openEventModal: false,
+  openDayEvents: false,
 
   initDate(month = 0) {
     let today = addMonths(new Date(), month)
@@ -70,6 +71,9 @@ export default () => ({
     // open the modal
     this.openEventModal = true
     this.event_date = new Date(this.year, this.month, date).toLocaleDateString('pt')
+  },
+  showDayEvents() {
+    this.openDayEvents = true
   },
   onCreateEvent(e) {
     const [day, month, year] = e.currentTarget.date.value.split('/')

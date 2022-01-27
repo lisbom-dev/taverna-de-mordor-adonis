@@ -1,5 +1,6 @@
 <div class="antialiased sans-serif bg-gray-100">
   <script>
+    more_than_zero: false
     window.events = []
     @each(event in events)
       window.events.push({
@@ -92,7 +93,24 @@
         </div>
 			</div>
 		</div>
-
+    <div x-show="showDayEvents" id="day-events" class="bg-gray-800 p-3 w-3/4  h-52 mx-auto rounded-md"  x-show.transition.opacity="openDayEvents" ><!--x-show="dayEvents = true" class="sm:hidden z-50" id="day-events"--->
+      <template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString())" class="bg-gray-700 fixed">
+          <a :href="'events/'+event.event_id">
+            <div
+              class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border"
+              :class="{
+                'border-blue-200 text-blue-800 bg-blue-100': event.event_theme === 'blue',
+                'border-red-200 text-red-800 bg-red-100': event.event_theme === 'red',
+                'border-yellow-200 text-yellow-800 bg-yellow-100': event.event_theme === 'yellow',
+                'border-green-200 text-green-800 bg-green-100': event.event_theme === 'green',
+                'border-purple-200 text-purple-800 bg-purple-100': event.event_theme === 'purple'
+              }"
+            >
+              <p x-text="event.event_title" class="md:text-sm text-xs md:font-bold truncate leading-tight"></p>
+          </a>
+        </div>
+      </template>
+    </div>
 		<!-- Modal -->
 		<div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openEventModal">
 			<div class="p-4 max-w-xl mx-auto relative left-0 right-0 overflow-hidden">
