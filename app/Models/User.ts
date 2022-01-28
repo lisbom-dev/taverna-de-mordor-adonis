@@ -9,8 +9,7 @@ import {
   ModelQueryBuilderContract,
   computed,
 } from '@ioc:Adonis/Lucid/Orm'
-import Comment from './Comment'
-import StarRating from './StarRating'
+import Review from './Review'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -43,53 +42,41 @@ export default class User extends BaseModel {
   @column()
   public instagramRef?: string
 
-  @manyToMany(() => Comment, {
+  @manyToMany(() => Review, {
     localKey: 'id',
     pivotForeignKey: 'master_id',
     relatedKey: 'id',
-    pivotRelatedForeignKey: 'comment_id',
-    pivotTable: 'master_comments',
+    pivotRelatedForeignKey: 'review_id',
+    pivotTable: 'master_reviews',
   })
-  public comment: ManyToMany<typeof Comment>
+  public reviews: ManyToMany<typeof Review>
 
-  @manyToMany(() => StarRating, {
-    localKey: 'id',
-    pivotForeignKey: 'master_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'master_star_ratings',
-    serializeAs: null,
-  })
-  public starRating: ManyToMany<typeof StarRating>
-
-  public async getRatingByUser(user: User) {
+  public async getReviewByUser(user: User) {
     if (user.isMaster) {
-      const starRating: StarRating = await this.starRating.builder
-        .where('sender_id', user.id)
-        .first()
-      return starRating
+      const reviews: Review = await this.reviews.builder.where('sender_id', user.id).first()
+      return reviews
     }
   }
 
   @beforeFind()
   @beforeFetch()
-  public static preloadRating(q: ModelQueryBuilderContract<typeof User>) {
-    q.preload('starRating')
+  public static preloadRelations(q: ModelQueryBuilderContract<typeof User>) {
+    q.preload('reviews')
   }
 
   @computed()
-  public get rateNumber(): number {
-    return this.starRating.length
+  public get reviewNumber(): number {
+    return this.reviews.length
   }
 
   @computed()
   public get avaluation(): number {
-    return this.starRating.length > 0
-      ? this.starRating
-          .map((rating) => rating.number)
+    return this.reviews.length > 0
+      ? this.reviews
+          .map((review) => review.rating)
           .reduce((count, el) => {
             return count + el
-          }) / this.rateNumber
+          }) / this.reviewNumber
       : 0
   }
 

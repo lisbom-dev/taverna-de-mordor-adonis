@@ -10,9 +10,8 @@ import {
   ModelQueryBuilderContract,
 } from '@ioc:Adonis/Lucid/Orm'
 import Board from './Board'
-import Comment from './Comment'
-import StarRating from './StarRating'
 import User from './User'
+import Review from './Review'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -35,20 +34,14 @@ export default class Event extends BaseModel {
     return this.boards.length
   }
 
-  @beforeFetch()
-  @beforeFind()
-  public static preloadBoards(q: ModelQueryBuilderContract<typeof Event>) {
-    q.preload('boards')
-  }
-
-  @manyToMany(() => Comment, {
+  @manyToMany(() => Review, {
     localKey: 'id',
     pivotForeignKey: 'event_id',
     relatedKey: 'id',
-    pivotRelatedForeignKey: 'comment_id',
-    pivotTable: 'event_comments',
+    pivotRelatedForeignKey: 'review_id',
+    pivotTable: 'event_reviews',
   })
-  public comment: ManyToMany<typeof Comment>
+  public reviews: ManyToMany<typeof Review>
 
   @manyToMany(() => Board, {
     localKey: 'id',
@@ -59,40 +52,31 @@ export default class Event extends BaseModel {
   })
   public boards: ManyToMany<typeof Board>
 
-  @manyToMany(() => StarRating, {
-    localKey: 'id',
-    pivotForeignKey: 'event_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'star_rating_id',
-    pivotTable: 'event_star_ratings',
-    serializeAs: null,
-  })
-  public starRating: ManyToMany<typeof StarRating>
-
   @beforeFind()
   @beforeFetch()
-  public static preloadRating(q: ModelQueryBuilderContract<typeof Event>) {
-    q.preload('starRating')
+  public static preloadRelations(q: ModelQueryBuilderContract<typeof Event>) {
+    q.preload('reviews')
+    q.preload('boards')
   }
 
-  public async getRatingByUser(user: User) {
-    const starRating: StarRating = await this.starRating.builder.where('sender_id', user.id).first()
-    return starRating
+  public async getReviewByUser(user: User) {
+    const reviews: Review = await this.reviews.builder.where('sender_id', user.id).first()
+    return reviews
   }
 
   @computed()
-  public get rateNumber(): number {
-    return this.starRating.length
+  public get reviewNumber(): number {
+    return this.reviews.length
   }
 
   @computed()
   public get avaluation(): number {
-    return this.starRating.length > 0
-      ? this.starRating
-          .map((rating) => rating.number)
+    return this.reviews.length > 0
+      ? this.reviews
+          .map((review) => review.rating)
           .reduce((count, el) => {
             return count + el
-          }) / this.rateNumber
+          }) / this.reviewNumber
       : 0
   }
 

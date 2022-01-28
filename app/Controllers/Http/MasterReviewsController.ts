@@ -1,10 +1,9 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 import BadRequestException from 'App/Exceptions/BadRequestException'
 import User from 'App/Models/User'
-import StoreValidator from 'App/Validators/StarRating/StoreValidator'
+import StoreValidator from 'App/Validators/Review/StoreValidator'
 
-export default class MasterStarRatingsController {
+export default class MasterReviewsController {
   public async store({ request, params, response }: HttpContextContract) {
     const user = await User.find(params.user_id)
     if (!user) {
@@ -14,6 +13,6 @@ export default class MasterStarRatingsController {
       throw new BadRequestException('User is not a master!')
     }
     const data = await request.validate(StoreValidator)
-    await user.related('starRating').create(data)
+    await user.related('reviews').create(data)
   }
 }
