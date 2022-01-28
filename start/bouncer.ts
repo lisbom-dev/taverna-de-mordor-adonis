@@ -57,8 +57,7 @@ export const { actions } = Bouncer
 export const { policies } = Bouncer.registerPolicies({
   EventPolicy: () => import('App/Policies/EventPolicy'),
   BoardPolicy: () => import('App/Policies/BoardPolicy'),
-  CommentPolicy: () => import('App/Policies/CommentPolicy'),
-  StarRatingPolicy: () => import('App/Policies/StarRatingPolicy'),
   BoardChatPolicy: () => import('App/Policies/BoardChatPolicy'),
   UserPolicy: () => import('App/Policies/UserPolicy'),
+  ReviewPolicy: () => import('App/Policies/ReviewPolicy'),
 })
