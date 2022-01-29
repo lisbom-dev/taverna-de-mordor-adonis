@@ -73,7 +73,6 @@ export default class Board extends BaseModel {
   @beforeFind()
   @beforeFetch()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
-    q.preload('reviews')
     q.preload('players')
     q.preload('master')
     q.preload('system')
