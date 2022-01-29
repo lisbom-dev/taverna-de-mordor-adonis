@@ -4,15 +4,18 @@ import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/Review/StoreValidator'
 
 export default class MasterReviewsController {
-  public async store({ request, params, response }: HttpContextContract) {
+  public async store({ request, params, response, bouncer, session }: HttpContextContract) {
     const user = await User.find(params.user_id)
     if (!user) {
-      return response.notFound('Master not found!')
+      return response.notFound('User not found!')
     }
     if (!user.isMaster) {
       throw new BadRequestException('User is not a master!')
     }
+    await bouncer.with('MasterReviewPolicy').authorize('create', user)
     const data = await request.validate(StoreValidator)
+    session.flash('success', ['Resenha criada com sucesso!'])
     await user.related('reviews').create(data)
+    return response.redirect().back()
   }
 }
