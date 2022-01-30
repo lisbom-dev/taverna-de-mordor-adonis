@@ -33,9 +33,9 @@
           </div>
         </div>
 
-        <div class="relative sm:mx-auto mx-auto md:mt-9 sm:mt-6 mt-3 w-11/12 sm:w-83 md:w-130 lg:w-200 p-3 sm:p-3 md:p-6 flex flex-col sm:text-sm md:text-xl lg:text-2xl text-xs rounded text-white" style="background: rgba(0, 0, 0, 0.4);">
-          <div class="justify-between flex ">
-            <div class="lg:space-x-1.5">
+        <div class="relative mx-auto sm:mx-auto md:mt-9 sm:mt-6 mt-3 max-w-full w-64 sm:w-83 md:w-130 lg:w-200 p-3 sm:p-3 md:p-6 flex flex-col sm:text-sm md:text-xl lg:text-2xl text-xs rounded text-white" style="background: rgba(0, 0, 0, 0.4);">
+          <div class="justify-between text-right flex">
+            <div class="lg:space-x-1.5 flex flex-1">
                 <i class="fas fa-dice sm:text-sm md:text-base lg:text-xl text-white"></i>
                 <span>Nome: </span>
             </div>
@@ -43,8 +43,8 @@
               <span>{{board.name}}</span>
             </div>
           </div>
-          <div class="justify-between flex">
-            <div class="space-x-1 lg:space-x-3 lg:space-x-3">
+          <div class="justify-between text-right flex">
+            <div class="space-x-1 lg:space-x-3 lg:space-x-3 flex flex-1">
               <i class="fas fa-dice-d20 sm:text-sm lg:text-xl md:text-base text-white"></i>
               <span>Sistema: </span>
             </div>
@@ -52,8 +52,8 @@
               <span>{{board.system.name}}</span>
             </div>
           </div>
-          <div class="justify-between flex">
-            <div class="space-x-0.5 lg:space-x-1.5">
+          <div class="justify-between text-right flex">
+            <div class="space-x-0.5 lg:space-x-1.5 flex flex-1">
               <i class="fas fa-gamepad sm:text-xs md:text-sm lg:text-base text-3xs text-white"></i>
               <span >Jogadores: </span>
             </div>
@@ -61,8 +61,8 @@
               <span>{{board.players.length}}/{{board.maxPlayers}}</span>
             </div>
           </div>
-          <div class="justify-between flex">
-            <div class="space-x-1 lg:space-x-3">
+          <div class="justify-between text-right flex">
+            <div class="space-x-1 lg:space-x-3 flex flex-1">
               <i class="fas fa-chess-king sm:text-sm md:text-base lg:text-xl text-white"></i>
               <span>Mestre: </span>
             </div>
@@ -70,8 +70,8 @@
               <span>{{board.master.username}}</span>
             </div>
           </div>
-          <div class="justify-between flex">
-            <div class="space-x-1 lg:space-x-3">
+          <div class="justify-between text-right flex">
+            <div class="space-x-1 lg:space-x-3 flex flex-1">
               <i class="fas fa-calendar-day sm:text-sm md:text-base lg:text-xl text-white"></i>
               <span>Próxima sessão: </span>
             </div>
@@ -144,7 +144,7 @@
         <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua resenha</h1>
           <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
-            <div class="flex">
+            <div class="flex" x-data="{openEditModal:false}">
               <div class="w-16 lg:w-24 md:w-20 sm:w-18">
                 @component('components/hexagonal-photo',{
                   photoUrl: auth.user?.photoUrl
@@ -154,35 +154,33 @@
               <div class="mt-1 mx-2 w-full text-white font-bold">
                 @if(auth.isLoggedIn)
                   <div><span class="text-base md:text-2xl sm:text-xl">{{auth.user.username}}</span></div>
-                  @if(auth.user.isAdm && auth.user.id !== board.master.id)
-                    <div>
+                  <div class="-mt-1">
+                    @if(auth.user.isAdm && auth.user.id !== board.master.id)
                       <i class="fas fa-user-tie text-gray-400"></i>
                       <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Admin</span>
-                    </div>
-                  @elseif(auth.user.id === board.master.id)
-                    <div>
+                    @elseif(auth.user.id === board.master.id)
                       <i class="fas fa-chess-king text-gray-400"></i>
                       <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Mestre</span>
-                    </div>
-                  @else
-                    <div>
+                    @else
                       <i class="fas fa-user-ninja text-gray-400"></i>
                       <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
-                    </div>
-                  @endif  
+                    @endif  
+                  </div>
                 @else
                   <div><span class="text-base md:text-2xl sm:text-xl">Sem nome</span></div>
-                  <div>
+                  <div class="-mt-1">
                     <i class="fas fa-user-times text-gray-400"></i>
                     <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Não logado</span>
                   </div>
                 @endif
 
                 @if(authReview)
-                  @component('components/review',{
-                    review: authReview
-                  })                  
-                  @endcomponent
+                  <div class="lg:pt-4">
+                    @component('components/review',{
+                      review: authReview
+                    })
+                    @endcomponent
+                  </div>
                 @else
                   <div class="-ml-14 mt-5">
                     @component('components/review-form',{
@@ -194,11 +192,26 @@
                 @endif              
               </div>
               @if(authReview)
-                <div class="lg:pr-5 md:mx-10 lg:mx-0">
-                  <button>
-                    <i class="fas fa-ellipsis-v text-base sm:text-2xl text-white mr-3"></i>
+              <div class="flex">
+                <div x-data="{ dropdownOpen: false }" class="relative">
+                  <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
+                    <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
                   </button>
+                
+                  <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+                
+                  <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
+                      <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
+                        <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
+                          Deletar resenha
+                        </button>
+                      </form>
+                      <a href="/" class="w-full block px-4 py-2 text-sm capitalize text-white hover:bg-gray-700 ">
+                        Editar resenha
+                      </a>
+                  </div>
                 </div>
+              </div>
               @endif
             </div>
           </div>
