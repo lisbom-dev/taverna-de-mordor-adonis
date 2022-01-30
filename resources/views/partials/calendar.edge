@@ -58,7 +58,7 @@
 									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
                     <a :href="'events/'+event.event_id">
                       <div
-                        class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border p-1"
+                        class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border p-1 font-extrabold"
                         :class="{
                           'border-blue-500 text-blue-900 bg-blue-100': event.event_theme === 'blue',
                           'border-red-500 text-red-900 bg-red-200': event.event_theme === 'red',
