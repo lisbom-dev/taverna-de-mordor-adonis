@@ -1,0 +1,15 @@
+<div x-data="{
+  starLimit:5,
+  rating: {{rating}},
+}" class="flex flex-row">
+  <template x-for="i in starLimit">
+    <div>
+      <template x-if="i>rating">
+        <i class="far fa-star text-yellow-400"></i>
+      </template>
+      <template x-if="i<=rating">
+        <i class="fas fa-star text-yellow-400"></i>
+      </template>
+    </div>
+  </template>
+</div> 
