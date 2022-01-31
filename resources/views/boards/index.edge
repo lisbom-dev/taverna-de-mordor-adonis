@@ -90,9 +90,22 @@
                     @can('PendingPlayerPolicy.delete',board)
                       <form action="/boards/{{board.id}}/pending/players/{{auth.user?.id}}?_method=DELETE" method="post">
                         <div class="flex justify-end mt-2">
-                          <button class="text-white button-clicked transition-all duration-200 rounded-sm p-1.5 bg-gray-800 text-xs sm:text-sm md:text-base lg:text-xl ">Cancelar Solicitação</button>
+                          <button class="text-white button-clicked transition-all duration-200 rounded-sm p-1.5 bg-gray-800 text-xs sm:text-sm md:text-base lg:text-xl ">
+                            <i class="far fa-times-circle text-red-600 mr-1"></i>
+                            Cancelar Solicitação
+                          </button>
                         </div>
                       </form>
+                    @end
+                    @can('BoardPlayerPolicy.delete', board, auth.user)           
+                    <form action="/boards/{{board.id}}/players/{{auth.user?.id}}?_method=DELETE" method="post">
+                      <div class="flex justify-end mt-2">
+                        <button class="text-white button-clicked transition-all duration-200 rounded-sm p-1.5 bg-gray-800 text-xs sm:text-sm md:text-base lg:text-xl ">
+                          <i class="far fa-times-circle text-red-600 mr-1"></i>
+                          Sair da mesa
+                        </button>
+                      </div>
+                    </form>
                     @end
                 </div>
               @endif
@@ -173,31 +186,36 @@
                     @endcomponent
                   </div>
                   <div class="mt-1 mx-2">
-                    <div><span class="text-base md:text-2xl sm:text-xl">{{player.username}}<sup>o</sup>{{player.characterName}}</span></div>
+                    <div class="flex flex-wrap"><span class="text-base md:text-2xl sm:text-xl">{{player.username}} &nbsp</span>
+                      <span class="text-gray-700 text-base md:text-2xl sm:text-xl">- {{player.$extras.pivot_character_name}}</span>
+                    </div>
                     <div>
+                      <i class="fas fa-user-ninja text-gray-400"></i>
                       <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
                     </div>
                   </div>
                 </div>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                   <div class="lg:pr-5 md:mx-10 lg:mx-0">
-                    <div class="flex">
-                      <div x-data="{ dropdownOpen: false }" class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
-                          <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
-                        </button>
-                      
-                        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-                      
-                        <div x-show="dropdownOpen" class="absolute right-0 w-48 bg-gray-600 rounded-md shadow-xl z-20">
-                          <form action="/boards/{{board.id}}/players/{{player.id}}?_method=DELETE" method="POST">
-                            <button class="w-full block px-4 py-2 rounded-md text-sm capitalize text-left text-white hover:bg-gray-700">
-                              Remover jogador
-                            </button>
-                          </form>
+                    @if(auth.user?.isMaster)
+                      <div class="flex">
+                        <div x-data="{ dropdownOpen: false }" class="relative">
+                          <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
+                            <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
+                          </button>
+                        
+                          <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+                        
+                          <div x-show="dropdownOpen" class="absolute right-0 w-48 bg-gray-600 rounded-md shadow-xl z-20">
+                            <form action="/boards/{{board.id}}/players/{{player.id}}?_method=DELETE" method="POST">
+                              <button class="w-full block px-4 py-2 rounded-md text-sm capitalize text-left text-white hover:bg-gray-700">
+                                Remover jogador
+                              </button>
+                            </form>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -217,7 +235,9 @@
                       @endcomponent
                     </div>
                     <div class="mt-1 mx-2">
-                      <div><span class="text-base md:text-2xl sm:text-xl">{{player.username}}<sup>o</sup>{{player.characterName}}</span></div>
+                      <div class="flex flex-wrap"><span class="text-base md:text-2xl sm:text-xl">{{player.username}} &nbsp</span>
+                        <span class="text-gray-700 text-base md:text-2xl sm:text-xl">- {{player.$extras.pivot_character_name}}</span>
+                      </div>
                       <div>
                         <i class="fas fa-user-ninja text-gray-400"></i>
                         <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
@@ -236,7 +256,7 @@
                         
                           <div x-show="dropdownOpen" class="absolute right-0 w-48 bg-gray-600 rounded-md shadow-xl z-20">         
                               <form action="/boards/{{board.id}}/players/{{player.id}}" method="POST">
-                                <input type="hidden" name="characterName" value="{{player.characterName}}">
+                                <input type="hidden" name="characterName" value="{{player.$extras.pivot_character_name}}">
                                 <button class="w-full block px-4 py-2 rounded-md text-sm capitalize text-left text-white hover:bg-gray-700">
                                   Aceitar solicitação
                                 </button>
