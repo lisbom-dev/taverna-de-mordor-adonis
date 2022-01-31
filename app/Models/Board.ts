@@ -86,6 +86,7 @@ export default class Board extends BaseModel {
     q.preload('players')
     q.preload('master')
     q.preload('system')
+    q.preload('pendingPlayers')
   }
 
   @computed()
