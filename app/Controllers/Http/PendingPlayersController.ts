@@ -20,13 +20,17 @@ export default class PendingPlayersController {
     return response.redirect(`/boards/${board.id}`)
   }
 
-  public async destroy({ params, response, bouncer, auth }: HttpContextContract) {
+  public async destroy({ params, response, bouncer }: HttpContextContract) {
     const board = await Board.find(params.board_id)
     if (!board) {
       return response.notFound('Board not found!')
     }
+    const user = board.pendingPlayers.find((p) => p.id === parseInt(params.player_id))
+    if (!user) {
+      return response.notFound('Pending player not found!')
+    }
     await bouncer.with('PendingPlayerPolicy').authorize('delete', board)
-    board.related('pendingPlayers').detach([auth.user!.id])
+    board.related('pendingPlayers').detach([user.id])
     return response.redirect(`/boards/${board.id}`)
   }
 }
