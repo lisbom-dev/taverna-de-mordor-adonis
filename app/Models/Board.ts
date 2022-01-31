@@ -70,6 +70,15 @@ export default class Board extends BaseModel {
   })
   public players: ManyToMany<typeof Users>
 
+  @manyToMany(() => Users, {
+    localKey: 'id',
+    pivotForeignKey: 'board_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'player_id',
+    pivotTable: 'board_pending_players',
+  })
+  public pendingPlayers: ManyToMany<typeof Users>
+
   @beforeFind()
   @beforeFetch()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
