@@ -16,13 +16,13 @@ export default class BoardPlayerPolicy extends BasePolicy {
 
   public async delete(user: User, board: Board, player: User) {
     const boardPlayer = board.players.find((p) => p.id === player.id)
-    if (user.id !== board.masterId) {
+    if (!boardPlayer) {
       return false
     }
-    if (boardPlayer) {
-      return true
+    if (user.id !== board.masterId && boardPlayer.id !== user.id) {
+      return false
     }
 
-    return false
+    return true
   }
 }
