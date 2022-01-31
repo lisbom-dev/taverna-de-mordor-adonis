@@ -67,6 +67,7 @@ export default class Board extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'player_id',
     pivotTable: 'board_players',
+    pivotColumns: ['character_name'],
   })
   public players: ManyToMany<typeof Users>
 
@@ -76,6 +77,7 @@ export default class Board extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'player_id',
     pivotTable: 'board_pending_players',
+    pivotColumns: ['character_name'],
   })
   public pendingPlayers: ManyToMany<typeof Users>
 
