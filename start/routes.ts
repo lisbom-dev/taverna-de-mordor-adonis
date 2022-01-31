@@ -31,6 +31,9 @@ Route.resource('boards', 'BoardsController').middleware({
 Route.post('/events/:event_id/reviews', 'EventReviewsController.store').middleware(['auth:web'])
 Route.post('/masters/:user_id/reviews', 'MasterReviewsController.store').middleware(['auth:web'])
 Route.post('/boards/:board_id/reviews', 'BoardReviewsController.store').middleware(['auth:web'])
+Route.post('/boards/{{board.id}}/pending/players', 'PendingPlayersController.store').middleware([
+  'auth:web',
+])
 Route.put('/reviews/:id', 'ReviewsController.update').middleware(['auth:web'])
 Route.delete('/reviews/:id', 'ReviewsController.destroy').middleware(['auth:web'])
 Route.post('/boards/:board_id/players', 'BoardPlayersController.store').middleware(['auth:web'])
