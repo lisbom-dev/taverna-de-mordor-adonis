@@ -62,7 +62,6 @@ export default class Review extends BaseModel {
   @beforeFetch()
   @beforeFind()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Review>) {
-    q.preload('board')
     q.preload('sender')
   }
 
