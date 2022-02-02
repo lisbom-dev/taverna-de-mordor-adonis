@@ -75,7 +75,7 @@ export default class User extends BaseModel {
       ? this.reviews
           .map((review) => review.rating)
           .reduce((count, el) => {
-            return count + el
+            return parseInt(count.toString()) + parseInt(el.toString())
           }) / this.reviewNumber
       : 0
   }
