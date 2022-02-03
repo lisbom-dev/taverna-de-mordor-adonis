@@ -32,7 +32,6 @@ export default class BoardsController {
     if (!board) {
       return response.notFound('Board not found')
     }
-    await board.load('reviews')
     if (auth.user) {
       const authReview = board.reviews.find((r) => r.sender.id === auth.user!.id)
       return view.render('boards/index', { board, authReview, auth })

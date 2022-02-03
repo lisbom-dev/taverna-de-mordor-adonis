@@ -4,11 +4,10 @@
     <span class="text-gray-400 hover:text-gray-700 space-x-1" @mouseenter="temp = 0" @mouseleave="temp = orig">⨯</span>
   </template>
   <template x-for="rating in [1,2,3,4,5]">
-   <span @mouseenter="temp = rating" 
-         @mouseleave="temp = orig"
-         class="text-gray-400"
-         :class="{'text-yellow-400': (temp >= rating)}">
-         <i class="far fa-star transition duration-150 text-base"></i>
-    </span>
+         <i 
+         @mouseenter="temp = rating" 
+         @mouseleave="temp = orig" 
+         class="far fa-star text-gray-400 transition duration-150 text-base">
+         </i>
   </template>
 </div>
