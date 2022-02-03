@@ -118,17 +118,16 @@
         
     </section>
 
-    <section class="block max-w-full mx-auto h-screen">
+    <section class="block max-w-full mx-auto h-full">
       
-      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5">
-        
+      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5 h-screen">        
         <div class="mx-auto max-w-full w-80 p-2 sm:w-96 md:w-110 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
           <div class="flex flex-wrap justify-between">
             <div>
               <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Avaliação da mesa</span>
             </div>
             <div class="flex flex-wrap space-x-2 md:space-x-3">
-              <div><span class="text-white text-xs sm:text-base md:text-xl">{{board.avaluation}}</span></div>
+              <div><span class="text-white text-xs sm:text-base md:text-xl">{{board.avaluation.toFixed(1).toString().replace('.',',')}}</span></div>
               <div class="sm:text-base md:text-xl">
                 @component('components/star-value',{
                   rating: board.avaluation
@@ -140,9 +139,9 @@
         </div>
       </div>
 
-      <div x-show="contentId===4" class="sm:mx-auto mt-7">
+      <div x-show="contentId===4" class="sm:mx-auto mt-7 h-full pb-10">
         <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
-          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua resenha</h1>
+          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua análise</h1>
           <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
             <div class="flex" x-data="{openEditModal:false}">
               <div class="w-16 lg:w-24 md:w-20 sm:w-18">
@@ -173,52 +172,50 @@
                     <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Não logado</span>
                   </div>
                 @endif
-
-                @if(authReview)
-                  <div class="lg:pt-4">
-                    @component('components/review',{
-                      review: authReview
-                    })
-                    @endcomponent
-                  </div>
-                @else
-                  <div class="-ml-14 mt-5">
-                    @component('components/review-form',{
-                      element: 'boards',
-                      id: board.id
-                    })                    
-                    @endcomponent
-                  </div>
-                @endif              
               </div>
+                           
               @if(authReview)
-              <div class="flex">
-                <div x-data="{ dropdownOpen: false }" class="relative">
-                  <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
-                    <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
-                  </button>
-                
-                  <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-                
-                  <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
-                      <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
-                        <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
-                          Deletar resenha
-                        </button>
-                      </form>
+                <div class="flex">
+                  <div x-data="{ dropdownOpen: false }" class="relative">
+                    <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
+                      <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
+                    </button>
+                  
+                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+                  
+                    <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
+                        <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
+                          <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
+                            Deletar resenha
+                          </button>
+                        </form>
+                    </div>
                   </div>
                 </div>
-              </div>
+              @endif
+            </div>
+            <div class="mt-2">
+              @if(authReview)
+                  @component('components/review',{
+                    review: authReview
+                  })
+                  @endcomponent
+              @else
+                  @component('components/review-form',{
+                    element: 'boards',
+                    id: board.id
+                  })
+                  @endcomponent
               @endif
             </div>
           </div>
-          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras resenhas</h1>
+          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras análises</h1>
           @each(review in board.reviews)    
             @if(review.sender.id !== auth.user?.id)
               <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
                 <div class="flex">
                   <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                    @component('components/hexagonal-photo',{
+                    @component('components/hexagonal-photo',{        
                       photoUrl: review.sender.photoUrl
                     })                     
                     @endcomponent
@@ -241,12 +238,14 @@
                           <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
                         </div>
                       @endif
-                      @component('components/review',{
-                        review: review
-                      })                       
-                      @endcomponent                           
                   </div>
                 </div>
+                <div class="mt-2 ">
+                  @component('components/review',{
+                    review: review
+                  })
+                  @endcomponent
+                </div>                      
               </div>
             @endif  
           @endeach
