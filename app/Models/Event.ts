@@ -65,18 +65,13 @@ export default class Event extends BaseModel {
   }
 
   @computed()
-  public get reviewNumber(): number {
-    return this.reviews.length
-  }
-
-  @computed()
   public get avaluation(): number {
     return this.reviews.length > 0
       ? this.reviews
           .map((review) => review.rating)
           .reduce((count, el) => {
-            return parseInt(count.toString()) + parseInt(el.toString())
-          }) / this.reviewNumber
+            return parseFloat(count.toString()) + parseFloat(el.toString())
+          }) / this.reviews.length
       : 0
   }
 
