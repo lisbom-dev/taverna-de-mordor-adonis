@@ -1,21 +1,79 @@
+<style>
+  .rate > i {
+    float: right;
+}
+.rate > i:before {
+    display: inline-block;
+    padding-left:0;
+    padding-right:.2rem;
+    margin: 0;
+    cursor: pointer;
+}
+.rate .fa-star-half-alt:before {
+    position: absolute;
+    padding-right: 0;
+}
+</style>
 <form action="/{{element}}/{{id}}/reviews" method="POST">
   <input type="hidden" name="senderId" value="{{auth.user?.id}}">
   <div class="flex flex-wrap space-x-3">
-    <div><span class="font-normal ml-2">Avalie:</span></div>
+    <div><span class="font-normal ml-2 text-white">Avalie:</span></div>
     <div>
-      <div x-data="{ temp: 0, orig: 0 }" class="flex cursor-pointer" @click="orig = temp">
-        <input type="number" name="rating" x-bind:value="orig" class="hidden"/>
-        <template x-if="orig != 0">
-          <span class="text-gray-400 hover:text-gray-700 space-x-2" @mouseenter="temp = 0" @mouseleave="temp = orig">⨯</span>
-        </template>
-        <template x-for="rating in [1,2,3,4,5]">
-         <span @mouseenter="temp = rating" 
-               @mouseleave="temp = orig"
-               class="text-gray-400"
-               :class="{'text-yellow-400': (temp >= rating)}">
-               <i class="far fa-star transition duration-150 text-base"></i>
-          </span>
-        </template>
+      <div x-data="{ temp: 0, orig: 0 }" class="rate flex cursor-pointer" @click="orig = temp">
+        <input type="number" step="any" name="rating" x-bind:value="orig" class="hidden"/>
+        <div x-show="orig != 0" class="pr-1">
+          <span class="text-gray-400 hover:text-gray-700" @mouseenter="temp = 0" @mouseleave="temp = orig">⨯</span>
+        </div>
+        <i @mouseenter="temp = 0.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 0.5)}">
+        </i>
+        <i @mouseenter="temp = 1" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 1)}">
+        </i>
+        <i @mouseenter="temp = 1.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 1.5)}">
+        </i>
+        <i @mouseenter="temp = 2" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 2)}">
+        </i>
+        <i @mouseenter="temp = 2.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 2.5)}">
+        </i>
+        <i @mouseenter="temp = 3" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 3)}">
+        </i>
+        <i @mouseenter="temp = 3.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 3.5)}">
+        </i>
+        <i @mouseenter="temp = 4" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 4)}">
+        </i>
+        <i @mouseenter="temp = 4.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 4.5)}">
+        </i>
+        <i @mouseenter="temp = 5" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 5)}">
+        </i>
       </div>
     </div>
   </div>
