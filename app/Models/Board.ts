@@ -79,10 +79,6 @@ export default class Board extends BaseModel {
     q.preload('reviews')
   }
 
-  @computed()
-  public get reviewNumber(): number {
-    return this.reviews.length
-  }
 
   @computed()
   public get avaluation(): number {
