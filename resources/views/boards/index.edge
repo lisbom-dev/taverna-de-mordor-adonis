@@ -6,30 +6,141 @@
 
 
 @section('content')
-  <section class="bg-gray-900 h-screen w-full relative flex" x-data="{contentId:4}">
+  <section class="bg-gray-900 min-h-full" x-data="{contentId:1, openModal:false}">
     
-    <section class="block absolute w-full h-52 md:h-110" style="box-shadow: 0px 0px 6px 1px #000000;">
-      <div>
-        <div class="absolute w-full h-full" >
+    <section class="relative w-full h-auto shadow" style="box-shadow: 0px 0px 6px 1px #000000;">
+        <div>
           @if(board.system.photoUrl && board.system.photoUrl != '')
-            <img src="{{board.system.photoUrl}}" alt="" style="-webkit-mask-image: linear-gradient(to top, transparent 30%, black 100%);mask-image: linear-gradient(to top, transparent 30%, black 100%);">
+            <img class="h-full absolute object-cover w-full"  src="{{board.system.photoUrl}}" alt="" style="-webkit-mask-image: linear-gradient(to top, transparent 30%, black 100%);mask-image: linear-gradient(to top, transparent 30%, black 100%);">
           @else
-            <img class="relative h-full object-cover w-full" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="" style="-webkit-mask-image: linear-gradient(to top, transparent 15%, black 100%);mask-image: linear-gradient(to top, transparent 15%, black 100%);">
+            <img class="h-full absolute object-cover w-full" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="" style="-webkit-mask-image: linear-gradient(to top, transparent 15%, black 100%);mask-image: linear-gradient(to top, transparent 15%, black 100%);">
           @endif
         </div>
-      </div>
+
+        <div class="flex h-10 justify-end items-center p-5 sm:p-7 md:p-10">
+          @if(auth.isLoggedIn)
+            @if(auth.user.id == board.masterId)
+            <div class="absolute mr-8 sm:mr-12 md:mr-14 lg:mr-16">
+              <a href="/boards/{{board.id}}/edit">
+                <i class="fas fa-pen text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white"></i>
+              </a>
+            </div>
+            @endif
+          @endif
+          <div class="absolute">
+            <a href="">
+              <i class="fas fa-share-square text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative sm:mx-auto mx-auto md:mt-9 sm:mt-6 mt-3 w-11/12 sm:w-83 md:w-130 lg:w-200 p-3 sm:p-3 md:p-6 flex flex-col sm:text-sm md:text-xl lg:text-2xl text-xs rounded text-white" style="background: rgba(0, 0, 0, 0.4);">
+          <div class="justify-between flex ">
+            <div class="lg:space-x-1.5">
+                <i class="fas fa-dice sm:text-sm md:text-base lg:text-xl text-white"></i>
+                <span>Nome: </span>
+            </div>
+            <div >
+              <span>{{board.name.toUpperCase()}}</span>
+            </div>
+          </div>
+          <div class="justify-between flex">
+            <div class="space-x-1 lg:space-x-3 lg:space-x-3">
+              <i class="fas fa-dice-d20 sm:text-sm lg:text-xl md:text-base text-white"></i>
+              <span>Sistema: </span>
+            </div>
+            <div>
+              <span>{{board.system.name.toUpperCase()}}</span>
+            </div>
+          </div>
+          <div class="justify-between flex">
+            <div class="space-x-0.5 lg:space-x-1.5">
+              <i class="fas fa-gamepad sm:text-xs md:text-sm lg:text-base text-3xs text-white"></i>
+              <span >Jogadores: </span>
+            </div>
+            <div>
+              <span>{{board.players.length}}/{{board.maxPlayers}}</span>
+            </div>
+          </div>
+          <div class="justify-between flex">
+            <div class="space-x-1 lg:space-x-3">
+              <i class="fas fa-chess-king sm:text-sm md:text-base lg:text-xl text-white"></i>
+              <span>Mestre: </span>
+            </div>
+            <div>
+              <span>{{board.master.username.toUpperCase()}}</span>
+            </div>
+          </div>
+          <div class="justify-between flex">
+            <div class="space-x-1 lg:space-x-3">
+              <i class="fas fa-calendar-day sm:text-sm md:text-base lg:text-xl text-white"></i>
+              <span>Próxima sessão: </span>
+            </div>
+          </div>
+          @if(board.players.length<board.maxPlayers)
+            @if(auth.user?.id !== board.master.id)
+              <div>
+                  <div class="flex justify-end mt-2" x-show="!openModal">
+                    <button class="text-white button-clicked transition-all duration-200 rounded-md p-1 bg-green-500 text-xs sm:text-sm md:text-base lg:text-xl font-bold" @click="openModal = true">Solicitar Participação</button>
+                  </div>
+                <!--<div class="flex justify-end mt-2" x-show="openModel">
+                  <button class="text-white button-clicked transition-all duration-200 rounded-md p-1 bg-red-600 text-xs sm:text-sm md:text-base lg:text-xl font-bold">Cancelar Solicitação</button>
+                </div>-->
+              </div>
+            @endif
+          @endif
+        </div>
+        
+
+        <div class="relative pb-3 sm:pb-5 mx-auto lg:w-230 md:w-200 sm:w-130 md:mt-12 sm:mt-8 mt-5 max-w-full w-100 text-xs md:text-lg flex flex-wrap sm:justify-around justify-center space-x-3">
+          <div>
+            <template x-if="contentId==1">
+            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="contentId=1" x-transition>Visão geral</button>
+            </template>
+            <template x-if="contentId!=1">
+            <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=1" x-transition>Visão geral</button>
+            </template>
+          </div>
+          <div>
+            <template x-if="contentId==2">
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Membros</button>
+            </template>
+            <template x-if="contentId!=2">
+              <button class="transition ease-in-out delay-150 bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Membros</button>
+            </template>
+          </div>
+          <div>
+            <template x-if="contentId==3">
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Sessões</button>
+            </template>
+            <template x-if="contentId!=3">
+              <button class="bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Sessões</button>
+            </template>
+          </div>
+          <div>
+            <template x-if="contentId==4">
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=4">Avaliações</button>
+            </template>
+            <template x-if="contentId!=4">
+              <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=4">Avaliações</button>
+            </template>
+          </div>
+        </div>
+      
+
+        
     </section>
 
-    <section class="block relative w-3/4 mx-auto">
+    <section class="block max-w-full mx-auto h-screen">
       
-      <div x-show="contentId===1" class="mx-auto mt-7">
+      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5">
         
-        <div class="mx-auto w-68 h-9 sm:h-12 sm:w-96 md:w-110 md:h-16 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
-          <div class="flex justify-between">
+        <div class="mx-auto max-w-full w-80 p-2 sm:w-96 md:w-110 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
+          <div class="flex flex-wrap justify-between">
             <div>
               <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Avaliação da mesa</span>
             </div>
-            <div class="flex space-x-2 md:space-x-3">
+            <div class="flex flex-wrap space-x-2 md:space-x-3">
               <div><span class="text-white text-xs sm:text-base md:text-xl">{{board.avaluation}}</span></div>
               <div class="sm:text-base md:text-xl">
                 @component('components/star-value',{
@@ -40,23 +151,26 @@
             </div>
           </div>
         </div>
+
+        <div class="mt-6 sm:mt-12 md:mt-20 lg:mt-28">
+          <div><span class="text-white font-semibold text-lg sm:text-2xl md:text-4xl">Mesas com o mesmo sistema</span></div>
+          <div class="overflow-x-hidden">
+
+          </div>
+        </div>
       </div>
 
-      <div x-show="contentId===2" class="text-white font-bold mt-10">
-        <div class="mx-auto lg:w-200">
+      <div x-show="contentId===2" class="text-white px-3 font-bold mt-10">
+        <div class="sm:mx-auto max-w-full sm:p-0 sm:w-110 md:w-130 lg:w-200">
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl">Mestre</h1>
           
           <div class="flex justify-between mt-4 sm:mt-6 container shadow p-2 sm:p-4">
             <div class="flex">
               <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-                      <image xlink:href="{{auth.user?.photoUrl}}" x="-25" width="150" height="100" />
-                    </pattern>
-                  </defs>
-                  <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
-                </svg>
+                @component('components/hexagonal-photo',{
+                  photoUrl: board.master.photoUrl
+                })                  
+                @endcomponent
               </div>
               <div class="mt-1 mx-2">
                 <div><span class="text-base md:text-2xl sm:text-xl">{{board.master.username}}</span></div>
@@ -81,14 +195,10 @@
             <div class="flex justify-between mt-4 sm:mt-6 container p-2 sm:p-4">
               <div class="flex">
                 <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                  <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-                        <image xlink:href="{{player.photoUrl}}" x="-25" width="150" height="100" />
-                      </pattern>
-                    </defs>
-                    <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
-                  </svg>
+                  @component('components/hexagonal-photo',{
+                    photoUrl: player.photoUrl
+                  })                    
+                  @endcomponent
                 </div>
                 <div class="mt-1 mx-2">
                   <div><span class="text-base md:text-2xl sm:text-xl">{{player.username}}<sup>o</sup>C</span></div>
@@ -114,23 +224,21 @@
       </div>
 
       <div x-show="contentId===3" class="mx-auto mt-7">
-        <!--@include('partials/board-sections')-->
+        <div class="sm:mx-auto max-w-full w-3/4">
+          @include('partials/board-sections')
+        </div>
       </div>
 
-      <div x-show="contentId===4" class="relative sm:mx-auto mt-7">
-        <div class="sm:mx-auto -mx-8 lg:w-200">
+      <div x-show="contentId===4" class="sm:mx-auto mt-7">
+        <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua resenha</h1>
           <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4">
             <div class="flex">
               <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-                      <image xlink:href="{{auth.user?.photoUrl}}" x="-25" width="150" height="100" />
-                    </pattern>
-                  </defs>
-                  <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
-                </svg>
+                @component('components/hexagonal-photo',{
+                  photoUrl: board.master.photoUrl
+                })                  
+                @endcomponent
               </div>
               <div class="mt-1 mx-2 w-full text-white font-bold">
                 @if(auth.isLoggedIn)
@@ -160,22 +268,22 @@
                 @endif
 
                 @if(authReview)
-                <div class="-ml-14 mt-5">
-                    <div class="flex flex-wrap space-x-1">
-                      <div><span class="font-normal ml-2">{{authReview.rating}}</span></div>
-                      <div>
-                        @component('components/star-value',{
-                          rating: authReview.rating
-                        })
-                        @endcomponent
-                      </div>
-                      <div class="container shadow-sm p-2">
-                        <p>{{authReview.comment}}</p>
-                      </div>
-                    </div>
-                </div>
+                  <div class="-ml-14 mt-3">
+                      <div class="flex flex-wrap space-x-1">
+                        <div><span class="font-normal ml-2">{{authReview.rating}}</span></div>
+                        <div>
+                          @component('components/star-value',{
+                            rating: authReview.rating
+                          })
+                          @endcomponent
+                        </div>
+                        <div class="container shadow-sm p-2 text-gray-500">
+                          <p>{{authReview.comment}}</p>
+                        </div>
+                      </div>                   
+                  </div>
                 @else
-                  <div class="-ml-14 mt-5">
+                  <div class="-ml-14 mt-3">
                     <form action="/boards/{{board.id}}/reviews" method="POST">
                       <input type="hidden" name="senderId" value="{{auth.user?.id}}">
                       <div class="flex flex-wrap space-x-3">
@@ -193,7 +301,7 @@
                             return this.limit - this.content.length
                           } }" data-limit="300">
                         
-                          <textarea id="content" x-model="content" class="w-full border-0 p-3 placeholder-gray-600 resize-none mt-3 text-white bg-gray-900 rounded shadow focus:outline-none focus:ring ease-linear transition-all duration-150" maxlength="300" name="comment" cols="30" rows="4" placeholder="Digite seu comentário aqui..."></textarea>
+                          <textarea id="content" x-model="content" class="w-full h-24 sm:h-full border-0 p-3 placeholder-gray-600 resize-none mt-1 text-white bg-gray-900 rounded shadow focus:outline-none focus:ring ease-linear transition-all duration-150" maxlength="300" name="comment" cols="30" rows="4" placeholder="Digite seu comentário aqui..."></textarea>
                           <div x-show="remaining!= 300" x-transition class="flex justify-between w-auto">
                             <div><span class="text-2xs text-gray-500" x-text="'Caracteres restantes: ' + remaining + '/300'"></span></div>
                             <button type="submit"><i class="far fa-paper-plane text-white text-xl lg:text-2xl"></i></button>
@@ -204,6 +312,13 @@
                   </div>
                 @endif              
               </div>
+              @if(authReview)
+                <div class="lg:pr-5 md:mx-10 lg:mx-0">
+                  <button>
+                    <i class="fas fa-ellipsis-v text-base sm:text-2xl text-white mr-3"></i>
+                  </button>
+                </div>
+              @endif
             </div>
           </div>
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras resenhas</h1>
@@ -212,14 +327,10 @@
               <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4">
                 <div class="flex">
                   <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                    <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <pattern id="img" patternUnits="userSpaceOnUse" width="100" height="100">
-                          <image xlink:href="{{review.sender.photoUrl}}" x="-25" width="150" height="100" />
-                        </pattern>
-                      </defs>
-                      <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img)"/>
-                    </svg>
+                    @component('components/hexagonal-photo',{
+                      photoUrl: review.sender.photoUrl
+                    })                     
+                    @endcomponent
                   </div>
                   <div class="mt-1 mx-2 w-full text-white font-bold">
                       <div><span class="text-base md:text-2xl sm:text-xl">{{review.sender.username}}</span></div>
@@ -261,5 +372,35 @@
         </div>
       </div>
     </section>
+    <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 mx-auto h-full w-full" x-show.transition.opacity="openModal">
+			<div class="p-4 max-w-xl mx-auto relative left-0 right-0">
+				<div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-gray-800 text-white hover:bg-gray-500 inline-flex items-center justify-center cursor-pointer"
+					x-on:click="openModal = !openModal">
+					<svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path
+							d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
+					</svg>
+				</div>
+
+				<form action="/boards/{{board.id}}/players" method="POST" class="shadow rounded-lg bg-gray-800 w-full block p-5 sm:p-8 max-h-screen">
+
+					<h2 class="font-bold text-2xl mb-6 text-white border-b pb-2">Solicitar Participação</h2>
+
+					<div class="mb-4">
+						<label class="text-white block mb-1 font-bold text-sm tracking-wide">Nome do seu personagem</label>
+						<input name="characterName" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+					</div>
+
+					<div class="mt-8 justify-end flex">
+						<button type="button" class="bg-white hover:bg-gray-100 text-sm sm:text-base text-gray-700 font-semibold py-1 px-2 sm:py-2 sm:px-4 border border-gray-300 rounded-lg shadow-sm mr-2" @click="openModal = !openModal">
+							Cancelar
+						</button>
+						<button type="submit" class="bg-gray-600 hover:bg-gray-700 text-sm sm:text-base text-white font-semibold py-1 px-2 sm:py-2 sm:px-4 border border-gray-700 rounded-lg shadow-sm">
+							Solicitar Participação
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
   </section>
 @endsection

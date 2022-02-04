@@ -23,6 +23,27 @@ export default class MasterReviews extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
+
+    this.defer(async (db) => {
+      const masterComments = await db
+        .from('master_comments')
+        .innerJoin('comments', 'comments.id', '=', 'master_comments.comment_id')
+      const masterStarRatings = await db
+        .from('master_star_ratings')
+        .innerJoin('star_ratings', 'star_ratings.id', '=', 'master_star_ratings.star_rating_id')
+      const masterReviews = [...masterComments, ...masterStarRatings]
+
+      await Promise.all(
+        masterReviews.map((review) => {
+          return db.table('master_reviews').insert({
+            master_id: review.master_id,
+            review_id: review.review_id,
+            created_at: review.created_at,
+            updated_at: review.updated_at,
+          })
+        })
+      )
+    })
   }
 
   public async down() {

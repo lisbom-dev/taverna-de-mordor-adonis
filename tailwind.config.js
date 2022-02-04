@@ -55,6 +55,7 @@ module.exports = {
         '18': '67px',
         '130': '550px',
         '200': '700px',
+        '230': '850px',
         '11/14': '86%',
       },
       height: {
@@ -68,6 +69,10 @@ module.exports = {
       },
       minHeight: {
         60: '230px',
+      },
+      fontFamily: {
+        title: 'Cinzel',
+        text: 'Roboto',
       },
     },
   },

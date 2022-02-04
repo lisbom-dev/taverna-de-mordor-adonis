@@ -23,6 +23,27 @@ export default class BoardReviews extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
+
+    this.defer(async (db) => {
+      const boardComments = await db
+        .from('board_comments')
+        .innerJoin('comments', 'comments.id', '=', 'board_comments.comment_id')
+      const boardStarRatings = await db
+        .from('board_star_ratings')
+        .innerJoin('star_ratings', 'star_ratings.id', '=', 'board_star_ratings.star_rating_id')
+      const boardReviews = [...boardComments, ...boardStarRatings]
+
+      await Promise.all(
+        boardReviews.map((review) => {
+          return db.table('board_reviews').insert({
+            board_id: review.board_id,
+            review_id: review.review_id,
+            created_at: review.created_at,
+            updated_at: review.updated_at,
+          })
+        })
+      )
+    })
   }
 
   public async down() {
