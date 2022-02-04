@@ -37,11 +37,11 @@
 						<template x-for="blankday in blankdays">
 							<div
 								style="width: 14.28%"
-								class=" text-center border-r border-b px-4 pt-2 h-16 md:h-32"
+								class=" text-center border-r border-b px-4 pt-2 h-24 md:h-32"
 							></div>
 						</template>
 						<template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
-							<div style="width: 14.28%" class="md:px-4 pt-2 border-r border-b relative h-16 md:h-32">
+							<div style="width: 14.28%" class="md:px-4 pt-2 border-r border-b relative h-24 md:h-32">
 								<div
                 x-text="date"
                   @can('EventPolicy.invoke')
@@ -78,7 +78,7 @@
           </div>
 
         </div>
-        <div class="bg-gray-200 mt-">
+        <div class="bg-gray-200 ">
           <div class="justify-center space-x-3 text-white flex p-5 bg-gray-900" style="">
             <button
             type="button"
