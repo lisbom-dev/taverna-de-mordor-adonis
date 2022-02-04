@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Board from 'App/Models/Board'
 import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/User/StoreValidator'
 
@@ -20,6 +21,20 @@ export default class UsersController {
     }
     if (auth.user) {
       const authReview = user.reviews.find((r) => r.sender.id === auth.user!.id)
+      if (auth.user.isMaster) {
+        const boards = await Board.query().where('master_id', auth.user.id)
+        const masterBoardsEvaluation =
+          boards.length > 0
+            ? boards
+                .map((b) => {
+                  return b.avaluation
+                })
+                .reduce((count, el) => {
+                  return parseFloat(count.toString()) + parseFloat(el.toString())
+                }) / boards.length
+            : 0
+        return view.render('users/index', { user, authReview, auth, masterBoardsEvaluation })
+      }
       return view.render('users/index', { user, authReview, auth })
     }
     return view.render('users/index', { user })
