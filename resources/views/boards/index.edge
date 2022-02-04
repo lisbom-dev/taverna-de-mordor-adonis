@@ -6,7 +6,7 @@
 
 
 @section('content')
-  <section class="bg-gray-900 min-h-full" x-data="{contentId:1, openModal:false}">
+  <section class="bg-gray-900 h-full" x-data="{contentId:1, openModal:false}">
     <section class="relative w-full h-auto shadow" style="box-shadow: 0px 0px 6px 1px #000000;">
         <div>
           @if(board.system.photoUrl && board.system.photoUrl != '')
@@ -118,9 +118,9 @@
         
     </section>
 
-    <section class="block max-w-full mx-auto h-full">
+    <section class="block max-w-full mx-auto min-h-screen">
       
-      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5 h-screen">        
+      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5">        
         <div class="mx-auto max-w-full w-80 p-2 sm:w-96 md:w-110 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
           <div class="flex flex-wrap justify-between">
             <div>
