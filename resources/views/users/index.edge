@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-<section class="bg-gray-900 min-h-full" x-data="{contentId:1}">
+<section class="bg-gray-900 h-full" x-data="{contentId:1}">
   <section class="relative w-full h-auto shadow" style="box-shadow: 0px 3px 3px -1px #000000;">
-    <div class="bg-gray-900">
-      <div class="max-w-full lg:w-230 md:w-200 sm:w-130 w-83 mx-auto flex sm:text-sm md:text-xl pt-6 lg:pt-6 lg:text-2xl text-xs">
+    <div class="bg-gray-900 pb-6">
+      <div class="max-w-full lg:w-230 md:w-200 sm:w-130 w-83 mx-auto flex sm:text-sm md:text-xl pt-6 lg:pt-10 lg:text-2xl text-xs">
         <div class="mx-auto max-w-full w-68 sm:w-3/4 lg:w-230 flex">
           <div class="w-20 lg:w-40 md:w-36 sm:w-32">
             @component('components/hexagonal-photo',{
@@ -57,13 +57,13 @@
     </div>
 
     @if(user.isMaster)
-      <div class="relative pb-3 sm:pb-5 mx-auto lg:w-230 md:w-200 sm:w-130 md:mt-12 sm:mt-8 max-w-full w-100 text-xs md:text-lg flex flex-wrap sm:justify-around justify-center space-x-3">
+      <div class="relative pb-4 sm:pb-5 mx-auto lg:w-230 md:w-200 sm:w-130 md:mt-12 sm:mt-8 max-w-full w-100 text-xs md:text-lg flex flex-wrap sm:justify-around justify-center space-x-3">
         <div>
           <template x-if="contentId==1">
-          <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="contentId=1" x-transition>Biografia</button>
+          <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="contentId=1" x-transition>Visão geral</button>
           </template>
           <template x-if="contentId!=1">
-          <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=1" x-transition>Biografia</button>
+          <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=1" x-transition>Visão geral</button>
           </template>
         </div>
         <div>
@@ -88,17 +88,17 @@
          
   </section>
 
-  <section class="block max-w-full mx-auto h-full">
+  <section class="block max-w-full mx-auto min-h-screen bg-gray-900">
     @if(user.isMaster)      
-      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5 h-screen">
+      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full">
         
-        <div class="mx-auto max-w-full w-80 p-2 sm:w-96 md:w-110 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
+        <div class="mx-auto max-w-full w-80 p-2 sm:w-110 md:w-130 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
             <div class="flex flex-wrap justify-between pb-1">
               <div>
-                <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Avaliação do mestre</span>
+                <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Desempenho como mestre</span>
               </div>
               <div class="flex flex-wrap space-x-2 md:space-x-3">
-                <div><span class="text-white text-xs sm:text-base md:text-xl">{{user.avaluation}}</span></div>
+                <div><span class="text-white text-xs sm:text-base md:text-xl">{{user.avaluation.toFixed(1).toString().replace('.',',')}}</span></div>
                 <div class="sm:text-base md:text-xl">
                   @component('components/star-value',{
                     rating: user.avaluation
@@ -107,53 +107,66 @@
                 </div>
               </div>
             </div>
+            <div class="flex flex-wrap justify-between sm:mt-2">
+              <div>
+                <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Desempenho de suas mesas</span>
+              </div>
+              <div class="flex flex-wrap space-x-2 md:space-x-3">
+                <div><span class="text-white text-xs sm:text-base md:text-xl">{{masterBoardsEvaluation.toFixed(1).toString().replace('.',',')}}</span></div>
+                <div class="sm:text-base md:text-xl">
+                  @component('components/star-value',{
+                    rating: masterBoardsEvaluation
+                  })
+                  @endcomponent
+                </div>
+              </div>
+            </div>
         </div>
       </div>
 
-      <div x-show="contentId===3" class="sm:mx-auto mt-7 h-screen">
+      <div x-show="contentId===3" class="sm:mx-auto mt-7 pb-10">
         <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
-          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua resenha</h1>
-          <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
-            <div class="flex">
-              <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                @component('components/hexagonal-photo',{
-                  photoUrl: auth.user?.photoUrl
-                })                  
-                @endcomponent
-              </div>
-              <div class="mt-1 mx-2 w-full text-white font-bold">
-                @if(auth.isLoggedIn)
-                  <div><span class="text-base md:text-2xl sm:text-xl">{{auth.user.username}}</span></div>
-                  <div class="-mt-1">
-                    @if(user.isAdm && !user.isMaster)
-                      <i class="fas fa-user-tie text-gray-400"></i>
-                      <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Admin</span>
-                    @elseif(user.isMaster && !user.isAdm)
-                      <i class="fas fa-chess-king text-gray-400"></i>
-                      <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Mestre</span>
-                    @else
-                      <i class="fas fa-user-ninja text-gray-400"></i>
-                      <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
-                    @endif  
-                  </div>
-                @else
-                  <div><span class="text-base md:text-2xl sm:text-xl">Sem nome</span></div>
-                  <div class="-mt-1">
-                    <i class="fas fa-user-times text-gray-400"></i>
-                    <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Não logado</span>
-                  </div>
-                @endif
-              </div>
-                           
-              @if(authReview)
+          @if(auth.user?.id !== user.id)
+            <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua análise</h1>
+            <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
+              <div class="flex">
+                <div class="w-16 lg:w-24 md:w-20 sm:w-18">
+                  @component('components/hexagonal-photo',{
+                    photoUrl: auth.user?.photoUrl
+                  })                  
+                  @endcomponent
+                </div>
+                <div class="mt-1 mx-2 w-full text-white font-bold">
+                  @if(auth.isLoggedIn)
+                    <div><span class="text-base md:text-2xl sm:text-xl">{{auth.user.username}}</span></div>
+                    <div class="-mt-1">
+                      @if(user.isAdm && !user.isMaster)
+                        <i class="fas fa-user-tie text-gray-400"></i>
+                        <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Admin</span>
+                      @elseif(user.isMaster && !user.isAdm)
+                        <i class="fas fa-chess-king text-gray-400"></i>
+                        <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Mestre</span>
+                      @else
+                        <i class="fas fa-user-ninja text-gray-400"></i>
+                        <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
+                      @endif  
+                    </div>
+                  @else
+                    <div><span class="text-base md:text-2xl sm:text-xl">Sem nome</span></div>
+                    <div class="-mt-1">
+                      <i class="fas fa-user-times text-gray-400"></i>
+                      <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Não logado</span>
+                    </div>
+                  @endif
+                </div>
+                            
+                @if(authReview)
                 <div class="flex">
                   <div x-data="{ dropdownOpen: false }" class="relative">
                     <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
                       <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
-                    </button>
-                  
-                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-                  
+                    </button>            
+                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>   
                     <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
                         <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
                           <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
@@ -163,41 +176,29 @@
                     </div>
                   </div>
                 </div>
-              @endif
-              @if(authReview)
-              <div class="flex">
-                <div x-data="{ dropdownOpen: false }" class="relative">
-                  <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
-                    <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
-                  </button>            
-                  <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>   
-                  <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
-                      <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
-                        <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
-                          Deletar resenha
-                        </button>
-                      </form>
-                  </div>
-                </div>
+                @endif
               </div>
-              @endif
+              <div class="mt-2">
+                @if(authReview)
+                    @component('components/review',{
+                      review: authReview
+                    })
+                    @endcomponent
+                @else
+                    @component('components/review-form',{
+                      element: 'masters',
+                      id: user.id
+                    })
+                    @endcomponent
+                @endif
+              </div>
             </div>
-            <div class="mt-2">
-              @if(authReview)
-                  @component('components/review',{
-                    review: authReview
-                  })
-                  @endcomponent
-              @else
-                  @component('components/review-form',{
-                    element: 'masters',
-                    id: user.id
-                  })
-                  @endcomponent
-              @endif
-            </div>
-          </div>
-          <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras resenhas</h1>
+          @endif
+          @if(auth.user?.id === user.id)
+            <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Análises</h1>
+          @else
+            <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras análises</h1>
+          @endif
           @each(review in user.reviews)    
             @if(review.sender.id !== auth.user?.id)
               <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
@@ -226,18 +227,22 @@
                           <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
                         </div>
                       @endif
-                      @component('components/review',{
-                        review: review
-                      })                       
-                      @endcomponent                           
+                    </div>
                   </div>
-                </div>
-              </div>
-            @endif  
+                  <div class="mt-2">
+                    @component('components/review',{
+                      review: review
+                    })
+                    @endcomponent
+                  </div>                         
+              </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+            @endif 
           @endeach
         </div>
       </div>
-      @endif
+    @else
+      <div class="mx-auto mt-7 max-w-full h-screen"> </div>
+    @endif
     </section>
 </section>
 @endsection
