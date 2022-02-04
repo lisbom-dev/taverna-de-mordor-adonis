@@ -21,8 +21,8 @@ export default class UsersController {
     }
     if (auth.user) {
       const authReview = user.reviews.find((r) => r.sender.id === auth.user!.id)
-      if (auth.user.isMaster) {
-        const boards = await Board.query().where('master_id', auth.user.id)
+      if (user.isMaster) {
+        const boards = await Board.query().where('master_id', user.id)
         const masterBoardsEvaluation =
           boards.length > 0
             ? boards
