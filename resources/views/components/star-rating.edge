@@ -1,0 +1,13 @@
+<div x-data="{ temp: 0, orig: 0 }" class="flex cursor-pointer" @click="orig = temp">
+  <input type="number" name="rating" x-bind:value="orig" class="hidden"/>
+  <template x-if="orig != 0">
+    <span class="text-gray-400 hover:text-gray-700 space-x-1" @mouseenter="temp = 0" @mouseleave="temp = orig">⨯</span>
+  </template>
+  <template x-for="rating in [1,2,3,4,5]">
+         <i 
+         @mouseenter="temp = rating" 
+         @mouseleave="temp = orig" 
+         class="far fa-star text-gray-400 transition duration-150 text-base">
+         </i>
+  </template>
+</div>
