@@ -25,7 +25,7 @@ export default class EventsController {
     await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
     session.flash('success', ['Evento criado com sucesso!'])
-    return response.redirect('/events')
+    return response.redirect(`/events?month=${data.date.month - 2}`)
   }
 
   public async edit({ response, view, params, bouncer }: HttpContextContract) {
