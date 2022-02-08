@@ -116,7 +116,7 @@
 
 				<form @submit="onCreateEvent" action="/events" method="POST" class="shadow rounded-sm bg-gray-900 overflow-hidden w-full block max-h-screen">
 
-					<div class="w-full relative h-44">
+					<div class="w-full relative h-44 md:h-32 ">
             <div>
               <img class="h-full absolute object-cover w-full" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="">
             </div>
@@ -165,10 +165,10 @@
             </div>
 
             <div class="mt-5 text-right">
-              <button type="button" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm mr-2" @click="openEventModal = !openEventModal">
+              <button type="button" class="font-text  bg-gray-600 hover:bg-gray-800 text-gray-50 py-3 px-4 rounded-md shadow-sm mr-2" @click="openEventModal = !openEventModal">
                 Cancelar
               </button>
-              <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 border border-gray-700 rounded-lg shadow-sm">
+              <button type="submit" class="font-text  bg-gray-600 hover:bg-gray-800 text-gray-50 py-3 px-4 rounded-md shadow-sm mr-2">
                 Criar Evento
               </button>
             </div>
