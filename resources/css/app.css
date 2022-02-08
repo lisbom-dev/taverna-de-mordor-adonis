@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import '@fortawesome/fontawesome-free/css/fontawesome';
 @import '@fortawesome/fontawesome-free/css/regular';
 @import '@fortawesome/fontawesome-free/css/solid';
@@ -30,4 +30,9 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #a0aec0;
+}
+
+.hexagon {
+  -webkit-clip-path: polygon(50% 1%, 95% 25%, 95% 75%, 50% 99%, 5% 75%, 5% 25%);
+  clip-path: polygon(50% 1%, 95% 25%, 95% 75%, 50% 99%, 5% 75%, 5% 25%);
 }

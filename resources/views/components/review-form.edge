@@ -1,0 +1,112 @@
+<style>
+  .rate > i {
+    float: right;
+}
+.rate > i:before {
+    display: inline-block;
+    padding-left:0;
+    padding-right:.2rem;
+    margin: 0;
+    cursor: pointer;
+}
+.rate .fa-star-half-alt:before {
+    position: absolute;
+    padding-right: 0;
+}
+</style>
+<form action="/{{element}}/{{id}}/reviews" method="POST">
+  <input type="hidden" name="senderId" value="{{auth.user?.id}}">
+  <div class="flex flex-wrap space-x-3">
+    <div><span class="font-normal ml-2 text-white">Avalie:</span></div>
+    <div>
+      <div x-data="{ temp: 0, orig: 0 }" class="rate flex cursor-pointer" @click="orig = temp">
+        <input type="number" step="any" name="rating" x-bind:value="orig" class="hidden"/>
+        <div x-show="orig != 0" class="pr-1">
+          <span class="text-gray-400 hover:text-gray-700" @mouseenter="temp = 0" @mouseleave="temp = orig">⨯</span>
+        </div>
+        <i @mouseenter="temp = 0.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 0.5)}">
+        </i>
+        <i @mouseenter="temp = 1" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 1)}">
+        </i>
+        <i @mouseenter="temp = 1.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 1.5)}">
+        </i>
+        <i @mouseenter="temp = 2" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 2)}">
+        </i>
+        <i @mouseenter="temp = 2.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 2.5)}">
+        </i>
+        <i @mouseenter="temp = 3" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 3)}">
+        </i>
+        <i @mouseenter="temp = 3.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 3.5)}">
+        </i>
+        <i @mouseenter="temp = 4" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 4)}">
+        </i>
+        <i @mouseenter="temp = 4.5" 
+          @mouseleave="temp = orig"
+          class="far fa-star-half-alt text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 4.5)}">
+        </i>
+        <i @mouseenter="temp = 5" 
+          @mouseleave="temp = orig"
+          class="far fa-star text-gray-400 transition duration-150 text-base"
+          :class="{'text-yellow-400 fas': (temp >= 5)}">
+        </i>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div x-data="{
+      content: '',
+      limit: $el.dataset.limit,
+      get remaining() {
+        return this.limit - this.content.length
+      } }" data-limit="300">
+    
+      <textarea id="content" x-model="content" class="w-full h-24 sm:h-full border-0 p-3 placeholder-gray-600 resize-none mt-1 text-white bg-gray-900 rounded shadow focus:outline-none focus:ring ease-linear transition-all duration-150" maxlength="300" name="comment" cols="30" rows="4" placeholder="Digite seu comentário aqui..."></textarea>
+      <div x-show="remaining!= 300" x-transition class="flex justify-between w-auto">
+        <div><span class="text-2xs text-gray-500" x-text="'Caracteres restantes: ' + remaining + '/300'"></span></div>
+          <button type="submit">
+            <svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_509_1389)">
+            <path d="M6.59141 20.625L23.2085 13.5L6.59141 6.375L6.5835 11.9167L18.4585 13.5L6.5835 15.0833L6.59141 20.625Z" fill="white"/>
+            </g>
+            <defs>
+            <filter id="filter0_d_509_1389" x="0.583496" y="0.375" width="28.625" height="26.25" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_509_1389"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_509_1389" result="shape"/>
+            </filter>
+            </defs>
+            </svg>
+          </button>
+      </div>
+    </div>
+  </div>
