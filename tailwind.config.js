@@ -19,6 +19,13 @@ module.exports = {
         'logo': "url('../images/pp.jpg')",
         'tabuleiro-rpg': "url('../images/tabuleiro-rpg.jpg')",
         'main-cover': "url('../images/cover-rpg.jpg')",
+        'main-cover-gradient':
+          "linear-gradient(0.03deg, #111827, rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.4), rgba(17, 24, 39, 0.1), rgba(17, 24, 39, 0)),url('../images/cover-rpg.jpg')",
+      },
+      fontSize: {
+        '2xs': '10px',
+        '3xs': '9px',
+        '4xs': '5px',
       },
       blur: {
         sm: '2px',
@@ -39,6 +46,26 @@ module.exports = {
       },
       animation: {
         'slide-from-right': 'slide-from-right 0.5s ease-in-out',
+      },
+      width: {
+        '68': '280px',
+        '83': '340px',
+        '75': '300px',
+        '100': '430px',
+        '18': '67px',
+        '130': '550px',
+        '200': '700px',
+        '230': '850px',
+        '11/14': '86%',
+      },
+      height: {
+        30: '121px',
+        22: '88px',
+        66: '270px',
+        76: '295px',
+      },
+      minHeight: {
+        60: '230px',
       },
     },
     fontFamily: {

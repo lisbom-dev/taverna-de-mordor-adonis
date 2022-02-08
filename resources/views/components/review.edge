@@ -1,0 +1,23 @@
+<div>
+  <div class="flex flex-wrap space-x-2">
+    <div><span class="font-normal ml-2 text-white">{{parseFloat(review.rating).toFixed(1).toString().replace('.',',')}}</span></div>
+    <div>
+      @component('components/star-value',{
+        rating:review.rating
+      })
+      @endcomponent
+    </div>
+  </div>
+  <div class="container py-2" 
+    x-data="{ isCollapsed: false, maxLength: 130, originalContent: '', content: '' }"
+    x-init="originalContent = $el.firstElementChild.textContent.trim(); content = originalContent.slice(0, maxLength)">
+    <p x-text="isCollapsed ? originalContent : originalContent.length <= maxLength ? originalContent : content + '...' " class="text-gray-400 text-sm break-all">{{review.comment}}</p>
+    <button
+    type="button"
+    class="text-xs text-white p-1 shadow-sm font-semibold mt-3 hover:shadow-md"
+    @click="isCollapsed = !isCollapsed"
+    x-show="originalContent.length > maxLength"
+    x-text="isCollapsed ? 'Leia menos' : 'Leia mais'"
+    ></button>
+  </div>
+</div>
