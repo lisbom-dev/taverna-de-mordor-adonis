@@ -9,6 +9,7 @@ export default class StoreValidator {
   public schema = schema.create({
     name: schema.string({}, [rules.required()]),
     date: schema.date({}, [rules.required(), rules.after(3, 'days')]),
+    time: schema.number([rules.required()]),
     description: schema.string({}, [rules.required()]),
     location: schema.string({}, [rules.required()]),
     maxBoards: schema.number([rules.required(), rules.unsigned()]),
