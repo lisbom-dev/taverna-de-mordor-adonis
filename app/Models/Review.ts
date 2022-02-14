@@ -3,9 +3,9 @@ import {
   BaseModel,
   beforeFetch,
   beforeFind,
+  BelongsTo,
+  belongsTo,
   column,
-  hasOne,
-  HasOne,
   manyToMany,
   ManyToMany,
   ModelQueryBuilderContract,
@@ -27,10 +27,10 @@ export default class Review extends BaseModel {
   @column()
   public senderId: number
 
-  @hasOne(() => User, {
-    foreignKey: 'sender_id',
+  @belongsTo(() => User, {
+    foreignKey: 'senderId',
   })
-  public sender: HasOne<typeof User>
+  public sender: BelongsTo<typeof User>
 
   @manyToMany(() => Board, {
     localKey: 'id',
@@ -62,7 +62,7 @@ export default class Review extends BaseModel {
   @beforeFetch()
   @beforeFind()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Review>) {
-    q.preload('board')
+    q.preload('sender')
   }
 
   @column.dateTime({ autoCreate: true })

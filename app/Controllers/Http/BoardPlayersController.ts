@@ -29,7 +29,7 @@ export default class BoardPlayersController {
     })
     await board.related('pendingPlayers').detach([pendingPlayer.id])
 
-    return response.redirect('/boards')
+    return response.redirect(`/boards/${board.id}`)
   }
 
   public async destroy({ params, response, bouncer }: HttpContextContract) {

@@ -92,18 +92,15 @@ export default class Board extends BaseModel {
   }
 
   @computed()
-  public get reviewNumber(): number {
-    return this.reviews.length
-  }
-
-  @computed()
   public get avaluation(): number {
     return this.reviews.length > 0
       ? this.reviews
-          .map((review) => review.rating)
+          .map((review) => {
+            return review.rating
+          })
           .reduce((count, el) => {
-            return count + el
-          }) / this.reviewNumber
+            return parseFloat(count.toString()) + parseFloat(el.toString())
+          }) / this.reviews.length
       : 0
   }
 
