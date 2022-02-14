@@ -139,6 +139,14 @@
         </div>
       </div>
 
+      <div x-show="contentId===3" class="mx-auto mt-7">
+        @component('partials/board-sessions-calendar',{
+          board: board
+        }) 
+        @endcomponent
+
+      </div>
+
       <div x-show="contentId===4" class="sm:mx-auto mt-7 h-full pb-10">
         <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua análise</h1>
