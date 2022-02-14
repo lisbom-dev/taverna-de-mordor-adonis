@@ -23,5 +23,6 @@ export default class StoreValidator {
     'description.required': 'É necessário informar a descrição do evento!',
     'location.required': 'É necessário informar a localização do evento!',
     'maxBoards.required': 'É necessário informar o número máximo de mesas!',
+    'time.required':'É necessário informar o horário de início do evento!',
   }
 }
