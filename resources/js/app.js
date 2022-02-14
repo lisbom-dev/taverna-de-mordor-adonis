@@ -7,10 +7,12 @@ import calendar from './partials/calendar'
 import IMask from 'imask'
 import io from 'socket.io-client'
 import chat from './chat'
+import boardSessionsCalendar from './partials/board-sessions-calendar'
 
 Alpine.data('navbar', navbar)
 Alpine.data('alert', alert)
 Alpine.data('calendar', calendar)
+Alpine.data('boardSessionsCalendar', boardSessionsCalendar)
 Alpine.data('chat', chat)
 window.Alpine = Alpine
 window.IMask = IMask
