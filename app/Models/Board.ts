@@ -10,12 +10,15 @@ import {
   manyToMany,
   ManyToMany,
   ModelQueryBuilderContract,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Event from './Event'
 import Users from './User'
 import User from './User'
 import System from './System'
 import Review from './Review'
+import Session from './Session'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -77,8 +80,11 @@ export default class Board extends BaseModel {
     q.preload('master')
     q.preload('system')
     q.preload('reviews')
+    q.preload('sessions')
   }
 
+  @hasMany(() => Session)
+  public sessions: HasMany<typeof Session>
 
   @computed()
   public get avaluation(): number {
