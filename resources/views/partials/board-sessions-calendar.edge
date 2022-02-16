@@ -11,10 +11,10 @@
   </script>
   @section('extra-style')
     <style>
-    .scroll::-webkit-scrollbar {
-      width: 10px;
-    }
-  </style>
+      .scroll::-webkit-scrollbar {
+        width: 10px;
+      }
+    </style>
   @endsection
 	<div x-data="boardSessionsCalendar" x-init="[initDate({{month}}), getNoOfDays(), setSessions(window.sessions)]" x-cloak>
 		<div class="container mx-auto md:px-4 py-2 mb-4">
@@ -60,9 +60,9 @@
                   @end
                   >
                 </div>
-                  <div style="height: 70%;" class="overflow-y-auto scroll mt-1 pr-1">
+                  <div style="height: 68%;" class="overflow-y-auto overflow-x-hidden scroll mt-1 mb-1 pr-1">
                     <template x-for="session in sessions.filter(e => new Date(e.session_date).toDateString() ===  new Date(year, month, date).toDateString() )">
-                      <div class="md:px-2 py-1 rounded-lg mt-1 overflow-hidden border-blue-100 text-gray-900 bg-blue-100 border p-1 font-extrabold" >
+                      <div class="sm:pl-2 sm:pr-2 pl-1 py-1 rounded-lg mt-1 overflow-hidden border-blue-100 text-gray-900 bg-blue-100 border font-extrabold" >
                         <p x-text="session.session_time" class="md:text-sm text-2xs md:font-bold truncate leading-tight"></p>
                       </div>
                     </template>
@@ -78,7 +78,7 @@
             <button
             type="button"
             class="p-1 bg-gray-500 rounded-full "
-            @click="previous(board.id)">
+            @click="previous({{board.id}})">
               <svg class="h-6 w-6 text-white "  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
               </svg>
@@ -86,7 +86,7 @@
             <button
               type="button"
               class="p-1 bg-gray-500 rounded-full"
-              @click="next(board.id)">
+              @click="next({{board.id}})">
                 <svg class="h-6 w-6 text-white "  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
