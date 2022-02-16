@@ -60,7 +60,6 @@ export default () => ({
   setSessions(sessions) {
     sessions = sessions.map((s) => {
       const time = new Date(s.time * 1000).toISOString().substring(11, 16)
-      console.log(time)
       return {
         session_date: new Date(s.date),
         session_time: time,
