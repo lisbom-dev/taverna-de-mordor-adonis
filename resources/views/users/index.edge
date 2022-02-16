@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="bg-gray-900 h-full" x-data="{contentId:1}">
+<section class="bg-gray-900 h-full" x-data="contentTransition">
   <section class="relative w-full h-auto shadow" style="box-shadow: 0px 3px 3px -1px #000000;">
     <div class="bg-gray-900 pb-6">
       <div class="max-w-full lg:w-230 md:w-200 sm:w-130 w-83 mx-auto flex sm:text-sm md:text-xl pt-6 lg:pt-10 lg:text-2xl text-xs">
@@ -60,26 +60,26 @@
       <div class="relative pb-4 sm:pb-5 mx-auto lg:w-230 md:w-200 sm:w-130 md:mt-12 sm:mt-8 max-w-full w-100 text-xs md:text-lg flex flex-wrap sm:justify-around justify-center space-x-3">
         <div>
           <template x-if="contentId==1">
-          <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="contentId=1" x-transition>Visão geral</button>
+          <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="modifyContent(1)" x-transition>Visão geral</button>
           </template>
           <template x-if="contentId!=1">
-          <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=1" x-transition>Visão geral</button>
+          <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(1)" x-transition>Visão geral</button>
           </template>
         </div>
         <div>
           <template x-if="contentId==2">
-            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Mesas</button>
+            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(2)">Mesas</button>
           </template>
           <template x-if="contentId!=2">
-            <button class="transition ease-in-out delay-150 bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Mesas</button>
+            <button class="transition ease-in-out delay-150 bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(2)">Mesas</button>
           </template>
         </div>
         <div>
           <template x-if="contentId==3">
-            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Avaliações</button>
+            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(3)">Avaliações</button>
           </template>
           <template x-if="contentId!=3">
-            <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Avaliações</button>
+            <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(3)">Avaliações</button>
           </template>
         </div>
       </div>
@@ -98,7 +98,7 @@
                 <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Desempenho como mestre</span>
               </div>
               <div class="flex flex-wrap space-x-2 md:space-x-3">
-                <div><span class="text-white text-xs sm:text-base md:text-xl">{{user.avaluation.toFixed(1).toString().replace('.',',')}}</span></div>
+                <div><span class="text-white text-xs sm:text-base md:text-xl">{{user.avaluation}}</span></div>
                 <div class="sm:text-base md:text-xl">
                   @component('components/star-value',{
                     rating: user.avaluation
@@ -112,7 +112,7 @@
                 <span class="text-white text-xs sm:text-base sm:ml-3 md:text-xl">Desempenho de suas mesas</span>
               </div>
               <div class="flex flex-wrap space-x-2 md:space-x-3">
-                <div><span class="text-white text-xs sm:text-base md:text-xl">{{masterBoardsEvaluation.toFixed(1).toString().replace('.',',')}}</span></div>
+                <div><span class="text-white text-xs sm:text-base md:text-xl">{{masterBoardsEvaluation}}</span></div>
                 <div class="sm:text-base md:text-xl">
                   @component('components/star-value',{
                     rating: masterBoardsEvaluation
