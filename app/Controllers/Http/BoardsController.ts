@@ -27,16 +27,23 @@ export default class BoardsController {
     return response.redirect('/boards')
   }
 
-  public async show({ response, view, params, auth }: HttpContextContract) {
+  public async show({ request, response, view, params, auth }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')
     }
+    const { month = '0' } = request.qs()
+
     if (auth.user) {
       const authReview = board.reviews.find((r) => r.sender.id === auth.user!.id)
-      return view.render('boards/index', { board, authReview, auth })
+      return view.render('boards/index', {
+        board,
+        authReview,
+        auth,
+        month: parseInt(month, 10),
+      })
     }
-    return view.render('boards/index', { board })
+    return view.render('boards/index', { board, month: parseInt(month, 10) })
   }
 
   public async edit({ response, view, params, bouncer }: HttpContextContract) {
