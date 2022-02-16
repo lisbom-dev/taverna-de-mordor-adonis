@@ -7,11 +7,19 @@ import calendar from './partials/calendar'
 import IMask from 'imask'
 import io from 'socket.io-client'
 import chat from './chat'
+import textareaLimiter from './components/textarea-limiter'
+import starValue from './components/star-value'
+import starRating from './components/star-rating'
+import contentTransition from './components/content-transition'
 
 Alpine.data('navbar', navbar)
 Alpine.data('alert', alert)
 Alpine.data('calendar', calendar)
 Alpine.data('chat', chat)
+Alpine.data('textareaLimiter', textareaLimiter)
+Alpine.data('starValue', starValue)
+Alpine.data('starRating', starRating)
+Alpine.data('contentTransition', contentTransition)
 window.Alpine = Alpine
 window.IMask = IMask
 Alpine.start()
