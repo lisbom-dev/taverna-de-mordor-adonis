@@ -19,23 +19,21 @@ export default class UsersController {
     if (!user) {
       return response.notFound('User not found')
     }
-    if (auth.user) {
-      const authReview = user.reviews.find((r) => r.sender.id === auth.user!.id)
-      if (user.isMaster) {
-        const boards = await Board.query().where('master_id', user.id)
-        const masterBoardsEvaluation =
-          boards.length > 0
-            ? boards
-                .map((b) => {
-                  return b.avaluation
-                })
-                .reduce((count, el) => {
-                  return parseFloat(count.toString()) + parseFloat(el.toString())
-                }) / boards.length
-            : 0
-        return view.render('users/index', { user, authReview, auth, masterBoardsEvaluation })
-      }
-      return view.render('users/index', { user, authReview, auth })
+    const authReview = user.reviews.find((r) => r.sender.id === auth.user?.id)
+
+    if (user.isMaster) {
+      const boards = await Board.query().where('master_id', user.id)
+      const masterBoardsEvaluation =
+        boards.length > 0
+          ? boards
+              .map((b) => {
+                return b.avaluation
+              })
+              .reduce((count, el) => {
+                return parseFloat(count.toString()) + parseFloat(el.toString())
+              }) / boards.length
+          : 0
+      return view.render('users/index', { user, auth, masterBoardsEvaluation, authReview })
     }
     return view.render('users/index', { user })
   }
