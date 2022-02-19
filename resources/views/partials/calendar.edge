@@ -129,14 +129,16 @@
               <input name="name" class="bg-gray-900 shadow appearance-none rounded-sm  w-full py-2 px-4 text-gray-50 leading-tight focus:outline-none focus:bg-gray-800 "  style="box-shadow: 0px 0px 6px 1px #000000;" type="text">
             </div>
 
-            <div class="mb-4 flex">
-              <label class="text-gray-50 block mb-1 mr-2 font-text text-sm tracking-wide">Localização do Evento</label>
-              <input name="location" placeholder="Casa, Rua, Bairro, Cidade..." class="bg-gray-900 shadow appearance-none rounded-sm  w-full py-2 placeholder-gray-300 px-4 text-gray-50 leading-tight focus:outline-none focus:bg-gray-800 "  style="box-shadow: 0px 0px 6px 1px #000000;" type="text">
+            <div class="flex">
+              <div class="mb-4 flex">
+                <label class="text-gray-50 block mb-1 mr-2 font-text text-sm tracking-wide">Data: </label>
+                <input name="date" class="bg-gray-900 text-sm shadow appearance-none rounded-sm  w-full py-2 px-4 text-gray-50 leading-tight focus:outline-none focus:bg-gray-800 "  style="box-shadow: 0px 0px 6px 1px #000000;" type="text" x-model="event_date" readonly>
+              </div>
+              <div class="mb-4 flex">
+                <label class="text-gray-50 block mb-1 mr-2 font-text text-sm tracking-wide">Hora: </label>
+                <input name="time" class="bg-gray-900 shadow appearance-none rounded-sm  w-full py-2 px-4 text-gray-50 leading-tight focus:outline-none focus:bg-gray-800 "  style="box-shadow: 0px 0px 6px 1px #000000;" type="time">
+              </div>
             </div>
-
-            <div class="mb-4 flex">
-              <label class="text-gray-50 block mb-1 mr-2 font-text text-sm tracking-wide">Data do Evento</label>
-              <input name="date" class="bg-gray-900 shadow appearance-none rounded-sm  w-full py-2 px-4 text-gray-50 leading-tight focus:outline-none focus:bg-gray-800 "  style="box-shadow: 0px 0px 6px 1px #000000;" type="text" x-model="event_date" readonly>
             </div>
 
             <div class="mb-4 flex">
