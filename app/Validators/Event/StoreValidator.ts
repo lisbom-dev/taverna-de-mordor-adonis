@@ -19,10 +19,10 @@ export default class StoreValidator {
   public messages = {
     'name.required': 'É necessário informar o nome do evento!',
     'date.required': 'É necessário informar a data do evento!',
-    'date.after': 'O evento precisa ser criado 4 dias antes de acontecer!',
+    'date.after': 'O evento precisa ser criado 3 dias antes de acontecer!',
     'description.required': 'É necessário informar a descrição do evento!',
     'location.required': 'É necessário informar a localização do evento!',
     'maxBoards.required': 'É necessário informar o número máximo de mesas!',
-    'time.required':'É necessário informar o horário de início do evento!',
+    'time.required': 'É necessário informar o horário de início do evento!',
   }
 }
