@@ -9,7 +9,6 @@ export default class UpdateValidator {
     systemId: schema.number.optional([rules.exists({ table: 'systems', column: 'id' })]),
     maxPlayers: schema.number.optional([rules.unsigned()]),
     masterId: schema.number.optional([rules.exists({ table: 'users', column: 'id' })]),
-    currentSection: schema.number.optional([]),
   })
 
   public messages = {

@@ -9,7 +9,6 @@ export default class StoreValidator {
     systemId: schema.number([rules.required(), rules.exists({ table: 'systems', column: 'id' })]),
     maxPlayers: schema.number([rules.required(), rules.unsigned()]),
     masterId: schema.number([rules.required(), rules.exists({ table: 'users', column: 'id' })]),
-    currentSection: schema.number([rules.required()]),
   })
 
   public messages = {
@@ -19,6 +18,5 @@ export default class StoreValidator {
     'maxPlayers.required': 'É necessário informar o número máximo de jogadores da mesa!',
     'masterId.required': 'É necessário informar o mestre da mesa!',
     'masterId.exists': 'O mestre informado não existe!',
-    'currentSection.required': 'É necessário informar a sessão da mesa!',
   }
 }

@@ -20,7 +20,7 @@ export default class BoardPlayersController {
     await board.related('players').attach({
       [auth.user!.id]: {
         character_name: data.characterName,
-        session_who_entered: board.currentSection,
+        session_who_entered: board.currentSession,
       },
     })
 

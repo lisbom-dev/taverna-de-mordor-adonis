@@ -104,8 +104,56 @@ export default class Board extends BaseModel {
     return review
   }
 
-  @column()
-  public currentSection: number
+  @computed()
+  public get nextSession() {
+    const session = this.sessions
+      .filter(
+        (s) =>
+          new Date(s.date.toString().replace(/-/g, '/')).getTime() + s.time > new Date().getTime()
+      )
+      .sort((a, b) => {
+        if (
+          new Date(a.date.toString().replace(/-/g, '/')).getTime() + a.time <
+          new Date(b.date.toString().replace(/-/g, '/')).getTime() + b.time
+        ) {
+          return -1
+        } else {
+          return 0
+        }
+      })[1]
+
+    if (session) {
+      const date = new Date(session.date.toString().replace(/-/g, '/')).toLocaleDateString('pt-BR')
+      const time = new Date(session.time * 1000).toISOString().substring(11, 16)
+      const timeWithPeriod = parseInt(time.substring(0, 2), 10) >= 12 ? time + ' PM' : time + ' AM'
+
+      return date + ' - ' + timeWithPeriod
+    }
+
+    return 'Não definida'
+  }
+
+  @computed()
+  public get currentSession() {
+    return this.sessions.length > 0
+      ? this.sessions
+          .filter(
+            (s) =>
+              new Date(s.date.toString().replace(/-/g, '/')).getTime() + s.time >
+              new Date().getTime()
+          )
+          .sort((a, b) => {
+            if (
+              new Date(a.date.toString().replace(/-/g, '/')).getTime() + a.time <
+              new Date(b.date.toString().replace(/-/g, '/')).getTime() + b.time
+            ) {
+              return -1
+            } else {
+              return 0
+            }
+          })[0].id
+      : 0
+  }
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
