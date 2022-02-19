@@ -54,8 +54,7 @@
                     :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-50 hover:bg-blue-200': isToday(date) == false }"
                   @end
                   ></div>
-
-                  <div style="height: 80px;" class="overflow-y-auto mt-1">
+                  <div style="height: 68%;" class="overflow-y-auto overflow-x-hidden scroll mt-1 mb-1 pr-1">
 									<template x-for="event in events.filter(e => new Date(e.event_date).toDateString() ===  new Date(year, month, date).toDateString() )">
                     <a :href="'events/'+event.event_id">
                       <div
@@ -68,7 +67,7 @@
                           'border-purple-500 text-purple-900 bg-purple-100': event.event_theme === 'purple'
                         }"
                       >
-                        <p x-text="event.event_title" class="md:text-sm text-xs md:font-bold truncate leading-tight"></p>
+                        <p x-text="event.event_title" class="md:text-sm text-2xs md:font-bold truncate leading-tight"></p>
                       </div>
                     </a>
 									</template>
