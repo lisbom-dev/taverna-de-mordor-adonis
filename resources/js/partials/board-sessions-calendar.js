@@ -58,14 +58,28 @@ export default () => ({
     window.location.href = `/boards/${boardId}?month=` + (this.monthOffset + 1)
   },
   setSessions(sessions) {
-    sessions = sessions.map((s) => {
-      const time = new Date(s.time * 1000).toISOString().substring(11, 16)
-      return {
-        session_date: new Date(s.date),
-        session_time: time,
-        session_id: s.id,
-      }
-    })
+    sessions = sessions
+      .map((s) => {
+        const time = new Date(s.time * 1000).toISOString().substring(11, 16)
+        const timeWithPeriod =
+          parseInt(time.substring(0, 2), 10) >= 12 ? time + ' PM' : time + ' AM'
+        return {
+          session_date: new Date(s.date),
+          session_time: timeWithPeriod,
+          session_id: s.id,
+        }
+      })
+      .sort((a, b) => {
+        if (
+          new Date(a.session_date.toString().replace(/-/g, '/')).getTime() + a.session_time <
+          new Date(b.session_date.toString().replace(/-/g, '/')).getTime() + b.session_time
+        ) {
+          return -1
+        } else {
+          return 0
+        }
+      })
+
     this.sessions = sessions
   },
   previous(boardId) {
