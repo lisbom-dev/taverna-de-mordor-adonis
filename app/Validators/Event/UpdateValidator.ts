@@ -8,6 +8,7 @@ export default class UpdateValidator {
 
   public schema = schema.create({
     name: schema.string.optional({}, []),
+    time: schema.number.optional(),
     date: schema.date.optional({}, [rules.after(3, 'days')]),
     description: schema.string.optional({}, []),
     location: schema.string.optional({}, []),
