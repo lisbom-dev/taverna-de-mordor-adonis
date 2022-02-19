@@ -123,10 +123,17 @@ export default class Board extends BaseModel {
       })[1]
 
     if (session) {
-      const date = new Date(session.date.toString().replace(/-/g, '/')).toLocaleDateString('pt-BR')
+      const date = new Date(session.date.toString().replace(/-/g, '/'))
+        .toJSON()
+        .substring(0, 10)
+        .replace(/-/g, '/')
+        .split('/')
+        .reverse()
+        .toString()
+        .replace(/,/g, '/')
+
       const time = new Date(session.time * 1000).toISOString().substring(11, 16)
       const timeWithPeriod = parseInt(time.substring(0, 2), 10) >= 12 ? time + ' PM' : time + ' AM'
-
       return date + ' - ' + timeWithPeriod
     }
 
