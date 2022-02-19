@@ -22,8 +22,19 @@ export default class EventsController {
 
   public async store({ response, request, bouncer, session }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
+    var time = data.time.split(':')
+    var timeInSeconds = +time[0] * 60 * 60 + +time[1] * 60 + (+time[2] || 0)
+
     await bouncer.with('EventPolicy').authorize('invoke')
-    await Event.create(data)
+    await Event.create({
+      name: data.name,
+      date: data.date,
+      time: timeInSeconds,
+      description: data.description,
+      location: data.location,
+      maxBoards: data.maxBoards,
+      theme: data.theme,
+    })
     session.flash('success', ['Evento criado com sucesso!'])
     return response.redirect(`/events?month=${data.date.month - 2}`)
   }
