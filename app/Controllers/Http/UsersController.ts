@@ -14,25 +14,28 @@ export default class UsersController {
     })
   }
 
-  public async show({ response, view, params, auth, bouncer }: HttpContextContract) {
+  public async show({ response, view, params, auth }: HttpContextContract) {
     const user = await User.find(params.id)
     if (!user) {
       return response.notFound('User not found')
     }
-    if (user.isMaster) {
-      await user.load('reviews')
-    }
-    if (auth.user?.isMaster) {
-      var board = await Board.findBy('master_id', auth.user!.id)
-      board?.load('players')
-      await bouncer.with('UserPolicy').authorize('view', user, board)
-    } else {
-      await bouncer.with('UserPolicy').authorize('view', user, null)
-    }
+    const authReview = user.reviews.find((r) => r.sender.id === auth.user?.id)
 
-    return view.render('users/index', {
-      user,
-    })
+    if (user.isMaster) {
+      const boards = await Board.query().where('master_id', user.id)
+      const masterBoardsEvaluation =
+        boards.length > 0
+          ? boards
+              .map((b) => {
+                return b.avaluation
+              })
+              .reduce((count, el) => {
+                return parseFloat(count.toString()) + parseFloat(el.toString())
+              }) / boards.length
+          : 0
+      return view.render('users/index', { user, auth, masterBoardsEvaluation, authReview })
+    }
+    return view.render('users/index', { user })
   }
 
   public async store({ request, response, auth, session }: HttpContextContract) {

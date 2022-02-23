@@ -6,7 +6,7 @@
 
 
 @section('content')
-  <section class="bg-gray-900 h-full" x-data="{contentId:1, openModal:false}">
+  <section class="bg-gray-900 h-full" x-data="contentTransition">
     <section class="relative w-full h-auto shadow" style="box-shadow: 0px 0px 6px 1px #000000;">
         <div>
           @if(board.system.photoUrl && board.system.photoUrl != '')
@@ -75,52 +75,52 @@
               <i class="fas fa-calendar-day sm:text-sm md:text-base lg:text-xl text-white"></i>
               <span>Próxima sessão: </span>
             </div>
-          </div>        
+          </div>
         </div>
-        
+
 
         <div class="relative pb-3 sm:pb-5 mx-auto lg:w-230 md:w-200 sm:w-130 md:mt-12 sm:mt-8 mt-5 max-w-full w-100 text-xs md:text-lg flex flex-wrap sm:justify-around justify-center space-x-3">
           <div>
             <template x-if="contentId==1">
-            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="contentId=1" x-transition>Visão geral</button>
+            <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6"  @click="modifyContent(1)" x-transition>Visão geral</button>
             </template>
             <template x-if="contentId!=1">
-            <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=1" x-transition>Visão geral</button>
+            <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(1)" x-transition>Visão geral</button>
             </template>
           </div>
           <div>
             <template x-if="contentId==2">
-              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Membros</button>
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(2)">Membros</button>
             </template>
             <template x-if="contentId!=2">
-              <button class="transition ease-in-out delay-150 bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=2">Membros</button>
+              <button class="transition ease-in-out delay-150 bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(2)">Membros</button>
             </template>
           </div>
           <div>
             <template x-if="contentId==3">
-              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Sessões</button>
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(3)">Sessões</button>
             </template>
             <template x-if="contentId!=3">
-              <button class="bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=3">Sessões</button>
+              <button class="bg-gray-700 sm:rounded-lg rounded-md text-white button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(3)">Sessões</button>
             </template>
           </div>
           <div>
             <template x-if="contentId==4">
-              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=4">Avaliações</button>
+              <button disabled class="bg-white text-black sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(4)">Avaliações</button>
             </template>
             <template x-if="contentId!=4">
-              <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="contentId=4">Avaliações</button>
+              <button class="bg-gray-700 text-white sm:rounded-lg rounded-md button-clicked lg:w-40 md:w-36 sm:w-32 sm:h-8 md:h-10 w-18 h-6" @click="modifyContent(4)">Avaliações</button>
             </template>
           </div>
         </div>
-      
 
-        
+
+
     </section>
 
     <section class="block max-w-full mx-auto min-h-screen">
-      
-      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5">        
+
+      <div x-show="contentId===1" class="mx-auto mt-7 max-w-full w-4/5">
         <div class="mx-auto max-w-full w-80 p-2 sm:w-96 md:w-110 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
           <div class="flex flex-wrap justify-between">
             <div>
@@ -143,11 +143,11 @@
         <div class="sm:mx-auto max-w-full px-3 sm:w-110 md:w-130 lg:w-200">
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold">Sua análise</h1>
           <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
-            <div class="flex" x-data="{openEditModal:false}">
+            <div class="flex">
               <div class="w-16 lg:w-24 md:w-20 sm:w-18">
                 @component('components/hexagonal-photo',{
                   photoUrl: auth.user?.photoUrl
-                })                  
+                })
                 @endcomponent
               </div>
               <div class="mt-1 mx-2 w-full text-white font-bold">
@@ -163,7 +163,7 @@
                     @else
                       <i class="fas fa-user-ninja text-gray-400"></i>
                       <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
-                    @endif  
+                    @endif
                   </div>
                 @else
                   <div><span class="text-base md:text-2xl sm:text-xl">Sem nome</span></div>
@@ -173,16 +173,16 @@
                   </div>
                 @endif
               </div>
-                           
+
               @if(authReview)
                 <div class="flex">
                   <div x-data="{ dropdownOpen: false }" class="relative">
                     <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
                       <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
                     </button>
-                  
+
                     <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-                  
+
                     <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
                         <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
                           <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
@@ -210,14 +210,14 @@
             </div>
           </div>
           <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras análises</h1>
-          @each(review in board.reviews)    
+          @each(review in board.reviews)
             @if(review.sender.id !== auth.user?.id)
               <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
                 <div class="flex">
                   <div class="w-16 lg:w-24 md:w-20 sm:w-18">
-                    @component('components/hexagonal-photo',{        
+                    @component('components/hexagonal-photo',{
                       photoUrl: review.sender.photoUrl
-                    })                     
+                    })
                     @endcomponent
                   </div>
                   <div class="mt-1 mx-2 w-full text-white font-bold">
@@ -245,9 +245,9 @@
                     review: review
                   })
                   @endcomponent
-                </div>                      
+                </div>
               </div>
-            @endif  
+            @endif
           @endeach
         </div>
       </div>

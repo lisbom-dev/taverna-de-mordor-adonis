@@ -1,7 +1,4 @@
-<div x-data="{
-  starLimit:5,
-  rating: {{rating}},
-}" class="flex flex-row">
+<div x-data="starValue" x-init="rating = {{rating}}" class="flex flex-row">
   <template x-for="i in starLimit">
     <div>
       <template x-if="i> rating && rating + 0.5>=i">
