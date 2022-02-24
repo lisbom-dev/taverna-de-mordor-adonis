@@ -14,7 +14,7 @@
             @component('components/hexagonal-photo',{
               photoUrl: user.photoUrl
             })
-            @endcomponent 
+            @endcomponent
             <div class="relative text-center mr-6 -mt-4 sm:mr-8 sm:-mt-5 md:mr-10 md:-mt-6 lg:mr-12 lg:-mt-7">
               @if(user.isMaster)
                 <i class="fas fa-chess-king text-base sm:text-xl md:text-2xl lg:text-3xl text-white"></i>
@@ -23,9 +23,9 @@
               @else
                 <i class="fas fa-user-ninja text-base sm:text-xl md:text-2xl lg:text-3xl text-white"></i>
               @endif
-            </div>        
+            </div>
           </div>
-          
+
           <div class="ml-1 w-full text-white font-bold">
             <div><span class="text-base md:text-3xl sm:text-2xl">{{user.username}}</span></div>
             @if(user.instagramRef)
@@ -37,6 +37,40 @@
         </div>
 
         <div class="flex justify-end mr-3 sm:mr-8">
+          @if(auth.user?.isAdm && auth.user?.id !== user.id)
+            <div class="flex">
+              <div x-data="{ dropdownOpen: false }" class="relative">
+                <div class="mr-3 sm:mr-4 md:mr-5 lg:mr-7">
+                  <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
+                    <i
+                    class="fas fa-angle-double-down text-white text-xl sm:text-3xl md:text-4xl lg:text-5xl"
+                    :class="{'fa-angle-double-up' : dropdownOpen }"
+                    ></i>
+                  </button>
+                </div>
+
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10"></div>
+
+                <div x-show="dropdownOpen" class="mt-1 sm:mt-2 absolute right-0 bg-gray-700 rounded-md shadow-xl z-20" x-transition>
+                  @if(auth.user?.isAdm )
+                    @if(user.isMaster)
+                      <form action="/masters/{{user.id}}?_method=DELETE" method="POST">
+                        <button class="w-44 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-xs sm:text-sm font-semi-bold text-left text-white hover:bg-gray-800">
+                          Remover cargo de mestre
+                        </button>
+                      </form>
+                    @else
+                      <form action="/masters/{{user.id}}" method="POST">
+                        <button class="w-44 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-xs sm:text-sm capitalize font-semi-bold text-left text-white hover:bg-gray-800">
+                          Tornar mestre
+                        </button>
+                      </form>
+                    @endif
+                  @endif
+                </div>
+              </div>
+            </div>
+          @endif
           @if(auth.isLoggedIn)
             @if(auth.user.id == user.id)
               <div class="mr-3 md:mr-5 lg:mr-7">
@@ -51,9 +85,10 @@
               <i class="fas fa-share-alt text-base sm:text-2xl md:text-3xl lg:text-4xl text-white"></i>
             </a>
           </div>
+
         </div>
       </div>
-     
+
     </div>
 
     @if(user.isMaster)
@@ -84,14 +119,14 @@
         </div>
       </div>
     @endif
-      
-         
+
+
   </section>
 
   <section class="block max-w-full mx-auto min-h-screen bg-gray-900">
-    @if(user.isMaster)      
+    @if(user.isMaster)
       <div x-show="contentId===1" class="mx-auto mt-7 max-w-full">
-        
+
         <div class="mx-auto max-w-full w-80 p-2 sm:w-110 md:w-130 pt-1 px-4 sm:p-3 md:p-4 bg-gray-800">
             <div class="flex flex-wrap justify-between pb-1">
               <div>
@@ -133,7 +168,7 @@
                 <div class="w-16 lg:w-24 md:w-20 sm:w-18">
                   @component('components/hexagonal-photo',{
                     photoUrl: auth.user?.photoUrl
-                  })                  
+                  })
                   @endcomponent
                 </div>
                 <div class="mt-1 mx-2 w-full text-white font-bold">
@@ -149,7 +184,7 @@
                       @else
                         <i class="fas fa-user-ninja text-gray-400"></i>
                         <span class="text-xs lg:text-sm md:text-base sm:text-sm text-gray-600">Jogador</span>
-                      @endif  
+                      @endif
                     </div>
                   @else
                     <div><span class="text-base md:text-2xl sm:text-xl">Sem nome</span></div>
@@ -159,14 +194,14 @@
                     </div>
                   @endif
                 </div>
-                            
+
                 @if(authReview)
                 <div class="flex">
                   <div x-data="{ dropdownOpen: false }" class="relative">
                     <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block">
                       <i class="fas fa-ellipsis-v text-white lg:text-2xl"></i>
-                    </button>            
-                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>   
+                    </button>
+                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
                     <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-gray-600 rounded-md shadow-xl z-20">
                         <form action="/reviews/{{authReview.id}}?_method=DELETE" method="POST">
                           <button class="w-full block px-4 py-2 text-sm capitalize text-left text-white hover:bg-gray-700">
@@ -199,14 +234,14 @@
           @else
             <h1 class="text-xl lg:text-5xl md:text-4xl sm:text-3xl text-white font-bold mt-16">Outras análises</h1>
           @endif
-          @each(review in user.reviews)    
+          @each(review in user.reviews)
             @if(review.sender.id !== auth.user?.id)
               <div class="mt-4 sm:mt-6 bg-gray-800 p-2 sm:p-4 shadow-md">
                 <div class="flex">
                   <div class="w-16 lg:w-24 md:w-20 sm:w-18">
                     @component('components/hexagonal-photo',{
                       photoUrl: review.sender.photoUrl
-                    })                     
+                    })
                     @endcomponent
                   </div>
                   <div class="mt-1 mx-2 w-full text-white font-bold">
@@ -234,9 +269,9 @@
                       review: review
                     })
                     @endcomponent
-                  </div>                         
-              </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-            @endif 
+                  </div>
+              </div>
+            @endif
           @endeach
         </div>
       </div>
