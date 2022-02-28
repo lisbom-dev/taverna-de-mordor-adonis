@@ -7,10 +7,10 @@ export default class Sessions extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table
-        .integer('board_id')
+        .integer('event_board_id')
         .notNullable()
         .references('id')
-        .inTable('boards')
+        .inTable('event_boards')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table.integer('time').notNullable()
