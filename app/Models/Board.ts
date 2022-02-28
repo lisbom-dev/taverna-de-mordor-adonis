@@ -18,7 +18,7 @@ import Users from './User'
 import User from './User'
 import System from './System'
 import Review from './Review'
-import Session from './Session'
+import EventBoard from './EventBoard'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -80,11 +80,13 @@ export default class Board extends BaseModel {
     q.preload('master')
     q.preload('system')
     q.preload('reviews')
-    q.preload('sessions')
+    q.preload('eventBoards')
   }
 
-  @hasMany(() => Session)
-  public sessions: HasMany<typeof Session>
+  @hasMany(() => EventBoard, {
+    localKey: 'id',
+  })
+  public eventBoards: HasMany<typeof EventBoard>
 
   @computed()
   public get avaluation(): number {
@@ -138,6 +140,22 @@ export default class Board extends BaseModel {
     }
 
     return 'Não definida'
+  }
+
+  @computed()
+  public get sessions() {
+    const eventBoards = this.eventBoards.filter(async (eb) => {
+      const event = await Event.find(eb.eventId)
+
+      return (
+        eb.boardId === this.id &&
+        new Date(event!.date.toString().replace(/-/g, '/')).getTime() > new Date().getTime()
+      )
+    })
+
+    const sessions = eventBoards.map((eb) => eb.sessions.map((s) => s)).flat()
+
+    return sessions
   }
 
   @computed()

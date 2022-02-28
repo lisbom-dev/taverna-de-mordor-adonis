@@ -1,18 +1,18 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Board from './Board'
+import EventBoard from './EventBoard'
 
 export default class Session extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public boardId: number
+  public eventBoardId: number
 
-  @belongsTo(() => Board, {
-    foreignKey: 'boardId',
+  @belongsTo(() => EventBoard, {
+    foreignKey: 'eventBoardId',
   })
-  public board: BelongsTo<typeof Board>
+  public eventBoard: BelongsTo<typeof EventBoard>
 
   @column()
   public date: DateTime
