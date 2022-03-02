@@ -55,13 +55,13 @@
                   @if(auth.user?.isAdm )
                     @if(user.isMaster)
                       <form action="/masters/{{user.id}}?_method=DELETE" method="POST">
-                        <button class="w-44 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-xs sm:text-sm font-semi-bold text-left text-white hover:bg-gray-800">
+                        <button class="w-40 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-1.5xs font-bold sm:text-sm sm:font-semi-bold text-left text-white hover:bg-gray-800">
                           Remover cargo de mestre
                         </button>
                       </form>
                     @else
                       <form action="/masters/{{user.id}}" method="POST">
-                        <button class="w-44 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-xs sm:text-sm capitalize font-semi-bold text-left text-white hover:bg-gray-800">
+                        <button class="w-36 rounded-md sm:w-56 block px-2 sm:px-4 py-2 text-1.5xs sm:text-sm capitalize font-semi-bold text-left text-white hover:bg-gray-800">
                           Tornar mestre
                         </button>
                       </form>

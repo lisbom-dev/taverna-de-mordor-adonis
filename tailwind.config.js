@@ -23,6 +23,7 @@ module.exports = {
           "linear-gradient(0.03deg, #111827, rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.4), rgba(17, 24, 39, 0.1), rgba(17, 24, 39, 0)),url('../images/cover-rpg.jpg')",
       },
       fontSize: {
+        '1.5xs': '11px',
         '2xs': '10px',
         '3xs': '9px',
         '4xs': '5px',
