@@ -153,8 +153,14 @@ export default class Board extends BaseModel {
       )
     })
 
-    const sessions = eventBoards.map((eb) => eb.sessions.map((s) => s)).flat()
-
+    const sessions = eventBoards
+      .map((eb) =>
+        eb.sessions.map((s) => {
+          s.$extras['event_id'] = eb.eventId
+          return s
+        })
+      )
+      .flat()
     return sessions
   }
 
