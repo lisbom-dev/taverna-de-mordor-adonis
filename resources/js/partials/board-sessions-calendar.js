@@ -25,7 +25,6 @@ export default () => ({
   session_date: '',
   session_time: '',
   monthOffset: 0,
-  openSessionModal: false,
 
   initDate(month = 0) {
     let today = addMonths(new Date(), month)
@@ -41,19 +40,6 @@ export default () => ({
     return today.toDateString() === d.toDateString() ? true : false
   },
 
-  showSessionModal(date) {
-    // open the modal
-    this.openSessionModal = true
-    this.session_date = new Date(this.year, this.month, date).toLocaleDateString('pt')
-  },
-  onCreateSession(e) {
-    const [day, month, year] = e.currentTarget.date.value.split('/')
-    e.currentTarget.date.value = new Date(
-      parseInt(year, 10),
-      parseInt(month, 10) - 1,
-      parseInt(day, 10)
-    ).toISOString()
-  },
   next(boardId) {
     window.location.href = `/boards/${boardId}?month=` + (this.monthOffset + 1)
   },
@@ -67,6 +53,7 @@ export default () => ({
           session_date: new Date(s.date),
           session_time: timeWithPeriod,
           session_id: s.id,
+          session_event_id: s.event_id,
         }
       })
       .sort((a, b) => {
@@ -84,20 +71,6 @@ export default () => ({
   },
   previous(boardId) {
     window.location.href = `/boards/${boardId}?month=` + (this.monthOffset - 1)
-  },
-
-  addSession() {
-    this.sessions.push({
-      session_date: this.session_date,
-      session_time: this.session_time,
-    })
-
-    // clear the form data
-    this.session_date = ''
-    this.session_time = ''
-
-    //close the modal
-    this.openSessionModal = false
   },
 
   getNoOfDays() {
