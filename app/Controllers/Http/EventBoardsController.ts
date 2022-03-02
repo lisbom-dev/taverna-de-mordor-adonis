@@ -5,7 +5,7 @@ import EventBoard from 'App/Models/EventBoard'
 import StoreValidator from 'App/Validators/EventBoard/StoreValidator'
 
 export default class EventBoardsController {
-  public async store({ params, response, request, session }: HttpContextContract) {
+  public async store({ params, response, request, session, bouncer }: HttpContextContract) {
     const event = await Event.find(params.event_id)
 
     if (!event) {
@@ -16,8 +16,19 @@ export default class EventBoardsController {
     }
 
     const data = await request.validate(StoreValidator)
+    await bouncer.with('EventBoardPolicy').authorize('invoke', data.boardId, event.id)
     const eventBoard = await EventBoard.create({ boardId: data.boardId, eventId: event.id })
-    await eventBoard.related('times').createMany(data.hours)
+
+    data.hours.forEach(async (h) => {
+      const time = h.time.split(':')
+      const timeInSeconds = +time[0] * 60 * 60 + +time[1] * 60 + (+time[2] || 0)
+      await eventBoard.related('sessions').create({
+        date: data.date,
+        time: timeInSeconds,
+        eventBoardId: eventBoard.id,
+      })
+    })
+
     session.flash('success', ['mesa adicionada ao evento com sucesso!'])
     return response.redirect('/events')
   }
