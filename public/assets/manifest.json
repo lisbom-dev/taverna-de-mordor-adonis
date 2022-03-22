@@ -5,7 +5,9 @@
   "assets/images/vampire-the-mascarade.jpeg": "http://localhost:8080/assets/images/vampire-the-mascarade.d3d57a38.jpeg",
   "assets/images/fa-brands-400.svg": "http://localhost:8080/assets/images/fa-brands-400.2f517e09.svg",
   "assets/images/cyberpunk.jpg": "http://localhost:8080/assets/images/cyberpunk.121f4bc4.jpg",
+  "assets/images/sky-background.png": "http://localhost:8080/assets/images/sky-background.bd83a225.png",
   "assets/images/cover-rpg.jpg": "http://localhost:8080/assets/images/cover-rpg.75c3ad6d.jpg",
+  "assets/images/tiamat-header.jpg": "http://localhost:8080/assets/images/tiamat-header.6d6c0203.jpg",
   "assets/fonts/fa-solid-900.eot": "http://localhost:8080/assets/fonts/fa-solid-900.9bbb245e.eot",
   "assets/fonts/fa-solid-900.ttf": "http://localhost:8080/assets/fonts/fa-solid-900.be9ee23c.ttf",
   "assets/images/tabuleiro-rpg.jpg": "http://localhost:8080/assets/images/tabuleiro-rpg.a50bc4e9.jpg",
@@ -24,6 +26,6 @@
   "assets/fonts/fa-regular-400.woff": "http://localhost:8080/assets/fonts/fa-regular-400.bb58e57c.woff",
   "assets/fonts/fa-regular-400.woff2": "http://localhost:8080/assets/fonts/fa-regular-400.7a333762.woff2",
   "assets/images/user-avatar.jpg": "http://localhost:8080/assets/images/user-avatar.824a3834.jpg",
-  "assets/images/Tiamat header image.jpg": "http://localhost:8080/assets/images/Tiamat header image.6d6c0203.jpg",
-  "assets/images/tiamat-header.jpg": "http://localhost:8080/assets/images/tiamat-header.6d6c0203.jpg"
+  "assets/images/Cyberpunk background.jpg": "http://localhost:8080/assets/images/Cyberpunk background.dd73c89e.jpg",
+  "assets/images/cyberpunk-background.jpg": "http://localhost:8080/assets/images/cyberpunk-background.dd73c89e.jpg"
 }
