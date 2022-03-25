@@ -10,6 +10,8 @@
   "assets/images/tiamat-header.jpg": "http://localhost:8080/assets/images/tiamat-header.6d6c0203.jpg",
   "assets/fonts/fa-solid-900.eot": "http://localhost:8080/assets/fonts/fa-solid-900.9bbb245e.eot",
   "assets/fonts/fa-solid-900.ttf": "http://localhost:8080/assets/fonts/fa-solid-900.be9ee23c.ttf",
+  "assets/images/cyberpunk-background.jpg": "http://localhost:8080/assets/images/cyberpunk-background.dd73c89e.jpg",
+  "assets/images/star-trek-svg.svg": "http://localhost:8080/assets/images/star-trek-svg.93c1c594.svg",
   "assets/images/tabuleiro-rpg.jpg": "http://localhost:8080/assets/images/tabuleiro-rpg.a50bc4e9.jpg",
   "assets/images/dungeons-and-dragons.jpg": "http://localhost:8080/assets/images/dungeons-and-dragons.44f070fd.jpg",
   "assets/images/fa-regular-400.svg": "http://localhost:8080/assets/images/fa-regular-400.4689f52c.svg",
@@ -19,6 +21,7 @@
   "assets/fonts/fa-brands-400.woff": "http://localhost:8080/assets/fonts/fa-brands-400.2285773e.woff",
   "assets/fonts/fa-solid-900.woff2": "http://localhost:8080/assets/fonts/fa-solid-900.1551f4f6.woff2",
   "assets/fonts/fa-brands-400.woff2": "http://localhost:8080/assets/fonts/fa-brands-400.d878b0a6.woff2",
+  "assets/images/star-trek.png": "http://localhost:8080/assets/images/star-trek.19953d91.png",
   "assets/images/pp.jpg": "http://localhost:8080/assets/images/pp.9aeec300.jpg",
   "assets/images/al-rpg-club.jpg": "http://localhost:8080/assets/images/al-rpg-club.be360c50.jpg",
   "assets/fonts/fa-regular-400.eot": "http://localhost:8080/assets/fonts/fa-regular-400.77206a6b.eot",
@@ -26,6 +29,8 @@
   "assets/fonts/fa-regular-400.woff": "http://localhost:8080/assets/fonts/fa-regular-400.bb58e57c.woff",
   "assets/fonts/fa-regular-400.woff2": "http://localhost:8080/assets/fonts/fa-regular-400.7a333762.woff2",
   "assets/images/user-avatar.jpg": "http://localhost:8080/assets/images/user-avatar.824a3834.jpg",
-  "assets/images/Cyberpunk background.jpg": "http://localhost:8080/assets/images/Cyberpunk background.dd73c89e.jpg",
-  "assets/images/cyberpunk-background.jpg": "http://localhost:8080/assets/images/cyberpunk-background.dd73c89e.jpg"
+  "assets/images/Kirito image.png": "http://localhost:8080/assets/images/Kirito image.8a6aeb3b.png",
+  "assets/images/kirito.png": "http://localhost:8080/assets/images/kirito.8a6aeb3b.png",
+  "assets/images/Keanu Reeves 1.png": "http://localhost:8080/assets/images/Keanu Reeves 1.b0f26a24.png",
+  "assets/images/keanu-reeves.png": "http://localhost:8080/assets/images/keanu-reeves.b0f26a24.png"
 }
