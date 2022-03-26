@@ -29,6 +29,9 @@ export default class Event extends BaseModel {
   @column()
   public maxBoards: number
 
+  @column()
+  public time: number
+
   @computed()
   public get occupiedBoards(): number {
     return this.boards.length
