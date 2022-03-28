@@ -7,11 +7,13 @@ import calendar from './partials/calendar'
 import IMask from 'imask'
 import io from 'socket.io-client'
 import chat from './chat'
+import scrollToId from './components/scrollToId'
 
 Alpine.data('navbar', navbar)
 Alpine.data('alert', alert)
 Alpine.data('calendar', calendar)
 Alpine.data('chat', chat)
+Alpine.data('scrollToId', scrollToId)
 window.Alpine = Alpine
 window.IMask = IMask
 Alpine.start()
