@@ -1,47 +1,47 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from 'App/Models/User'
 
-Route.get('/google/redirect', async ({ ally }) => {
-  return ally.use('google').redirect()
+Route.get('/google/redirect', async ({ response, ally, auth }) => {
+  if (await auth.check()) {
+    return response.notAcceptable()
+  }
+
+  return response.redirect(await ally.use('google').stateless().redirectUrl())
 })
-Route.get('/google/callback', async ({ ally, auth, response, view }) => {
-  const google = ally.use('google')
 
-  /**
-   * User has explicitly denied the login request
-   */
-  if (google.accessDenied()) {
-    return 'Access was denied'
-  }
+Route.get('/google/callback', async ({ ally, auth, response }) => {
+  try {
+    if (await auth.check()) {
+      return response.notAcceptable()
+    }
 
-  /**
-   * Unable to verify the CSRF state
-   */
-  if (google.stateMisMatch()) {
-    return 'Request expired. Retry again'
-  }
+    const provider = ally.use('google').stateless()
 
-  /**
-   * There was an unknown error during the redirect
-   */
-  if (google.hasError()) {
-    return google.getError()
-  }
+    if (provider.accessDenied()) {
+      return 'Access was denied'
+    }
 
-  /**
-   * Finally, access the user
-   */
-  const googleUser = await google.user()
-  const user = await User.findBy('email', googleUser.email)
+    if (provider.hasError()) {
+      return provider.getError()
+    }
 
-  if (!user) {
-    return view.render('users/create', {
-      email: googleUser.email,
-      name: googleUser.name,
-      photoUrl: googleUser.avatarUrl,
+    const { token } = await provider.accessToken()
+    const providerUser = await provider.userFromToken(token)
+
+    const user = await User.firstOrCreate({
+      name: providerUser.name,
+      email: providerUser.email!,
+      provider: 'google',
+      providerId: providerUser.id,
+      photoUrl: providerUser.avatarUrl!,
     })
-  }
 
-  await auth.use('web').login(user)
-  return response.redirect().back()
+    const oat = await auth.use('api').login(user, {
+      expiresIn: '7days',
+    })
+
+    return response.ok({ user, token: oat })
+  } catch (error) {
+    console.log(error)
+  }
 })
