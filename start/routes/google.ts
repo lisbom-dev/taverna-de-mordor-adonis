@@ -31,8 +31,7 @@ Route.get('/google/callback', async ({ ally, auth, response }) => {
     const user = await User.firstOrCreate({
       name: providerUser.name,
       email: providerUser.email!,
-      provider: 'google',
-      providerId: providerUser.id,
+      username: providerUser.name,
       photoUrl: providerUser.avatarUrl!,
     })
 
