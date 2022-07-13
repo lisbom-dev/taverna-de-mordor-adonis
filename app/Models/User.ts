@@ -8,10 +8,8 @@ import {
   beforeFetch,
   ModelQueryBuilderContract,
   computed,
-  beforeSave,
 } from '@ioc:Adonis/Lucid/Orm'
 import Review from './Review'
-import Hash from '@ioc:Adonis/Core/Hash'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -25,20 +23,6 @@ export default class User extends BaseModel {
 
   @column()
   public username: string
-
-  @column()
-  public provider: string
-
-  @column()
-  public providerId?: string
-
-  @computed()
-  public get hasPassword() {
-    return !!this.password
-  }
-
-  @column({ serializeAs: null })
-  public password?: string
 
   @column()
   public description: string
@@ -99,13 +83,4 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @beforeSave()
-  public static async hashPassword(user: User) {
-    if (user.$dirty.password) {
-      if (user.password) {
-        user.password = await Hash.make(user.password)
-      }
-    }
-  }
 }
