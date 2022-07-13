@@ -12,7 +12,7 @@ export default class ReviewsController {
     const data = await request.validate(UpdateValidator)
     review.merge(data)
     await review.save()
-    return response.redirect().back()
+    return response.ok('ok')
   }
 
   public async destroy({ bouncer, params, response }: HttpContextContract) {
@@ -22,6 +22,6 @@ export default class ReviewsController {
     }
     await bouncer.with('ReviewPolicy').authorize('delete', review)
     await review.delete()
-    return response.redirect().back()
+    return response.ok('ok')
   }
 }

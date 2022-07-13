@@ -14,6 +14,6 @@ export default class MastersController {
     user.isMaster = true
     await user.save()
     ctx.session.flash('success', ['O usuário ' + user.name + ' Agora é um mestre!'])
-    return ctx.response.redirect('/users')
+    return ctx.response.ok('ok')
   }
 }

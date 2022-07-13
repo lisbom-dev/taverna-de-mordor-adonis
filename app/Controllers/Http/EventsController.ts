@@ -24,7 +24,7 @@ export default class EventsController {
     await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
     session.flash('success', ['Evento criado com sucesso!'])
-    return response.redirect('/events')
+    return response.ok('ok')
   }
 
   public async edit({ response, params, bouncer }: HttpContextContract) {
@@ -48,7 +48,7 @@ export default class EventsController {
     event.merge(data)
     await event.save()
     session.flash('success', ['Evento atualizado com sucesso!'])
-    return response.redirect('/events')
+    return response.ok('ok')
   }
 
   public async show({ response, params }: HttpContextContract) {
@@ -70,6 +70,6 @@ export default class EventsController {
 
     await event.delete()
     session.flash('success', ['Evento deletado com sucesso!'])
-    return response.redirect('/events')
+    return response.ok('ok')
   }
 }

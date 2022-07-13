@@ -24,7 +24,7 @@ export default class BoardsController {
     const data = await request.validate(StoreValidator)
     await Board.create(data)
     session.flash('success', ['Mesa criada com sucesso!'])
-    return response.redirect('/boards')
+    return response.ok('ok')
   }
 
   public async show({ response, params, auth }: HttpContextContract) {
@@ -57,7 +57,7 @@ export default class BoardsController {
     board.merge(data)
     await board.save()
     session.flash('success', ['Mesa atualizada com sucesso!'])
-    return response.redirect('/boards')
+    return response.ok('ok')
   }
 
   public async destroy({ bouncer, params, response, session }: HttpContextContract) {
@@ -68,6 +68,6 @@ export default class BoardsController {
     await bouncer.with('BoardPolicy').authorize('invoke', board)
     await board.delete()
     session.flash('success', ['Mesa deletada com sucesso!'])
-    return response.redirect('/boards')
+    return response.ok('ok')
   }
 }

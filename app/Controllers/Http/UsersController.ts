@@ -38,6 +38,6 @@ export default class UsersController {
     const user = await User.create(data)
     await auth.login(user)
     session.flash('success', ['Cadastrado(a) com sucesso!'])
-    return response.redirect('/')
+    return response.ok('ok')
   }
 }

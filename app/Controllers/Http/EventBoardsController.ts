@@ -19,6 +19,6 @@ export default class EventBoardsController {
     const eventBoard = await EventBoard.create({ boardId: data.boardId, eventId: event.id })
     await eventBoard.related('times').createMany(data.hours)
     session.flash('success', ['mesa adicionada ao evento com sucesso!'])
-    return response.redirect('/events')
+    return response.ok('ok')
   }
 }

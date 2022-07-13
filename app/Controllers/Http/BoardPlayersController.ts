@@ -24,6 +24,6 @@ export default class BoardPlayersController {
       },
     })
 
-    return response.redirect('/boards')
+    return response.ok('ok')
   }
 }

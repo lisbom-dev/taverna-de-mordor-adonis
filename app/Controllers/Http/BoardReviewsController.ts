@@ -13,6 +13,6 @@ export default class BoardReviewsController {
     const data = await request.validate(StoreValidator)
     session.flash('success', ['Resenha criada com sucesso!'])
     await board.related('reviews').create(data)
-    return response.redirect().back()
+    return response.ok('ok')
   }
 }
