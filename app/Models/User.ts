@@ -1,14 +1,14 @@
-import { DateTime } from 'luxon'
 import {
-  column,
   BaseModel,
+  beforeFetch,
+  beforeFind,
+  column,
+  computed,
   manyToMany,
   ManyToMany,
-  beforeFind,
-  beforeFetch,
   ModelQueryBuilderContract,
-  computed,
 } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 import Review from './Review'
 
 export default class User extends BaseModel {
@@ -66,13 +66,16 @@ export default class User extends BaseModel {
 
   @computed()
   public get avaluation(): number {
-    return this.reviews.length > 0
-      ? this.reviews
+    if (this.reviews?.length > 0) {
+      return (
+        this.reviews
           .map((review) => review.rating)
           .reduce((count, el) => {
             return parseFloat(count.toString()) + parseFloat(el.toString())
           }) / this.reviews.length
-      : 0
+      )
+    }
+    return 0
   }
 
   @column()
