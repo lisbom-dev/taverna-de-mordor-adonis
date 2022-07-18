@@ -20,10 +20,9 @@ export default class BoardsController {
     return systems
   }
 
-  public async store({ request, response, session }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     await Board.create(data)
-    session.flash('success', ['Mesa criada com sucesso!'])
     return response.ok('ok')
   }
 
@@ -48,7 +47,7 @@ export default class BoardsController {
     return board
   }
 
-  public async update({ params, response, request, session }: HttpContextContract) {
+  public async update({ params, response, request }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')
@@ -56,18 +55,16 @@ export default class BoardsController {
     const data = await request.validate(UpdateValidator)
     board.merge(data)
     await board.save()
-    session.flash('success', ['Mesa atualizada com sucesso!'])
     return response.ok('ok')
   }
 
-  public async destroy({ bouncer, params, response, session }: HttpContextContract) {
+  public async destroy({ bouncer, params, response }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')
     }
     await bouncer.with('BoardPolicy').authorize('invoke', board)
     await board.delete()
-    session.flash('success', ['Mesa deletada com sucesso!'])
     return response.ok('ok')
   }
 }

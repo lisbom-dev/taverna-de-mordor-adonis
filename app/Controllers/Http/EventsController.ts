@@ -19,11 +19,10 @@ export default class EventsController {
     await bouncer.with('EventPolicy').authorize('invoke')
   }
 
-  public async store({ response, request, bouncer, session }: HttpContextContract) {
+  public async store({ response, request, bouncer }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
-    session.flash('success', ['Evento criado com sucesso!'])
     return response.ok('ok')
   }
 
@@ -37,7 +36,7 @@ export default class EventsController {
     return event
   }
 
-  public async update({ params, response, request, bouncer, session }: HttpContextContract) {
+  public async update({ params, response, request, bouncer }: HttpContextContract) {
     const event = await Event.find(params.id)
     await bouncer.with('EventPolicy').authorize('invoke')
     if (!event) {
@@ -47,7 +46,6 @@ export default class EventsController {
     const data = await request.validate(UpdateValidator)
     event.merge(data)
     await event.save()
-    session.flash('success', ['Evento atualizado com sucesso!'])
     return response.ok('ok')
   }
 
@@ -60,7 +58,7 @@ export default class EventsController {
     return event
   }
 
-  public async destroy({ response, params, bouncer, session }: HttpContextContract) {
+  public async destroy({ response, params, bouncer }: HttpContextContract) {
     await bouncer.with('EventPolicy').authorize('invoke')
     const event = await Event.find(params.id)
 
@@ -69,7 +67,6 @@ export default class EventsController {
     }
 
     await event.delete()
-    session.flash('success', ['Evento deletado com sucesso!'])
     return response.ok('ok')
   }
 }

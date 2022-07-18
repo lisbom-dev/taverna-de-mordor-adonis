@@ -33,11 +33,10 @@ export default class UsersController {
     return user
   }
 
-  public async store({ request, response, auth, session }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     const user = await User.create(data)
     await auth.login(user)
-    session.flash('success', ['Cadastrado(a) com sucesso!'])
     return response.ok('ok')
   }
 }
