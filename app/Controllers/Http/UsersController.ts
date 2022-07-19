@@ -30,9 +30,7 @@ export default class UsersController {
       await bouncer.with('UserPolicy').authorize('view', user, null)
     }
 
-    return view.render('users/index', {
-      user,
-    })
+    return user
   }
 
   public async store({ request, response, auth }: HttpContextContract) {

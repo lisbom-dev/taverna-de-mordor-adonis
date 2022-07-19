@@ -12,6 +12,6 @@ export default class BoardReviewsController {
     await bouncer.with('BoardReviewPolicy').authorize('create', board)
     const data = await request.validate(StoreValidator)
     await board.related('reviews').create(data)
-    return response.redirect().back()
+    return response.ok('ok')
   }
 }

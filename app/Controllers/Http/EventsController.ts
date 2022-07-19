@@ -17,7 +17,6 @@ export default class EventsController {
 
   public async create({ bouncer }: HttpContextContract) {
     await bouncer.with('EventPolicy').authorize('invoke')
-    return view.render('events/create')
   }
 
   public async store({ response, request, bouncer }: HttpContextContract) {
