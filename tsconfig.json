@@ -17,7 +17,6 @@
       "@adonisjs/core",
       "@adonisjs/repl",
       "@adonisjs/session",
-      "@adonisjs/view",
       "@adonisjs/shield",
       "@adonisjs/ally",
       "@adonisjs/lucid",
