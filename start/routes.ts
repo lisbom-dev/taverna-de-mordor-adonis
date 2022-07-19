@@ -1,12 +1,10 @@
 import Route from '@ioc:Adonis/Core/Route'
 import './routes/google'
 
-Route.get('/', 'HomeController.index')
-Route.get('/login', ({ response }) => {
-  response.redirect('/google/redirect')
+Route.get('/', async () => {
+  return { Hello: 'world' }
 })
-Route.get('/equipe', ({ view }) => view.render('team'))
-Route.get('/logout', 'SessionsController.destroy')
+Route.post('/logout', 'SessionsController.destroy')
 Route.get('/users', 'UsersController.index')
 Route.post('/users', 'UsersController.store')
 Route.get('/users/:id', 'UsersController.show')
