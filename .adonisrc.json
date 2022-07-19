@@ -15,12 +15,15 @@
     "Database": "database",
     "Contracts": "contracts"
   },
-  "preloads": ["./start/routes", "./start/kernel", "./start/bouncer", "./start/view"],
+  "preloads": [
+    "./start/routes",
+    "./start/kernel",
+    "./start/bouncer"
+  ],
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
     "@adonisjs/session",
-    "@adonisjs/view",
     "@adonisjs/shield",
     "@adonisjs/ally",
     "@adonisjs/lucid",
@@ -28,15 +31,7 @@
     "@adonisjs/bouncer",
     "adonisgoose"
   ],
-  "metaFiles": [
-    {
-      "pattern": "public/**",
-      "reloadServer": false
-    },
-    {
-      "pattern": "resources/views/**/*.edge",
-      "reloadServer": false
-    }
-  ],
-  "aceProviders": ["@adonisjs/repl"]
+  "aceProviders": [
+    "@adonisjs/repl"
+  ]
 }
