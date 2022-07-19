@@ -5,8 +5,8 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
 import { AllyConfig } from '@ioc:Adonis/Addons/Ally'
+import Env from '@ioc:Adonis/Core/Env'
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +19,15 @@ import { AllyConfig } from '@ioc:Adonis/Addons/Ally'
 */
 const allyConfig: AllyConfig = {
   /*
-  |--------------------------------------------------------------------------
-  | Google driver
-  |--------------------------------------------------------------------------
-  */
+	|--------------------------------------------------------------------------
+	| Google driver
+	|--------------------------------------------------------------------------
+	*/
   google: {
     driver: 'google',
     clientId: Env.get('GOOGLE_CLIENT_ID'),
     clientSecret: Env.get('GOOGLE_CLIENT_SECRET'),
-    callbackUrl: Env.get('APP_URL') + '/google/callback',
+    callbackUrl: 'http://localhost:3000/auth/google',
   },
 }
 
