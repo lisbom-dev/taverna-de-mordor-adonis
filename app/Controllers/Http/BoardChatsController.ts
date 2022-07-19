@@ -3,7 +3,7 @@ import Board from 'App/Models/Board'
 import Message from 'App/Schemas/Message'
 
 export default class BoardChatsController {
-  public async index({ params, response, view, bouncer }: HttpContextContract) {
+  public async index({ params, response, bouncer }: HttpContextContract) {
     const board = await Board.find(params.board_id)
 
     if (!board) {
@@ -14,6 +14,6 @@ export default class BoardChatsController {
 
     const messages = await Message.find({ boardId: board.id })
 
-    return view.render('boards/chat', { board, messages })
+    return { board, messages }
   }
 }
