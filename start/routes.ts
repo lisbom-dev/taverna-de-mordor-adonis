@@ -11,27 +11,27 @@ Route.get('/users/:id', 'UsersController.show')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
 Route.resource('events', 'EventsController').middleware({
-  create: ['auth:web'],
-  update: ['auth:web'],
-  store: ['auth:web'],
-  edit: ['auth:web'],
-  destroy: ['auth:web'],
+  create: ['auth:api'],
+  update: ['auth:api'],
+  store: ['auth:api'],
+  edit: ['auth:api'],
+  destroy: ['auth:api'],
 })
 Route.post('/events/:event_id/boards', 'EventBoardsController.store')
 Route.resource('boards', 'BoardsController').middleware({
-  create: ['auth:web'],
-  update: ['auth:web'],
-  store: ['auth:web'],
-  edit: ['auth:web'],
-  destroy: ['auth:web'],
+  create: ['auth:api'],
+  update: ['auth:api'],
+  store: ['auth:api'],
+  edit: ['auth:api'],
+  destroy: ['auth:api'],
 })
 
-Route.post('/events/:event_id/reviews', 'EventReviewsController.store').middleware(['auth:web'])
-Route.post('/masters/:user_id/reviews', 'MasterReviewsController.store').middleware(['auth:web'])
-Route.post('/boards/:board_id/reviews', 'BoardReviewsController.store').middleware(['auth:web'])
-Route.put('/reviews/:id', 'ReviewsController.update').middleware(['auth:web'])
-Route.delete('/reviews/:id', 'ReviewsController.destroy').middleware(['auth:web'])
-Route.post('/boards/:board_id/players', 'BoardPlayersController.store').middleware(['auth:web'])
-Route.get('/boards/:board_id/chat', 'BoardChatsController.index').middleware(['auth:web'])
-Route.get('/notifications', 'NotificationsController.index').middleware(['auth:web'])
-Route.put('/notifications/:id', 'NotificationsController.index').middleware(['auth:web'])
+Route.post('/events/:event_id/reviews', 'EventReviewsController.store').middleware(['auth:api'])
+Route.post('/masters/:user_id/reviews', 'MasterReviewsController.store').middleware(['auth:api'])
+Route.post('/boards/:board_id/reviews', 'BoardReviewsController.store').middleware(['auth:api'])
+Route.put('/reviews/:id', 'ReviewsController.update').middleware(['auth:api'])
+Route.delete('/reviews/:id', 'ReviewsController.destroy').middleware(['auth:api'])
+Route.post('/boards/:board_id/players', 'BoardPlayersController.store').middleware(['auth:api'])
+Route.get('/boards/:board_id/chat', 'BoardChatsController.index').middleware(['auth:api'])
+Route.get('/notifications', 'NotificationsController.index').middleware(['auth:api'])
+Route.put('/notifications/:id', 'NotificationsController.index').middleware(['auth:api'])
