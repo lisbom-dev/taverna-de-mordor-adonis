@@ -16,7 +16,6 @@
     "types": [
       "@adonisjs/core",
       "@adonisjs/repl",
-      "@adonisjs/session",
       "@adonisjs/shield",
       "@adonisjs/ally",
       "@adonisjs/lucid",
