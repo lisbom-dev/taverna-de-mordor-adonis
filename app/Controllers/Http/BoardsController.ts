@@ -29,7 +29,7 @@ export default class BoardsController {
   public async show({ response, params, auth }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
-      return response.notFound('Board not found')
+      return response.notFound({ message: 'Board not found' })
     }
     if (auth.user) {
       const authReview = board.reviews.find((r) => r.sender.id === auth.user!.id)
@@ -41,7 +41,7 @@ export default class BoardsController {
   public async edit({ response, params, bouncer }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
-      return response.notFound('Board not found')
+      return response.notFound({ message: 'Board not found' })
     }
     await bouncer.with('BoardPolicy').authorize('invoke', board)
     return board
@@ -50,7 +50,7 @@ export default class BoardsController {
   public async update({ params, response, request }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
-      return response.notFound('Board not found')
+      return response.notFound({ message: 'Board not found' })
     }
     const data = await request.validate(UpdateValidator)
     board.merge(data)
@@ -61,7 +61,7 @@ export default class BoardsController {
   public async destroy({ bouncer, params, response }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
-      return response.notFound('Board not found')
+      return response.notFound({ message: 'Board not found' })
     }
     await bouncer.with('BoardPolicy').authorize('invoke', board)
     await board.delete()

@@ -10,9 +10,9 @@ services:
     ports:
       - 5432:${PG_PORT}
 
-  mongo:
+  tdm_mongo:
     image: mongo
-    ports:
-      - '27017:27017'
     networks:
       - default
+    ports:
+      - '27017:27017'

@@ -5,9 +5,7 @@ Route.get('/', async () => {
   return { Hello: 'world' }
 })
 Route.post('/logout', 'SessionsController.destroy')
-Route.get('/users', 'UsersController.index')
-Route.post('/users', 'UsersController.store')
-Route.get('/users/:id', 'UsersController.show')
+Route.resource('users', 'UsersController')
 Route.post('/adms/:id', 'AdmimsController.store')
 Route.post('/masters/:id', 'MastersController.store')
 Route.resource('events', 'EventsController').middleware({

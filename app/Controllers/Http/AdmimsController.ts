@@ -3,16 +3,16 @@ import BadRequestException from 'App/Exceptions/BadRequestException'
 import User from 'App/Models/User'
 
 export default class AdmimsController {
-  public async store(ctx: HttpContextContract) {
-    const user = await User.find(ctx.params.id)
+  public async store({ response, params }: HttpContextContract) {
+    const user = await User.find(params.id)
     if (!user) {
-      return ctx.response.notFound('User not found')
+      return response.notFound({ message: 'User not found' })
     }
     if (user.isAdm) {
-      throw new BadRequestException('User already admin!')
+      throw new BadRequestException('User is already admin!')
     }
     user.isAdm = true
     await user.save()
-    return ctx.response.ok('ok')
+    return response.ok('ok')
   }
 }

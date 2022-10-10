@@ -17,7 +17,7 @@ export default class UsersController {
   public async show({ response, params, auth, bouncer }: HttpContextContract) {
     const user = await User.find(params.id)
     if (!user) {
-      return response.notFound('User not found')
+      return response.notFound({ message: 'User not found' })
     }
     if (user.isMaster) {
       await user.load('reviews')

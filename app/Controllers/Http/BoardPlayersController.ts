@@ -8,7 +8,7 @@ export default class BoardPlayersController {
     const board = await Board.find(params.board_id)
 
     if (!board) {
-      return response.notFound('Board not found!')
+      return response.notFound({ message: 'Board not found!' })
     }
     if (board.players.length === board.maxPlayers) {
       throw new BadRequestException('All seats have already been filled!')

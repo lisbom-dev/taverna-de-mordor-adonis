@@ -6,7 +6,7 @@ export default class ReviewsController {
   public async update({ request, bouncer, params, response }: HttpContextContract) {
     const review = await Review.find(params.id)
     if (!review) {
-      return response.notFound('Review not found')
+      return response.notFound({ message: 'Review not found' })
     }
     await bouncer.with('ReviewPolicy').authorize('update', review)
     const data = await request.validate(UpdateValidator)

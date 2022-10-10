@@ -7,7 +7,7 @@ export default class MasterReviewsController {
   public async store({ request, params, response }: HttpContextContract) {
     const user = await User.find(params.user_id)
     if (!user) {
-      return response.notFound('Master not found!')
+      return response.notFound({ message: 'Master not found!' })
     }
     if (!user.isMaster) {
       throw new BadRequestException('User is not a master!')
