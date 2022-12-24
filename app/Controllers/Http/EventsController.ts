@@ -15,25 +15,11 @@ export default class EventsController {
     }
   }
 
-  public async create({ bouncer }: HttpContextContract) {
-    await bouncer.with('EventPolicy').authorize('invoke')
-  }
-
   public async store({ response, request, bouncer }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     await bouncer.with('EventPolicy').authorize('invoke')
     await Event.create(data)
     return response.ok('ok')
-  }
-
-  public async edit({ response, params, bouncer }: HttpContextContract) {
-    await bouncer.with('EventPolicy').authorize('invoke')
-    const event = await Event.find(params.id)
-    if (!event) {
-      return response.notFound('Event Not Found')
-    }
-
-    return event
   }
 
   public async update({ params, response, request, bouncer }: HttpContextContract) {

@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Board from 'App/Models/Board'
-import System from 'App/Models/System'
 import StoreValidator from 'App/Validators/Board/StoreValidator'
 import UpdateValidator from 'App/Validators/Board/UpdateValidator'
 
@@ -12,12 +11,6 @@ export default class BoardsController {
       boards,
       page,
     }
-  }
-
-  public async create({ bouncer }: HttpContextContract) {
-    await bouncer.with('BoardPolicy').authorize('create')
-    const systems = await System.query()
-    return systems
   }
 
   public async store({ request, response }: HttpContextContract) {
@@ -35,15 +28,6 @@ export default class BoardsController {
       const authReview = board.reviews.find((r) => r.sender.id === auth.user!.id)
       return { board, authReview, auth }
     }
-    return board
-  }
-
-  public async edit({ response, params, bouncer }: HttpContextContract) {
-    const board = await Board.find(params.id)
-    if (!board) {
-      return response.notFound({ message: 'Board not found' })
-    }
-    await bouncer.with('BoardPolicy').authorize('invoke', board)
     return board
   }
 

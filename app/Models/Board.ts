@@ -8,7 +8,7 @@ import {
   computed,
   manyToMany,
   ManyToMany,
-  ModelQueryBuilderContract,
+  ModelQueryBuilderContract
 } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Event from './Event'
