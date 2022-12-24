@@ -15,4 +15,4 @@ services:
     networks:
       - default
     ports:
-      - '27017:27017'
+      - '27017:${MONGO_PORT}'
