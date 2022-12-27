@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Event from './Event'
+import { DateTime } from 'luxon'
 import Board from './Board'
+import Event from './Event'
 import Time from './Time'
 
 export default class EventBoard extends BaseModel {

@@ -8,6 +8,7 @@ import {
   computed,
   manyToMany,
   ManyToMany,
+  // eslint-disable-next-line prettier/prettier
   ModelQueryBuilderContract
 } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'

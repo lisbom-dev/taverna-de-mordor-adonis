@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import {
   BaseModel,
   beforeFetch,
@@ -8,8 +7,10 @@ import {
   column,
   manyToMany,
   ManyToMany,
-  ModelQueryBuilderContract,
+  // eslint-disable-next-line prettier/prettier
+  ModelQueryBuilderContract
 } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 import Board from './Board'
 import Event from './Event'
 import User from './User'
