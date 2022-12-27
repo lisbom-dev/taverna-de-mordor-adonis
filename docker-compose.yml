@@ -9,3 +9,10 @@ services:
       POSTGRES_USER: ${PG_USER}
     ports:
       - 5432:${PG_PORT}
+
+  tdm_mongo:
+    image: mongo
+    networks:
+      - default
+    ports:
+      - '27017:${MONGO_PORT}'

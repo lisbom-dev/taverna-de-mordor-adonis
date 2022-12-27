@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 import Board from './Board'
 
 export default class System extends BaseModel {

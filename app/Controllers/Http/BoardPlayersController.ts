@@ -4,18 +4,17 @@ import Board from 'App/Models/Board'
 import StoreValidator from 'App/Validators/BoardPlayer/StoreValidator'
 
 export default class BoardPlayersController {
-  public async store({ params, response, request, auth, session }: HttpContextContract) {
+  public async store({ params, response, request, auth }: HttpContextContract) {
     const board = await Board.find(params.board_id)
 
     if (!board) {
-      return response.notFound('Board not found!')
+      return response.notFound({ message: 'Board not found!' })
     }
     if (board.players.length === board.maxPlayers) {
       throw new BadRequestException('All seats have already been filled!')
     }
 
     const data = await request.validate(StoreValidator)
-    session.flash('success', ['${data.characterName} cadastrado a mesa com sucesso!'])
 
     await board.related('players').attach({
       [auth.user!.id]: {
@@ -24,6 +23,6 @@ export default class BoardPlayersController {
       },
     })
 
-    return response.redirect('/boards')
+    return response.ok('ok')
   }
 }
