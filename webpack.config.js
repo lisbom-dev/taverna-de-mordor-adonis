@@ -175,7 +175,7 @@ Encore.configureDevServerOptions((options) => {
 */
 Encore.enablePostCssLoader()
 // eslint-disable-next-line prettier/prettier
-Encore.configureCssLoader(() => { })
+Encore.configureCssLoader(() => {})
 
 /*
 |--------------------------------------------------------------------------
