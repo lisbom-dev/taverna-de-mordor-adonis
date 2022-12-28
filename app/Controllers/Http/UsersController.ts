@@ -1,5 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Board from 'App/Models/Board'
 import User from 'App/Models/User'
 import StoreValidator from 'App/Validators/User/StoreValidator'
 
@@ -14,23 +13,14 @@ export default class UsersController {
     }
   }
 
-  public async show({ response, params, auth, bouncer }: HttpContextContract) {
+  public async show({ response, params, auth }: HttpContextContract) {
     const user = await User.find(params.id)
     if (!user) {
       return response.notFound({ message: 'User not found' })
     }
-    if (user.isMaster) {
-      await user.load('reviews')
-    }
-    if (auth.user?.isMaster) {
-      var board = await Board.findBy('master_id', auth.user!.id)
-      board?.load('players')
-      await bouncer.with('UserPolicy').authorize('view', user, board)
-    } else {
-      await bouncer.with('UserPolicy').authorize('view', user, null)
-    }
+    const authReview = user.reviews.find((r) => r.sender.id === auth.user?.id)
 
-    return user
+    return response.ok({ user, authReview })
   }
 
   public async store({ request, response, auth }: HttpContextContract) {

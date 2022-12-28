@@ -1,5 +1,5 @@
-import { Server } from 'socket.io'
 import AdonisServer from '@ioc:Adonis/Core/Server'
+import { Server } from 'socket.io'
 
 class Ws {
   public io: Server
