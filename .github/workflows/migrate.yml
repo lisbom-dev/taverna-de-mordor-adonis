@@ -3,12 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - "main"
+      - 'main'
 jobs:
   build:
     environment:
-        name: taverna-de-mordor
-        url: https://taverna-de-mordor.herokuapp.com
+      name: taverna-de-mordor
+      url: https://taverna-de-mordor.herokuapp.com
     runs-on: ubuntu-latest
     strategy:
       matrix:
