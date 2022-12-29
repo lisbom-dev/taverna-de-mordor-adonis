@@ -7,7 +7,7 @@ import {
   ManyToMany,
   manyToMany,
   // eslint-disable-next-line prettier/prettier
-  ModelQueryBuilderContract,
+  ModelQueryBuilderContract
 } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Board from './Board'
@@ -31,7 +31,7 @@ export default class Event extends BaseModel {
   public maxBoards: number
 
   @column()
-  public time: number
+  public time: string
 
   @computed()
   public get occupiedBoards(): number {
