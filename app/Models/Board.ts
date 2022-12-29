@@ -1,21 +1,21 @@
-import { DateTime } from 'luxon'
 import {
   BaseModel,
   beforeFetch,
   beforeFind,
   belongsTo,
+  BelongsTo,
   column,
   computed,
-  BelongsTo,
   manyToMany,
   ManyToMany,
+  // eslint-disable-next-line prettier/prettier
   ModelQueryBuilderContract,
 } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 import Event from './Event'
-import Users from './User'
-import User from './User'
-import System from './System'
 import Review from './Review'
+import System from './System'
+import { default as User, default as Users } from './User'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
