@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import {
   BaseModel,
   beforeFetch,
@@ -7,11 +6,13 @@ import {
   computed,
   ManyToMany,
   manyToMany,
-  ModelQueryBuilderContract,
+  // eslint-disable-next-line prettier/prettier
+  ModelQueryBuilderContract
 } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 import Board from './Board'
-import User from './User'
 import Review from './Review'
+import User from './User'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -30,7 +31,7 @@ export default class Event extends BaseModel {
   public maxBoards: number
 
   @column()
-  public time: number
+  public time: string
 
   @computed()
   public get occupiedBoards(): number {

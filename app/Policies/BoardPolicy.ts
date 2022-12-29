@@ -1,6 +1,6 @@
 import { BasePolicy } from '@ioc:Adonis/Addons/Bouncer'
-import User from 'App/Models/User'
 import Board from 'App/Models/Board'
+import User from 'App/Models/User'
 
 export default class BoardPolicy extends BasePolicy {
   public async create(user: User) {

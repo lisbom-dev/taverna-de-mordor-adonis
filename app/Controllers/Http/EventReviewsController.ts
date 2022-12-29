@@ -6,7 +6,7 @@ export default class EventReviewsController {
   public async store({ request, params, response }: HttpContextContract) {
     const event = await Event.find(params.event_id)
     if (!event) {
-      return response.notFound('Event not found!')
+      return response.notFound({ message: 'Event not found!' })
     }
     const data = await request.validate(StoreValidator)
     await event.related('reviews').create(data)
