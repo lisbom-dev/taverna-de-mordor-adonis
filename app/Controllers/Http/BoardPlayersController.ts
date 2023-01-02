@@ -3,7 +3,7 @@ import BadRequestException from 'App/Exceptions/BadRequestException'
 import Board from 'App/Models/Board'
 
 export default class BoardPlayersController {
-  public async store({ params, response, bouncer, session }: HttpContextContract) {
+  public async store({ params, response, bouncer }: HttpContextContract) {
     const board = await Board.find(params.board_id)
 
     if (!board) {
@@ -17,9 +17,6 @@ export default class BoardPlayersController {
       return response.notFound('User not found!')
     }
     await bouncer.with('BoardPlayerPolicy').authorize('create', board, pendingPlayer)
-    session.flash('success', [
-      `${pendingPlayer.$extras.pivot_character_name} cadastrado a mesa com sucesso!`,
-    ])
 
     await board.related('players').attach({
       [pendingPlayer.id]: {
@@ -29,7 +26,7 @@ export default class BoardPlayersController {
     })
     await board.related('pendingPlayers').detach([pendingPlayer.id])
 
-    return response.redirect(`/boards/${board.id}`)
+    return response.ok({ message: 'ok' })
   }
 
   public async destroy({ params, response, bouncer }: HttpContextContract) {
@@ -43,6 +40,6 @@ export default class BoardPlayersController {
     }
     await bouncer.with('BoardPlayerPolicy').authorize('delete', board, player)
     await board.related('players').detach([player.id])
-    return response.redirect(`/boards/${board.id}`)
+    return response.ok({ message: 'ok' })
   }
 }

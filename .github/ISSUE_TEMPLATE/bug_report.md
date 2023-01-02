@@ -1,24 +1,26 @@
 ---
 name: Bug report
 about: Create a report of some bug
-title: "[BUG]"
+title: '[BUG]'
 labels: bug
 assignees: ''
-
 ---
 
 # Description
+
 - issue goes here
 
-#  Prerequisites
+# Prerequisites
+
 - change 1
 - change 2
 
 # Additional Info
+
 - any additional information or context
 
 # Screenshots
 
-Bug             |  Proposed?
-:-------------------------:|:-------------------------:
- bug screenshot   |   Text here
+|      Bug       | Proposed? |
+| :------------: | :-------: |
+| bug screenshot | Text here |

@@ -1,5 +1,5 @@
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 
 export default class StoreValidator {
   constructor(protected ctx: HttpContextContract) {
@@ -9,6 +9,7 @@ export default class StoreValidator {
   public schema = schema.create({
     name: schema.string({}, [rules.required()]),
     date: schema.date({}, [rules.required(), rules.after(3, 'days')]),
+    time: schema.number([rules.required()]),
     description: schema.string({}, [rules.required()]),
     location: schema.string({}, [rules.required()]),
     maxBoards: schema.number([rules.required(), rules.unsigned()]),
@@ -22,5 +23,6 @@ export default class StoreValidator {
     'description.required': 'É necessário informar a descrição do evento!',
     'location.required': 'É necessário informar a localização do evento!',
     'maxBoards.required': 'É necessário informar o número máximo de mesas!',
+    'time.required': 'É necessário informar o horário de início do evento!',
   }
 }

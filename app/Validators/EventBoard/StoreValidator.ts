@@ -1,5 +1,5 @@
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 
 export default class StoreValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -8,10 +8,10 @@ export default class StoreValidator {
     boardId: schema.number([rules.required(), rules.exists({ table: 'boards', column: 'id' })]),
     hours: schema.array([rules.required(), rules.minLength(1)]).members(
       schema.object().members({
-        startHour: schema.number([rules.required()]),
-        endHour: schema.number([rules.required()]),
+        time: schema.string({}, [rules.required()]),
       })
     ),
+    date: schema.date({}, [rules.required(), rules.after(2, 'days')]),
   })
 
   public messages = {
@@ -19,7 +19,7 @@ export default class StoreValidator {
     'boardId.exists': 'A mesa informada não existe!',
     'hours.required': 'É necessário informar o horário da mesa!',
     'hours.minLength': 'É necessário informar pelo menos um horário para a mesa!',
-    'hours.startHour.required': 'É necessário informar o horário de início da mesa!',
-    'hours.endHour.required': 'É necessário informar o horário de término da mesa!',
+    'hours.time.required': 'É necessário informar o horário de início da mesa!',
+    'date.after': 'A mesa precisa ser inserida pelo menos 2 dias antes do evento acontecer!',
   }
 }

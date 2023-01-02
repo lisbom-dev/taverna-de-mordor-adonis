@@ -1,6 +1,5 @@
-import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   protected statusPages = {
@@ -11,25 +10,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   constructor() {
     super(Logger)
-  }
-
-  public async handle(error: any, ctx: HttpContextContract) {
-    if (error.status === 403) {
-      ctx.session.flash('error', ['Não autorizado!'])
-      return ctx.response.redirect().back()
-    }
-    if (error.status === 401) {
-      return ctx.response.redirect('/login')
-    }
-    if (error.status === 422) {
-      const sanitized = this.sanitizeErrors(error.messages)
-      ctx.session.flash('error', sanitized)
-      return ctx.response.redirect().back()
-    }
-    if (error.status === 400) {
-      ctx.session.flash('error', [error.message])
-      return ctx.response.redirect().back()
-    }
   }
 
   private sanitizeErrors(errorObject: any) {

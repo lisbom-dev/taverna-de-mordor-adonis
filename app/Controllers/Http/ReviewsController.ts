@@ -6,13 +6,13 @@ export default class ReviewsController {
   public async update({ request, bouncer, params, response }: HttpContextContract) {
     const review = await Review.find(params.id)
     if (!review) {
-      return response.notFound('Review not found')
+      return response.notFound({ message: 'Review not found' })
     }
     await bouncer.with('ReviewPolicy').authorize('update', review)
     const data = await request.validate(UpdateValidator)
     review.merge(data)
     await review.save()
-    return response.redirect().back()
+    return response.ok('ok')
   }
 
   public async destroy({ bouncer, params, response }: HttpContextContract) {
@@ -22,6 +22,6 @@ export default class ReviewsController {
     }
     await bouncer.with('ReviewPolicy').authorize('delete', review)
     await review.delete()
-    return response.redirect().back()
+    return response.ok('ok')
   }
 }
