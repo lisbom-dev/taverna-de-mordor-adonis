@@ -11,6 +11,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Review from './Review'
+import Board from './Board'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -51,6 +52,16 @@ export default class User extends BaseModel {
     pivotTable: 'master_reviews',
   })
   public reviews: ManyToMany<typeof Review>
+
+  @manyToMany(() => Board, {
+    localKey: 'id',
+    pivotForeignKey: 'player_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'board_id',
+    pivotTable: 'board_pending_players',
+    pivotColumns: ['character_name'],
+  })
+  public boards: ManyToMany<typeof Board>
 
   public async getReviewByUser(user: User) {
     if (user.isMaster) {

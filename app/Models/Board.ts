@@ -67,16 +67,28 @@ export default class Board extends BaseModel {
     relatedKey: 'id',
     pivotRelatedForeignKey: 'player_id',
     pivotTable: 'board_players',
+    pivotColumns: ['character_name'],
   })
   public players: ManyToMany<typeof Users>
+
+  @manyToMany(() => Users, {
+    localKey: 'id',
+    pivotForeignKey: 'board_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'player_id',
+    pivotTable: 'board_pending_players',
+    pivotColumns: ['character_name'],
+  })
+  public pendingPlayers: ManyToMany<typeof Users>
 
   @beforeFind()
   @beforeFetch()
   public static preloadRelations(q: ModelQueryBuilderContract<typeof Board>) {
+    q.preload('reviews')
     q.preload('players')
     q.preload('master')
     q.preload('system')
-    q.preload('reviews')
+    q.preload('pendingPlayers')
   }
 
   @computed()
